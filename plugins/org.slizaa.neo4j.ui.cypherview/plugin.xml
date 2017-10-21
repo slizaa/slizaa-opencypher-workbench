@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <e4view
+            name="Cypher Queries"
+            class="org.slizaa.neo4j.ui.cypherview.CypherViewPart"
+            restorable="true"
+            icon="icons/cypherView.png"
+            id="org.slizaa.neo4j.ui.cypherview.CypherViewPart">
+      </e4view>
+   </extension>
+
+</plugin>

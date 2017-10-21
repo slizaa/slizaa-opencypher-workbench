@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="dbadapter" nsURI="http://org/slizaa/neo4j/dbadapter" nsPrefix="org.slizaa.neo4j.dbadapter">
+  <eClassifiers xsi:type="ecore:EClass" name="Neo4jClient" eSuperTypes="#//IGraphMetaDataProvider">
+    <eOperations name="connect"/>
+    <eOperations name="disconnect"/>
+    <eOperations name="getNodeLabels" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getPropertyKeys" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getRelationshipTypes" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getNode" eType="#//Node">
+      <eParameters name="nodeId" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    </eOperations>
+    <eOperations name="getRelationship" eType="#//Relationship">
+      <eParameters name="nodeId" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    </eOperations>
+    <eOperations name="executeCypherQuery">
+      <eGenericType eClassifier="#//Future">
+        <eTypeArguments eClassifier="#//StatementResult"/>
+      </eGenericType>
+      <eParameters name="cypherQuery" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="executeCypherQuery">
+      <eGenericType eClassifier="#//Future">
+        <eTypeArguments eClassifier="#//StatementResult"/>
+      </eGenericType>
+      <eParameters name="cypherQuery" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="params">
+        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
+    <eOperations name="executeCypherQuery">
+      <eGenericType eClassifier="#//Future">
+        <eTypeArguments eClassifier="#//Void"/>
+      </eGenericType>
+      <eParameters name="cypherQuery" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="consumer">
+        <eGenericType eClassifier="#//Consumer">
+          <eTypeArguments eClassifier="#//StatementResult"/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
+    <eOperations name="executeCypherQuery">
+      <eGenericType eClassifier="#//Future">
+        <eTypeArguments eClassifier="#//Void"/>
+      </eGenericType>
+      <eParameters name="cypherQuery" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="params">
+        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+        </eGenericType>
+      </eParameters>
+      <eParameters name="consumer">
+        <eGenericType eClassifier="#//Consumer">
+          <eTypeArguments eClassifier="#//StatementResult"/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
+    <eOperations name="executeCypherQuery">
+      <eGenericType eClassifier="#//Future">
+        <eTypeArguments eClassifier="#//Void"/>
+      </eGenericType>
+      <eParameters name="cypherQuery" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="consumer" eType="#//IQueryResultConsumer"/>
+    </eOperations>
+    <eOperations name="executeCypherQuery">
+      <eGenericType eClassifier="#//Future">
+        <eTypeArguments eClassifier="#//Void"/>
+      </eGenericType>
+      <eParameters name="cypherQuery" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="params">
+        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+        </eGenericType>
+      </eParameters>
+      <eParameters name="consumer" eType="#//IQueryResultConsumer"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="connected" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        changeable="false" transient="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="uri" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="Future" instanceClassName="java.util.concurrent.Future">
+    <eTypeParameters name="T"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="Consumer" instanceClassName="java.util.function.Consumer">
+    <eTypeParameters name="T"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="IFile" instanceClassName="org.eclipse.core.resources.IFile"
+      serializable="false"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="StatementResult" instanceClassName="org.neo4j.driver.v1.StatementResult"
+      serializable="false"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Node" instanceClassName="org.neo4j.driver.v1.types.Node"
+      serializable="false"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Relationship" instanceClassName="org.neo4j.driver.v1.types.Relationship"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Void" instanceClassName="java.lang.Void"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IGraphMetaDataProvider" instanceClassName="org.slizaa.neo4j.opencypher.spi.IGraphMetaDataProvider"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="IQueryResultConsumer" instanceClassName="org.slizaa.neo4j.dbadapter.IQueryResultConsumer"
+      serializable="false"/>
+</ecore:EPackage>

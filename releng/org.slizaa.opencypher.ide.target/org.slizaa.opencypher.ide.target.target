@@ -20,7 +20,7 @@
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.slizaa.neo4j.opencypher.feature.feature.group" version="0.0.0"/>
-<repository location="http://www.slizaa.org/p2/org.slizaa.neo4j.opencypher"/>
+<repository location="http://www.slizaa.org/p2/slizaa-opencypher-xtext"/>
 </location>
 </locations>
 </target>

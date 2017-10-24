@@ -3,16 +3,17 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.slizaa.opencypher.ide</groupId>
-	<artifactId>org.slizaa.opencypher.ide.parent</artifactId>
+	<groupId>org.slizaa.opencypher.workbench</groupId>
+	<artifactId>org.slizaa.opencypher.workbench.parent</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>releng/org.slizaa.opencypher.ide.feature</module>
-		<module>releng/org.slizaa.opencypher.ide.target</module>
-		<module>releng/org.slizaa.opencypher.ide.p2</module>
+		<module>releng/org.slizaa.opencypher.workbench.feature</module>
+		<module>releng/org.slizaa.opencypher.workbench.testfwk.feature</module>
+		<module>releng/org.slizaa.opencypher.workbench.target</module>
+		<module>releng/org.slizaa.opencypher.workbench.p2</module>
 		
 		<module>plugins/org.slizaa.neo4j.dbadapter</module>
 		<module>plugins/org.slizaa.neo4j.queryresult.ui</module>
@@ -48,8 +49,8 @@
 				<configuration>
 					<target>
 						<artifact>
-							<groupId>org.slizaa.opencypher.ide</groupId>
-							<artifactId>org.slizaa.opencypher.ide.target</artifactId>
+							<groupId>org.slizaa.opencypher.workbench</groupId>
+							<artifactId>org.slizaa.opencypher.workbench.target</artifactId>
 							<version>${project.version}</version>
 						</artifact>
 					</target>

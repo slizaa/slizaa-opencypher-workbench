@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.slizaa.opencypher.ide.feature"
-      label="org.slizaa.opencypher.ide.feature"
+      id="org.slizaa.opencypher.workbench.feature"
+      label="org.slizaa.opencypher.workbench.feature"
       version="1.0.0.qualifier">
 
    <description url="http://www.example.com/description">

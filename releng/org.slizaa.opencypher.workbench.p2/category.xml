@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.slizaa.opencypher.workbench.feature_0.0.0.jar" id="org.slizaa.opencypher.workbench.feature" version="0.0.0">
+      <category name="org.slizaa.opencypher.workbench.category"/>
+   </feature>
+   <feature url="features/org.slizaa.opencypher.workbench.testfwk.feature_0.0.0.jar" id="org.slizaa.opencypher.workbench.testfwk.feature" version="0.0.0">
+      <category name="org.slizaa.opencypher.workbench.testfwk.category"/>
+   </feature>
+   <category-def name="org.slizaa.opencypher.workbench.category" label="org.slizaa.opencypher.workbench"/>
+   <category-def name="org.slizaa.opencypher.workbench.testfwk.category" label="org.slizaa.opencypher.workbench.testfwk"/>
+</site>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<site>
-   <feature url="features/org.slizaa.opencypher.ide.feature_0.0.0.jar" id="org.slizaa.opencypher.ide.feature" version="0.0.0">
-      <category name="org.slizaa.opencypher.ide.category"/>
-   </feature>
-   <category-def name="org.slizaa.opencypher.ide.category" label="org.slizaa.opencypher.ide"/>
-</site>

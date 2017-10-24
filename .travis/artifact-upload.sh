@@ -1,11 +1,11 @@
 #!/bin/sh
 
 ftp_ip=ftp.wuetherich.com
-target_dir=slizaa-opencypher-ide
+target_dir=slizaa-opencypher-workbench
 
 echo TRAVIS_BUILD_DIR: $TRAVIS_BUILD_DIR
 
-PRODUCTS_DIR=$TRAVIS_BUILD_DIR/releng/org.slizaa.opencypher.ide.p2/target/repository
+PRODUCTS_DIR=$TRAVIS_BUILD_DIR/releng/org.slizaa.opencypher.workbench.p2/target/repository
 echo PRODUCTS_DIR: $PRODUCTS_DIR
 
 filesToUpload=$(find $PRODUCTS_DIR -name "*.jar" -printf '%P\n')

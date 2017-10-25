@@ -31,17 +31,21 @@
 
 	<properties>
 		<tycho-version>1.0.0</tycho-version>
+		<tycho-extras-version>1.0.0</tycho-extras-version>		
 	</properties>
 
 	<build>
 		<plugins>
+
+			<!-- enable tycho build extension -->
 			<plugin>
-				<!-- enable tycho build extension -->
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
 				<version>${tycho-version}</version>
 				<extensions>true</extensions>
 			</plugin>
+
+			<!-- enable tycho platform configuration -->
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>target-platform-configuration</artifactId>
@@ -73,6 +77,23 @@
 					</environments>
 				</configuration>
 			</plugin>
+
+			<!-- generate source plugins -->
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-source-plugin</artifactId>
+				<version>${tycho-version}</version>
+
+				<executions>
+					<execution>
+						<id>plugin-source</id>
+						<goals>
+							<goal>plugin-source</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 

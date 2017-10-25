@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.slizaa.opencypher.workbench.feature_0.0.0.jar" id="org.slizaa.opencypher.workbench.feature" version="0.0.0">
+   <feature id="org.slizaa.opencypher.workbench.feature" version="0.0.0">
       <category name="org.slizaa.opencypher.workbench.category"/>
    </feature>
-   <feature url="features/org.slizaa.opencypher.workbench.testfwk.feature_0.0.0.jar" id="org.slizaa.opencypher.workbench.testfwk.feature" version="0.0.0">
+   <feature id="org.slizaa.opencypher.workbench.testfwk.feature" version="0.0.0">
       <category name="org.slizaa.opencypher.workbench.testfwk.category"/>
    </feature>
    <category-def name="org.slizaa.opencypher.workbench.category" label="org.slizaa.opencypher.workbench"/>
    <category-def name="org.slizaa.opencypher.workbench.testfwk.category" label="org.slizaa.opencypher.workbench.testfwk"/>
+   
+   <feature id="org.slizaa.opencypher.workbench.feature.source" version="0.0.0">
+      <category name="org.slizaa.opencypher.workbench.category.source"/>
+   </feature>
+   <feature id="org.slizaa.opencypher.workbench.testfwk.feature.source" version="0.0.0">
+      <category name="org.slizaa.opencypher.workbench.testfwk.category.source"/>
+   </feature>
+   <category-def name="org.slizaa.opencypher.workbench.source.category" label="org.slizaa.opencypher.workbench.source"/>
+   <category-def name="org.slizaa.opencypher.workbench.testfwk.source.category" label="org.slizaa.opencypher.workbench.testfwk.source"/>
 </site>

@@ -51,7 +51,6 @@ public class TestNeo4jServerCreatorServiceImpl {
       String urlAether = RepositorySystem.class.getProtectionDomain().getCodeSource().getLocation().toString();
       String urlPatch = urlAether.replace("aether-api-1.0.2.v20150114.jar",
           "org.slizaa.neo4j.graphdb.testfwk.patch-3.2.1.jar");
-      System.out.println("++++++++++++++++ " +  urlPatch);
       completeUrls.add(new URL(urlPatch));
     } catch (MalformedURLException e) {
       e.printStackTrace();

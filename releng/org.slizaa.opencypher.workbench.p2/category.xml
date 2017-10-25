@@ -10,11 +10,10 @@
    <category-def name="org.slizaa.opencypher.workbench.testfwk.category" label="org.slizaa.opencypher.workbench.testfwk"/>
    
    <feature id="org.slizaa.opencypher.workbench.feature.source" version="0.0.0">
-      <category name="org.slizaa.opencypher.workbench.category.source"/>
+      <category name="org.slizaa.opencypher.workbench.source.category"/>
    </feature>
    <feature id="org.slizaa.opencypher.workbench.testfwk.feature.source" version="0.0.0">
-      <category name="org.slizaa.opencypher.workbench.testfwk.category.source"/>
+      <category name="org.slizaa.opencypher.workbench.source.category"/>
    </feature>
-   <category-def name="org.slizaa.opencypher.workbench.source.category" label="org.slizaa.opencypher.workbench.source"/>
-   <category-def name="org.slizaa.opencypher.workbench.testfwk.source.category" label="org.slizaa.opencypher.workbench.testfwk.source"/>
+   <category-def name="org.slizaa.opencypher.workbench.source.category" label="Sources"/>
 </site>

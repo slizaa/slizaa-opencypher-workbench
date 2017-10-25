@@ -47,7 +47,7 @@ public class ExampleTest {
 
     //
     boltClientConnection.getBoltClient()
-        .executeCypherQuery("MATCH (t:TYPE) RETURN t", sr -> StatementResultUtil.dumpStatement(sr)).get();
+        .executeCypherQuery("MATCH (t:TYPE) RETURN t LIMIT 10", sr -> StatementResultUtil.dumpStatement(sr)).get();
   }
 
   // /**

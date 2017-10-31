@@ -1,7 +1,6 @@
 package org.slizaa.neo4j.graphdb.testfwk.internal;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static org.joor.Reflect.on;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,9 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.aether.RepositorySystem;
 import org.slizaa.neo4j.graphdb.testfwk.TestDB;
-import org.slizaa.neo4j.graphdb.testfwk.internal.aether.TransitiveDependenciesResolver;
 
 public class TestNeo4jServerCreatorServiceImpl {
 
@@ -40,22 +37,22 @@ public class TestNeo4jServerCreatorServiceImpl {
       throw new RuntimeException(e);
     }
 
-    // resolve all required dependencies
-    URL[] urls = TransitiveDependenciesResolver.resolve("org.neo4j.test:neo4j-harness:3.2.1");
-
+    // // resolve all required dependencies
+    // URL[] urls = TransitiveDependenciesResolver.resolve("org.neo4j.test:neo4j-harness:3.2.1");
     //
-    List<URL> completeUrls = new ArrayList<>(Arrays.asList(urls));
-
-    // we need this patch in order to set the database directory!
-    try {
-      String urlAether = RepositorySystem.class.getProtectionDomain().getCodeSource().getLocation().toString();
-      String urlPatch = urlAether.replace("aether-api-1.0.2.v20150114.jar",
-          "org.slizaa.neo4j.graphdb.testfwk.patch-3.2.1.jar");
-      completeUrls.add(new URL(urlPatch));
-    } catch (MalformedURLException e) {
-      e.printStackTrace();
-    }
-    _classLoader = new URLClassLoader(completeUrls.toArray(new URL[0]));
+    // //
+    // List<URL> completeUrls = new ArrayList<>(Arrays.asList(urls));
+    //
+    // // we need this patch in order to set the database directory!
+    // try {
+    // String urlAether = RepositorySystem.class.getProtectionDomain().getCodeSource().getLocation().toString();
+    // String urlPatch = urlAether.replace("aether-api-1.0.2.v20150114.jar",
+    // "org.slizaa.neo4j.graphdb.testfwk.patch-3.2.1.jar");
+    // completeUrls.add(new URL(urlPatch));
+    // } catch (MalformedURLException e) {
+    // e.printStackTrace();
+    // }
+    // _classLoader = new URLClassLoader(completeUrls.toArray(new URL[0]));
   }
 
   /**
@@ -83,24 +80,25 @@ public class TestNeo4jServerCreatorServiceImpl {
   public AutoCloseable createNeo4jServer(TestDB testDB) {
     checkNotNull(testDB);
 
-    try {
-
-      //
-      return TCCLExecuter.execute(_classLoader, () -> {
-
-        //
-        AutoCloseable server = on("org.slizaa.neo4j.graphdb.testfwk.patch.ServerStarter", _classLoader)
-            .call("startServer", _tempDirectoryPath.getParent().toAbsolutePath().toString(),
-                _tempDirectoryPath.getFileName().toString(), unzip(testDB).toString())
-            .get();
-
-        //
-        return server;
-      });
-
-    } catch (Throwable e) {
-      throw new RuntimeException(e);
-    }
+    // try {
+    //
+    // //
+    // return TCCLExecuter.execute(_classLoader, () -> {
+    //
+    // //
+    // AutoCloseable server = on("org.slizaa.neo4j.graphdb.testfwk.patch.ServerStarter", _classLoader)
+    // .call("startServer", _tempDirectoryPath.getParent().toAbsolutePath().toString(),
+    // _tempDirectoryPath.getFileName().toString(), unzip(testDB).toString())
+    // .get();
+    //
+    // //
+    // return server;
+    // });
+    //
+    // } catch (Throwable e) {
+    // throw new RuntimeException(e);
+    // }
+    return null;
   }
 
   /**

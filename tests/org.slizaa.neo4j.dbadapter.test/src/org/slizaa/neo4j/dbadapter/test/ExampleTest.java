@@ -19,7 +19,8 @@ import org.slizaa.neo4j.graphdb.testfwk.TestDB;
 public class ExampleTest {
 
   @ClassRule
-  public static PredefinedGraphDatabaseRule graphDatabase        = new PredefinedGraphDatabaseRule(TestDB.MAPSTRUCT);
+  public static PredefinedGraphDatabaseRule graphDatabase        = new PredefinedGraphDatabaseRule(TestDB.MAPSTRUCT,
+      5001);
 
   @ClassRule
   public static BoltClientConnectionRule    boltClientConnection = new BoltClientConnectionRule("localhost", 5001);

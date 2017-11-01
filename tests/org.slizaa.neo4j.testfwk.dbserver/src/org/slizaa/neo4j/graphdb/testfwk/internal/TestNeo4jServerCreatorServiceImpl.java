@@ -79,6 +79,8 @@ public class TestNeo4jServerCreatorServiceImpl {
    */
   public AutoCloseable createNeo4jServer(TestDB testDB) {
     checkNotNull(testDB);
+    
+    unzip(testDB);
 
     // try {
     //

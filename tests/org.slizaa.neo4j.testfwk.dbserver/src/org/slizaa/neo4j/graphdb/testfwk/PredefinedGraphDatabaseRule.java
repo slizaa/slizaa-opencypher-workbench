@@ -118,7 +118,8 @@ public class PredefinedGraphDatabaseRule extends ExternalResource {
 
     //
     IMvnResolverService mvnResolverService = MvnResolverServiceFactoryFactory.createNewResolverServiceFactory()
-        .newMvnResolverService().create();
+        .newMvnResolverService().withDefaultRemoteRepository()
+        .withRemoteRepository("ossrh", "https://oss.sonatype.org/content/repositories/snapshots").create();
 
     File[] files = mvnResolverService
         .resolve("org.slizaa.scanner.neo4j:org.slizaa.scanner.neo4j.graphdbfactory:1.0.0-SNAPSHOT");

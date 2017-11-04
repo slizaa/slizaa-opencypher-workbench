@@ -3,23 +3,27 @@ package org.slizaa.neo4j.graphdb.testfwk;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import org.junit.rules.ExternalResource;
-import org.slizaa.neo4j.graphdb.testfwk.internal.FileUtils;
-import org.slizaa.neo4j.graphdb.testfwk.internal.UnZip;
 import org.slizaa.scanner.core.api.graphdb.IGraphDb;
 import org.slizaa.scanner.core.api.graphdb.IGraphDbFactory;
-import org.slizaa.scanner.services.mvnresolver.MvnResolverServiceFactory;
-import org.slizaa.scanner.services.mvnresolver.api.MvnResolverService;
+import org.slizaa.scanner.services.mvnresolver.MvnResolverServiceFactoryFactory;
+import org.slizaa.scanner.services.mvnresolver.api.IMvnResolverService;
 
 public class PredefinedGraphDatabaseRule extends ExternalResource {
 
@@ -76,7 +80,7 @@ public class PredefinedGraphDatabaseRule extends ExternalResource {
     //
     if (_tempParentDirectoryPath != null) {
       try {
-        FileUtils.delete(_tempParentDirectoryPath);
+        delete(_tempParentDirectoryPath);
       } catch (IOException e) {
         throw new RuntimeException(e);
       }
@@ -95,7 +99,7 @@ public class PredefinedGraphDatabaseRule extends ExternalResource {
     //
     if (!databaseDirectory.exists()) {
       try (InputStream inputStream = PredefinedGraphDatabaseRule.class.getResourceAsStream(testDB.getPath())) {
-        UnZip.unzip(inputStream, databaseDirectory);
+        unzip(inputStream, databaseDirectory);
       } catch (Exception e) {
         throw new RuntimeException(e);
       }
@@ -113,18 +117,23 @@ public class PredefinedGraphDatabaseRule extends ExternalResource {
       throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
     //
-    MvnResolverService mvnResolverService = MvnResolverServiceFactory.createNewResolverService();
+    IMvnResolverService mvnResolverService = MvnResolverServiceFactoryFactory.createNewResolverServiceFactory()
+        .newMvnResolverService().create();
+
     File[] files = mvnResolverService
         .resolve("org.slizaa.scanner.neo4j:org.slizaa.scanner.neo4j.graphdbfactory:1.0.0-SNAPSHOT");
 
     //
     List<URL> urls = new ArrayList<>(files.length);
     for (File file : files) {
+      if (file.getName().contains("org.slizaa.scanner.core.spi-api")) {
+        continue;
+      }
       urls.add(file.toURI().toURL());
     }
 
     //
-    _classLoader = new URLClassLoader(urls.toArray(new URL[0]));
+    _classLoader = new URLClassLoader(urls.toArray(new URL[0]), PredefinedGraphDatabaseRule.class.getClassLoader());
     Class<?> clazz = _classLoader.loadClass("org.slizaa.scanner.neo4j.graphdbfactory.GraphDbFactory");
 
     //
@@ -132,5 +141,80 @@ public class PredefinedGraphDatabaseRule extends ExternalResource {
 
     // create new GraphDb
     return graphDbFactory.newGraphDb(port, databaseDir).create();
+  }
+
+  /**
+   * <p>
+   * </p>
+   *
+   * @param path
+   * @throws IOException
+   */
+  private static void delete(Path path) throws IOException {
+
+    //
+    Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
+
+      @Override
+      public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+        Files.delete(file);
+        return FileVisitResult.CONTINUE;
+      }
+
+      @Override
+      public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+        Files.delete(dir);
+        return FileVisitResult.CONTINUE;
+      }
+
+    });
+  }
+
+  private static void unzip(InputStream inputStream, File folder) {
+
+    checkNotNull(inputStream);
+    checkNotNull(folder);
+
+    byte[] buffer = new byte[1024];
+
+    try {
+
+      // create output directory is not exists
+      if (!folder.exists()) {
+        folder.mkdir();
+      }
+
+      // get the zip file content
+      try (ZipInputStream zis = new ZipInputStream(inputStream)) {
+        // get the zipped file list entry
+        ZipEntry ze = zis.getNextEntry();
+
+        while (ze != null) {
+
+          if (!ze.isDirectory()) {
+
+            String fileName = ze.getName();
+            File newFile = new File(folder + File.separator + fileName);
+
+            // create all non exists folders
+            // else you will hit FileNotFoundException for compressed folder
+            new File(newFile.getParent()).mkdirs();
+
+            try (FileOutputStream fos = new FileOutputStream(newFile)) {
+              int len;
+              while ((len = zis.read(buffer)) > 0) {
+                fos.write(buffer, 0, len);
+              }
+            }
+          }
+          ze = zis.getNextEntry();
+        }
+
+        zis.closeEntry();
+        zis.close();
+      }
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
   }
 }

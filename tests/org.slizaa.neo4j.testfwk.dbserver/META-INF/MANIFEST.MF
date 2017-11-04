@@ -10,7 +10,7 @@ Require-Bundle: org.eclipse.osgi,
  com.google.guava;bundle-version="15.0.0",
  org.eclipse.equinox.ds,
  org.slizaa.neo4j.dbadapter;bundle-version="1.0.0",
- org.slizaa.scanner.services.mvnresolver.uber;bundle-version="1.0.0",
- org.slizaa.scanner.core.spi-api;bundle-version="1.0.0"
+ org.slizaa.scanner.core.spi-api;bundle-version="1.0.0",
+ org.slizaa.scanner.services.mvnresolver.uber;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Export-Package: org.slizaa.neo4j.graphdb.testfwk

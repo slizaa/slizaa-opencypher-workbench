@@ -22,8 +22,8 @@ import java.util.zip.ZipInputStream;
 import org.junit.rules.ExternalResource;
 import org.slizaa.scanner.core.api.graphdb.IGraphDb;
 import org.slizaa.scanner.core.api.graphdb.IGraphDbFactory;
-import org.slizaa.scanner.services.mvnresolver.MvnResolverServiceFactoryFactory;
-import org.slizaa.scanner.services.mvnresolver.api.IMvnResolverService;
+import org.slizaa.scanner.core.mvnresolver.MvnResolverServiceFactoryFactory;
+import org.slizaa.scanner.core.mvnresolver.api.IMvnResolverService;
 
 public class PredefinedGraphDatabaseRule extends ExternalResource {
 

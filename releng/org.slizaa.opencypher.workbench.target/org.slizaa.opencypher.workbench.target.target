@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="org.slizaa.opencypher.workbench.target" sequenceNumber="24">
+<?pde version="3.8"?><target name="org.slizaa.opencypher.workbench.target" sequenceNumber="26">
 <locations>
-<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.slizaa.scanner.core.eclipse.feature.feature.group" version="0.0.0"/>
-<repository location="http://www.slizaa.org/p2/slizaa-scanner-core"/>
-</location>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.slizaa.thirdparty.feature.feature.group" version="0.0.0"/>
 <unit id="org.slizaa.thirdparty.test.feature.feature.group" version="0.0.0"/>
@@ -27,8 +23,12 @@
 <repository location="http://www.slizaa.org/p2/slizaa-opencypher-xtext"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.slizaa.scanner.services.eclipse.feature.feature.group" version="0.0.0"/>
-<repository location="http://www.slizaa.org/p2/slizaa-scanner-services"/>
+<unit id="org.slizaa.scanner.core.classpathscanner" version="1.0.0.20171117221123"/>
+<unit id="org.slizaa.scanner.core.contentdefinition" version="1.0.0.20171117221123"/>
+<unit id="org.slizaa.scanner.core.cypherregistry" version="1.0.0.20171117221123"/>
+<unit id="org.slizaa.scanner.core.mvnresolver.uber" version="1.0.0.20171117221123"/>
+<unit id="org.slizaa.scanner.core.spi-api" version="1.0.0.20171117221123"/>
+<repository location="http://www.slizaa.org/p2/slizaa-scanner-core"/>
 </location>
 </locations>
 </target>

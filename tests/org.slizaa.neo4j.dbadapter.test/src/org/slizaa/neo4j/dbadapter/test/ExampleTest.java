@@ -50,13 +50,25 @@ public class ExampleTest {
     boltClientConnection.getBoltClient()
         .executeCypherQuery("MATCH (t:Type) RETURN t LIMIT 10", sr -> StatementResultUtil.dumpStatement(sr)).get();
   }
-  
+
   @Test
   public void test_3() throws InterruptedException, ExecutionException {
 
     //
     boltClientConnection.getBoltClient()
-        .executeCypherQuery("MATCH (tref:TypeReference)-[:BOUND_TO]->(t:Type) RETURN t LIMIT 10", sr -> StatementResultUtil.dumpStatement(sr)).get();
+        .executeCypherQuery("MATCH (tref:TypeReference)-[:BOUND_TO]->(t:Type) RETURN t LIMIT 10",
+            sr -> StatementResultUtil.dumpStatement(sr))
+        .get();
+  }
+
+  @Test
+  public void test_4() throws InterruptedException, ExecutionException {
+
+    //
+    boltClientConnection.getBoltClient()
+        .executeCypherQuery("MATCH (t1:Type)-[:DEPENDS_ON]->(t2:Type) RETURN t1, t2 LIMIT 10",
+            sr -> StatementResultUtil.dumpStatement(sr))
+        .get();
   }
 
   // /**

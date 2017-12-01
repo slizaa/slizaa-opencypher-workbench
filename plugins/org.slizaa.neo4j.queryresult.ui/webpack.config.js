@@ -1,5 +1,5 @@
 module.exports = {
-    entry: [ "./web-src/index.tsx", "./web-src/components/hello.css" ],
+    entry: [ "./web-src/index.tsx", "./web-src/components/queryResultComponent.css" ],
     output: {
         filename: "bundle.js",
         path: __dirname + "/content/dist"

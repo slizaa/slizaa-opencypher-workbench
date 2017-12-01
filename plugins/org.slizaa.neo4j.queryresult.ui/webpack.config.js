@@ -4,11 +4,11 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-    entry: './src/queryresult.js',
+    entry: './web/src/queryresult.jsx',
     devtool: 'eval-source-map',
     output: {
         filename: 'queryResult.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'web/dist'),
         library: 'queryResult'
     },
     module: {

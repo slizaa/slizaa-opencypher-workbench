@@ -1,16 +1,12 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import * as Immutable from "immutable";
-import * as PropTypes from "prop-types";
-
 import * as CSS from "./queryResultComponent.css";
 
-export interface HelloProps { compiler: string; framework: string; }
+export interface QueryResultComponentProps { columnNames: string[]; records: string[]; }
 
-// 'HelloProps' describes the shape of props.
-// State is never set so we use the '{}' type.
-export class Hello extends React.PureComponent<HelloProps, {}> {
+export class QueryResultComponent extends React.PureComponent<QueryResultComponentProps, {}> {
+    
     render() {
-        return <h1>Hello from {this.props.compiler} and {this.props.framework}!</h1>;
+        return <h1>Hello from {this.props.columnNames} and {this.props.records}!</h1>;
     }
 }

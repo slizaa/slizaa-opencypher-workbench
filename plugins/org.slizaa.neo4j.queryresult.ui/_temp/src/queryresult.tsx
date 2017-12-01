@@ -1,7 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+
 import { List } from "immutable";
-import TestComponent from './QueryResultComponent';
+import { TestComponent } from './components/QueryResultComponent';
 
 export function renderQueryResult(columnNames, records) {
 

@@ -11,8 +11,8 @@
 
 	<artifactId>org.slizaa.neo4j.queryresult.ui</artifactId>
 	<packaging>eclipse-plugin</packaging>
-	
-<!-- 	<build>
+
+	<build>
 		<plugins>
 			<plugin>
 				<groupId>com.github.eirslett</groupId>
@@ -42,18 +42,15 @@
 					</execution>
 
 					<execution>
-						<id>npm run build</id>
+						<id>webpack build</id>
 						<goals>
-							<goal>npm</goal>
+							<goal>webpack</goal>
 						</goals>
-						<configuration>
-							<arguments>run build</arguments>
-						</configuration>
 					</execution>
 				</executions>
 
 			</plugin>
 		</plugins>
-	</build> -->
-	
+	</build>
+
 </project>

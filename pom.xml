@@ -10,18 +10,18 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>releng/org.slizaa.opencypher.workbench.feature</module>
-		<module>releng/org.slizaa.opencypher.workbench.testfwk.feature</module>
+<!-- 		<module>releng/org.slizaa.opencypher.workbench.feature</module>
+		<module>releng/org.slizaa.opencypher.workbench.testfwk.feature</module> -->
 		<module>releng/org.slizaa.opencypher.workbench.target</module>
-		<module>releng/org.slizaa.opencypher.workbench.p2</module>
+<!-- 		<module>releng/org.slizaa.opencypher.workbench.p2</module> -->
 		
 		<module>plugins/org.slizaa.neo4j.dbadapter</module>
 		<module>plugins/org.slizaa.neo4j.queryresult.ui</module>
-		<module>plugins/org.slizaa.neo4j.ui.cypherview</module>
+<!-- 		<module>plugins/org.slizaa.neo4j.ui.cypherview</module> -->
 		
-		<module>tests/org.slizaa.neo4j.testfwk.dbserver</module>
+<!-- 		<module>tests/org.slizaa.neo4j.testfwk.dbserver</module>
 		<module>tests/org.slizaa.neo4j.dbadapter.test</module>
-		
+ -->		
 	</modules>
 
 	<!-- tycho requires maven >= 3.0 -->

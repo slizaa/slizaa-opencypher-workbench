@@ -1,5 +1,7 @@
 package org.slizaa.neo4j.queryresult.ui;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,7 +20,7 @@ import com.google.gson.JsonArray;
 
 public class Main {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws MalformedURLException {
     Display display = new Display();
     Shell shell = new Shell(display);
     shell.setLayout(new FillLayout());
@@ -38,8 +40,9 @@ public class Main {
     new GetRecordsFunction(browser, () -> createTestData());
 
     shell.open();
-    browser.setUrl(
-        "file://D:\\50-Development\\environments\\slizaa-master\\git\\slizaa-private\\03-org.slizaa.neo4j\\org.slizaa.neo4j.queryresult\\content\\result.html");
+    
+    File file = new File("content/public/loader.html");
+    browser.setUrl(file.toURI().toURL().toExternalForm());
     while (!shell.isDisposed()) {
       if (!display.readAndDispatch())
         display.sleep();

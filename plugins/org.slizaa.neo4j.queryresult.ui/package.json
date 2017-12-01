@@ -21,6 +21,7 @@
     "awesome-typescript-loader": "^3.4.1",
     "source-map-loader": "^0.2.3",
     "typescript": "^2.6.2",
+    "typings-for-css-modules-loader": "^1.7.0",
     "webpack": "^3.9.1"
   }
 }

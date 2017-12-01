@@ -3,6 +3,8 @@ import * as ReactDOM from "react-dom";
 import * as Immutable from "immutable";
 import * as PropTypes from "prop-types";
 
+import * as CSS from "./hello.css";
+
 export interface HelloProps { compiler: string; framework: string; }
 
 // 'HelloProps' describes the shape of props.

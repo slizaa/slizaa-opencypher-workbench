@@ -1,8 +1,8 @@
 module.exports = {
-    entry: "./web/src/index.tsx",
+    entry: [ "./web-src/index.tsx", "./web-src/components/hello.css" ],
     output: {
         filename: "bundle.js",
-        path: __dirname + "/dist"
+        path: __dirname + "/content/dist"
     },
 
     // Enable sourcemaps for debugging webpack's output.
@@ -10,15 +10,16 @@ module.exports = {
 
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: [".ts", ".tsx", ".js", ".json"]
+        extensions: [".ts", ".tsx", ".js", ".json", ".css"]
     },
 
     module: {
         rules: [
+
+            { test: /\.css$/, loader: 'typings-for-css-modules-loader?modules&namedExport&camelCase' },
+
             // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
             { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
-            
-            { test: /\.css$/, use: [ 'style-loader', 'css-loader' ] },
 
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }

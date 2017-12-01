@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "awesome-typescript-loader": "^3.4.1",
+    "css-loader": "^0.28.7",
     "source-map-loader": "^0.2.3",
     "typescript": "^2.6.2",
     "typings-for-css-modules-loader": "^1.7.0",

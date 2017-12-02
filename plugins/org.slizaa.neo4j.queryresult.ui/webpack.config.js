@@ -1,5 +1,5 @@
 module.exports = {
-    entry: [ "./web-src/index.tsx", "./web-src/components/queryResultComponent.css" ],
+    entry: [ "./web-src/index.tsx" ],
     output: {
         filename: "bundle.js",
         path: __dirname + "/content/dist"
@@ -10,13 +10,44 @@ module.exports = {
 
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: [".ts", ".tsx", ".js", ".json", ".css"]
+        extensions: [".ts", ".tsx", ".js", ".json", ".css", ".scss"]
     },
 
     module: {
         rules: [
 
-            { test: /\.css$/, loader: 'typings-for-css-modules-loader?modules&namedExport&camelCase' },
+            {
+                test: /\.css$/,
+                use: [
+                    "style-loader",
+                    {
+                        loader: 'typings-for-css-modules-loader',
+                        query: {
+                            modules: true,
+                            importLoaders: 1,
+                            camelCase: true,
+                            namedExport: true,
+                            localIdentName: '[name]_[local]_[hash:base64:5]'
+                        }
+                    }]
+            },
+
+            {
+                test: /\.scss$/,
+                use: [
+                    "style-loader",
+                    {
+                        loader: 'typings-for-css-modules-loader',
+                        query: {
+                            modules: true,
+                            importLoaders: 1,
+                            camelCase: true,
+                            namedExport: true,
+                            localIdentName: '[name]_[local]_[hash:base64:5]'
+                        }
+                    },
+                    "sass-loader"]
+            },
 
             // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
             { test: /\.tsx?$/, loader: "awesome-typescript-loader" },

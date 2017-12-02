@@ -7,6 +7,6 @@ export interface QueryResultComponentProps { columnNames: string[]; records: str
 export class QueryResultComponent extends React.PureComponent<QueryResultComponentProps, {}> {
     
     render() {
-        return <h1 className={styles.test}>Hello from {this.props.columnNames} and {this.props.records}!</h1>;
+        return <h1 className={styles.noRows}>Hello from {this.props.columnNames} and {this.props.records}!</h1>;
     }
 }

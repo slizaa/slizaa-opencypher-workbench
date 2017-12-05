@@ -2,10 +2,10 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { QueryResultComponent } from "./components/QueryResultComponent";
 
-const columnNames = ["BLA", "BLUBB"];
-const records = ["BLA", "BLUBB"];
+declare function getColumnNamesAsJson(): string;
+declare function getRecordsAsJson(): string;
 
 ReactDOM.render(
-    <QueryResultComponent columnNames={columnNames}  records={records} />,
+    <QueryResultComponent columnNames={JSON.parse(getColumnNamesAsJson())}  records={JSON.parse(getRecordsAsJson())} />,
     document.getElementById("root")
 );

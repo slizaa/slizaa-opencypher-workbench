@@ -3,6 +3,14 @@
   height: 100%;
 }
 
+.tableHeader {
+  font-family: Segoe UI, Arial, sans-serif;
+}
+
+.tableColumn {
+  background: red;
+}
+
 .nodeTable {
     font-family: Segoe UI, Arial, sans-serif;
     font-size: 75%;

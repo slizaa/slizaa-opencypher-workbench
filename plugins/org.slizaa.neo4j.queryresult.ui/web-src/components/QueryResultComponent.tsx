@@ -22,21 +22,25 @@ export class QueryResultComponent extends React.PureComponent<QueryResultCompone
         const { columnNames, records } = this.props;
 
         return (
-
-            <Table
-                className={styles.tableHeader}
-                width={600}
-                height={600}
-                headerHeight={20}
-                estimatedRowSize={180}
-                rowHeight={this.computeHeight}
-                rowCount={records.length}
-                rowGetter={({ index }) => records[index]}
-                noRowsRenderer={this.noRowsRenderer}
-            >
-                {columnNames.map((name) => <Column className={styles.tableColumn} key={name} width={this.computeWidth()} label={name} dataKey={name} cellDataGetter={this.getCellData} cellRenderer={({ cellData }) => this.renderCell(cellData)} />)}
-            </Table>
-
+            <div className={styles.tableSpace}>
+                <AutoSizer >
+                    {({ height, width }) => (
+                        <Table
+                            className={styles.tableHeader}
+                            width={width}
+                            height={height}
+                            headerHeight={30}
+                            estimatedRowSize={180}
+                            rowHeight={this.computeHeight}
+                            rowCount={records.length}
+                            rowGetter={({ index }) => records[index]}
+                            noRowsRenderer={this.noRowsRenderer}
+                        >
+                            {columnNames.map((name) => <Column className={styles.tableColumn} key={name} width={this.computeWidth()} label={name} dataKey={name} cellDataGetter={this.getCellData} cellRenderer={({ cellData }) => this.renderCell(cellData)} />)}
+                        </Table>
+                    )}
+                </AutoSizer>
+            </div>
         );
     }
 
@@ -45,7 +49,7 @@ export class QueryResultComponent extends React.PureComponent<QueryResultCompone
     }
 
     computeWidth(): number {
-        return 50;
+        return 400;
     }
 
     computeHeight({ index }: any): number {
@@ -53,7 +57,7 @@ export class QueryResultComponent extends React.PureComponent<QueryResultCompone
     }
 
     getCellData({
-        columnData,
+                    columnData,
         dataKey,
         rowData
         }: any) {

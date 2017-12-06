@@ -1,5 +1,3 @@
-@import "../../node_modules/react-virtualized/styles.css";
-
 $primary-color: #e0e8f0;
 
 .tableSpace {
@@ -12,7 +10,7 @@ $primary-color: #e0e8f0;
 }
 
 .tableColumn {
-  background: red;
+ color: black;
 }
 
 .nodeTable {

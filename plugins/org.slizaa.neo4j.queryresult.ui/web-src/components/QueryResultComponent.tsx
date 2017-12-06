@@ -1,7 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as styles from "./queryResultComponent.scss";
-import 'react-virtualized/styles.css'; // only needs to be imported once
 import { SortDirection, AutoSizer, Table, Column, List } from "react-virtualized"
 
 export interface QueryResultComponentProps { columnNames: string[]; records: string[]; }

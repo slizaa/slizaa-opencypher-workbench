@@ -35,8 +35,8 @@ import org.osgi.framework.ServiceRegistration;
 import org.slizaa.neo4j.dbadapter.GsonConverter;
 import org.slizaa.neo4j.dbadapter.IQueryResultConsumer;
 import org.slizaa.neo4j.queryresult.ui.internal.action.CleanQueryResultHandler;
-import org.slizaa.neo4j.queryresult.ui.internal.functions.GetColumnNamesFunction;
-import org.slizaa.neo4j.queryresult.ui.internal.functions.GetRecordsFunction;
+import org.slizaa.neo4j.queryresult.ui.internal.functions.GetColumnNamesAsJsonFunction;
+import org.slizaa.neo4j.queryresult.ui.internal.functions.GetRecordsAsJsonFunction;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -110,8 +110,8 @@ public class QueryResultViewPart {
     // });
 
     //
-    new GetColumnNamesFunction(_browser, () -> _columnNames);
-    new GetRecordsFunction(_browser, () -> _records);
+    new GetColumnNamesAsJsonFunction(_browser, () -> _columnNames);
+    new GetRecordsAsJsonFunction(_browser, () -> _records);
 
     //
     Activator.getDefault().setQueryResultViewPart(this);

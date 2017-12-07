@@ -4,9 +4,8 @@
         "sourceMap": true,
         "noImplicitAny": true,
         "module": "commonjs",
-        "target": "es2016",
-        "jsx": "react",
-        "lib": ["es2016", "dom"]
+        "target": "es5",
+        "jsx": "react"
     },
     "include": [
         "./web-src/**/*"

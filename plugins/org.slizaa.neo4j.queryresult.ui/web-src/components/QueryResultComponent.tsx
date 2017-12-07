@@ -7,14 +7,14 @@ export interface QueryResultComponentProps { columnNames: string[]; records: str
 
 export class QueryResultComponent extends React.PureComponent<QueryResultComponentProps, {}> {
 
-    private heightCache: Map<number, number>;
+    // height cache
+    private heightCache: number[] = [];
 
     // the constructor
     constructor(props: QueryResultComponentProps) {
         super(props);
 
         // 
-        this.heightCache = new Map();
         this.computeHeight = this.computeHeight.bind(this);
     }
 
@@ -49,7 +49,7 @@ export class QueryResultComponent extends React.PureComponent<QueryResultCompone
         return <div className={styles.noRows}>No Rows</div>
     }
 
-    computeWidth() : number {
+    computeWidth(): number {
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext("2d");
         ctx.font = "12px Arial";
@@ -59,20 +59,23 @@ export class QueryResultComponent extends React.PureComponent<QueryResultCompone
     }
 
     computeHeight({ index }: any): number {
+
         const { records } = this.props;
         let record = records[index];
         let currentHeight = 22;
 
-        let values : any[] = Object.keys(record).map(key => (record as any)[key]);
+        let values: any[] = Object.keys(record).map(key => (record as any)[key]);
         for (var i = 0; i < values.length; i++) {
             let cellData = values[i];
 
             if (typeof cellData === 'object' && cellData.hasOwnProperty('properties')) {
                 let count = Object.keys(cellData.properties).length + 2;
-                if (!this.heightCache.has(count)) {
-                    this.heightCache.set(count, this.computeTableHeight(count));
+
+                console.log()
+                if (isNaN(this.heightCache[count])) {
+                    this.heightCache[count] = this.computeTableHeight(count);
                 }
-                let newHeight = this.heightCache.get(count);
+                let newHeight = this.heightCache[count];
                 if (newHeight > currentHeight) {
                     currentHeight = newHeight;
                 }
@@ -111,7 +114,7 @@ export class QueryResultComponent extends React.PureComponent<QueryResultCompone
         }
     }
 
-    computeTableHeight(rowCount: number) : number {
+    computeTableHeight(rowCount: number): number {
 
         var tbl = window.document.createElement("table");
         tbl.className += ' nodeTable';

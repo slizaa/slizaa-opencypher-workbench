@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Hello React!</title>
+    <title>slizaa query result view</title>
 
     <!-- include the react-virtualized stylesheet -->
     <link rel="stylesheet" type="text/css" href="./../css/react-virtualized/styles.css">
@@ -12,10 +12,12 @@
     <script src="./helper.js"></script>
 </head>
 
-<body>
+<!-- The overflow property specifies what happens if content overflows an element's box.
+     hidden	The overflow is clipped, and the rest of the content will be invisible -->
+<body style="overflow:hidden; margin: 0px">
 
     <!-- the root element -->
-    <div id="root"></div>
+    <div id="root" style="position: absolute; top: 0; bottom: 0; width: 100%"></div>
 
     <!-- Dependencies -->
     <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>

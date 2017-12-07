@@ -7,7 +7,7 @@ export interface QueryResultComponentProps { columnNames: string[]; records: str
 
 export class QueryResultComponent extends React.PureComponent<QueryResultComponentProps, {}> {
 
-    private heightCache: Map<string, number>;
+    private heightCache: Map<number, number>;
 
     // the constructor
     constructor(props: QueryResultComponentProps) {
@@ -15,6 +15,7 @@ export class QueryResultComponent extends React.PureComponent<QueryResultCompone
 
         // 
         this.heightCache = new Map();
+        this.computeHeight = this.computeHeight.bind(this);
     }
 
     render() {
@@ -48,16 +49,41 @@ export class QueryResultComponent extends React.PureComponent<QueryResultCompone
         return <div className={styles.noRows}>No Rows</div>
     }
 
-    computeWidth(): number {
-        return 400;
+    computeWidth() : number {
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext("2d");
+        ctx.font = "12px Arial";
+        // TODO
+        var width = ctx.measureText("sourceFileName <K:Ljava/lang/Object;V:Ljava/lang/Object;>()Ljava/util/Map<TK;TV;>;").width;
+        return width;
     }
 
     computeHeight({ index }: any): number {
-        return 200;
+        const { records } = this.props;
+        let record = records[index];
+        let currentHeight = 22;
+
+        let values : any[] = Object.keys(record).map(key => (record as any)[key]);
+        for (var i = 0; i < values.length; i++) {
+            let cellData = values[i];
+
+            if (typeof cellData === 'object' && cellData.hasOwnProperty('properties')) {
+                let count = Object.keys(cellData.properties).length + 2;
+                if (!this.heightCache.has(count)) {
+                    this.heightCache.set(count, this.computeTableHeight(count));
+                }
+                let newHeight = this.heightCache.get(count);
+                if (newHeight > currentHeight) {
+                    currentHeight = newHeight;
+                }
+            }
+        }
+
+        return currentHeight;
     }
 
     getCellData({
-                    columnData,
+        columnData,
         dataKey,
         rowData
         }: any) {
@@ -66,10 +92,10 @@ export class QueryResultComponent extends React.PureComponent<QueryResultCompone
 
     renderCell(cellData: any) {
 
-        console.log("renderCell")
-
         //
         if (typeof cellData === 'object') {
+
+            // TODO: key!
             return <table className={styles.nodeTable}>
                 <tbody>
                     <tr><td>ID</td><td>{cellData.id}</td></tr>
@@ -83,5 +109,28 @@ export class QueryResultComponent extends React.PureComponent<QueryResultCompone
         else {
             return <div className={styles.attributeValue}>{cellData}</div>
         }
+    }
+
+    computeTableHeight(rowCount: number) : number {
+
+        var tbl = window.document.createElement("table");
+        tbl.className += ' nodeTable';
+        tbl.style.visibility = "hidden";
+        var tblBody = window.document.createElement("tbody");
+        tbl.appendChild(tblBody);
+
+        for (var i = 0; i < rowCount; i++) {
+            var tr = window.document.createElement("tr");
+            tblBody.appendChild(tr);
+            var cell = window.document.createElement("td");
+            var cellText = window.document.createTextNode("a cell is a cell");
+            cell.appendChild(cellText);
+            tr.appendChild(cell);
+        }
+
+        document.body.appendChild(tbl);
+        let height = tbl.offsetHeight;
+        document.body.removeChild(tbl);
+        return height + 5;
     }
 }

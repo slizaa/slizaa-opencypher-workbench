@@ -11,8 +11,8 @@ import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.slizaa.neo4j.queryresult.ui.internal.functions.GetColumnNamesFunction;
-import org.slizaa.neo4j.queryresult.ui.internal.functions.GetRecordsFunction;
+import org.slizaa.neo4j.queryresult.ui.internal.functions.GetColumnNamesAsJsonFunction;
+import org.slizaa.neo4j.queryresult.ui.internal.functions.GetRecordsAsJsonFunction;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -35,13 +35,12 @@ public class Main {
     }
 
     //
-    new GetColumnNamesFunction(browser, () -> Arrays.asList("t.fqn"));
-
-    new GetRecordsFunction(browser, () -> createTestData());
+    new GetColumnNamesAsJsonFunction(browser, () -> Arrays.asList("t.fqn"));
+    new GetRecordsAsJsonFunction(browser, () -> createTestData());
 
     shell.open();
     
-    File file = new File("content/public/loader.html");
+    File file = new File("content/index.html");
     browser.setUrl(file.toURI().toURL().toExternalForm());
     while (!shell.isDisposed()) {
       if (!display.readAndDispatch())

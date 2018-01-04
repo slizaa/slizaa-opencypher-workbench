@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  * 
  * Contributors:
- *    Gerd W�therich (gerd@gerd-wuetherich.de) - initial API and implementation
+ *    Gerd Wuetherich (gerd@gerd-wuetherich.de) - initial API and implementation
  ******************************************************************************/
 package org.slizaa.neo4j.queryresult.ui.internal;
 
@@ -31,9 +31,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.neo4j.driver.v1.Record;
 import org.neo4j.driver.v1.StatementResult;
-import org.osgi.framework.ServiceRegistration;
 import org.slizaa.neo4j.dbadapter.GsonConverter;
-import org.slizaa.neo4j.dbadapter.IQueryResultConsumer;
 import org.slizaa.neo4j.queryresult.ui.internal.action.CleanQueryResultHandler;
 import org.slizaa.neo4j.queryresult.ui.internal.functions.GetColumnNamesAsJsonFunction;
 import org.slizaa.neo4j.queryresult.ui.internal.functions.GetRecordsAsJsonFunction;
@@ -51,19 +49,19 @@ import com.google.gson.JsonElement;
 public class QueryResultViewPart {
 
   /** - */
-  public static final String                        PART_ID = QueryResultViewPart.class.getName();
+  public static final String PART_ID = QueryResultViewPart.class.getName();
 
   /** - */
-  private Browser                                   _browser;
+  private Browser            _browser;
 
   /** - */
-  private List<String>                              _columnNames;
+  private List<String>       _columnNames;
 
   /** - */
-  private JsonArray                                 _records;
+  private JsonArray          _records;
 
   /** - */
-  private ServiceRegistration<IQueryResultConsumer> _serviceRegistration;
+  // private ServiceRegistration<IQueryResultConsumer> _serviceRegistration;
 
   /**
    * <p>
@@ -75,7 +73,7 @@ public class QueryResultViewPart {
   public void createComposite(Composite parent, MPart mPart) {
 
     //
-    _columnNames = new ArrayList<>();
+    this._columnNames = new ArrayList<>();
 
     // create the toolbar entries
     MToolBar toolbar = MMenuFactory.INSTANCE.createToolBar();
@@ -96,10 +94,10 @@ public class QueryResultViewPart {
     layout.marginWidth = 0;
     parent.setLayout(layout);
 
-    _browser = new Browser(parent, SWT.NONE);
+    this._browser = new Browser(parent, SWT.NONE);
     GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
-    _browser.setLayoutData(gridData);
-    _browser.setUrl(Activator.getDefault().getMainUrl());
+    this._browser.setLayoutData(gridData);
+    this._browser.setUrl(Activator.getDefault().getMainUrl());
     // _browser.addControlListener(new ControlAdapter() {
     //
     // @Override
@@ -110,8 +108,8 @@ public class QueryResultViewPart {
     // });
 
     //
-    new GetColumnNamesAsJsonFunction(_browser, () -> _columnNames);
-    new GetRecordsAsJsonFunction(_browser, () -> _records);
+    new GetColumnNamesAsJsonFunction(this._browser, () -> this._columnNames);
+    new GetRecordsAsJsonFunction(this._browser, () -> this._records);
 
     //
     Activator.getDefault().setQueryResultViewPart(this);
@@ -122,10 +120,6 @@ public class QueryResultViewPart {
 
     //
     Activator.getDefault().setQueryResultViewPart(null);
-
-    if (_serviceRegistration != null) {
-      _serviceRegistration.unregister();
-    }
   }
 
   /**
@@ -135,11 +129,11 @@ public class QueryResultViewPart {
   public void handleQueryStarted() {
 
     // set the current result to null
-    _records = null;
-    _columnNames.clear();
+    this._records = null;
+    this._columnNames.clear();
 
     //
-    Display.getDefault().syncExec(() -> _browser.setUrl(Activator.getDefault().getInProgressUrl()));
+    Display.getDefault().syncExec(() -> this._browser.setUrl(Activator.getDefault().getInProgressUrl()));
   }
 
   /**
@@ -153,30 +147,32 @@ public class QueryResultViewPart {
 
     //
     StatementResult statementResult = (StatementResult) result;
-    
+
     //
-    _columnNames = new ArrayList<>(statementResult.keys());
+    this._columnNames = new ArrayList<>(statementResult.keys());
 
     Gson gson = GsonConverter.createGson();
 
     //
-    _records = new JsonArray();
+    this._records = new JsonArray();
     while (statementResult.hasNext()) {
       Record record = statementResult.next();
       Map<String, Object> map = record.asMap();
       JsonElement json = gson.toJsonTree(map);
-      _records.add(json);
+      this._records.add(json);
     }
 
     //
-    Display.getDefault().syncExec(() -> _browser.setUrl(Activator.getDefault().getMainUrl()));
+    Display.getDefault().syncExec(() -> {
+      this._browser.setUrl(Activator.getDefault().getMainUrl());
+    });
   }
 
   public void clean() {
 
     //
-    _columnNames = null;
-    _records = null;
+    this._columnNames = null;
+    this._records = null;
 
     //
     Display.getDefault().syncExec(() -> {
@@ -186,7 +182,7 @@ public class QueryResultViewPart {
       } catch (PartInitException e) {
         // do nothing
       }
-      _browser.setUrl(Activator.getDefault().getMainUrl());
+      this._browser.setUrl(Activator.getDefault().getMainUrl());
     });
   }
 

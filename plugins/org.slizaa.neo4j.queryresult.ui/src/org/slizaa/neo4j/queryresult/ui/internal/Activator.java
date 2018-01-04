@@ -1,13 +1,5 @@
 package org.slizaa.neo4j.queryresult.ui.internal;
 
-import static com.google.common.base.Preconditions.checkState;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.Collections;
-import java.util.Enumeration;
-
-import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -24,8 +16,8 @@ public class Activator extends AbstractUIPlugin {
   /** - */
   private String              _mainUrl;
 
-   /** - */
-   private String _inProgressUrl;
+  /** - */
+  private String              _inProgressUrl;
 
   /** - */
   private QueryResultViewPart _queryResultViewPart;
@@ -37,18 +29,18 @@ public class Activator extends AbstractUIPlugin {
    * @return
    */
   public String getMainUrl() {
-    return _mainUrl;
+    return this._mainUrl;
   }
 
-   /**
+  /**
    * <p>
    * </p>
    *
    * @return
    */
-   public String getInProgressUrl() {
-   return _inProgressUrl;
-   }
+  public String getInProgressUrl() {
+    return this._inProgressUrl;
+  }
 
   /**
    * {@inheritDoc}
@@ -62,43 +54,22 @@ public class Activator extends AbstractUIPlugin {
     Bundle bundle = context.getBundle();
 
     // extract content
-    Enumeration<String> contentEnumeration = bundle.getEntryPaths("content/public");
-    checkState(contentEnumeration != null, "No bundle entry path 'content/public' found!");
-    Collections.list(contentEnumeration).forEach((entry) -> {
-      try {
-        URL fileUrl = FileLocator.toFileURL(bundle.getEntry(entry));
-        if (entry.endsWith("index.html")) {
-          _mainUrl = fileUrl.toExternalForm();
-        }
-         else if (entry.endsWith("loader.html")) {
-         _inProgressUrl = fileUrl.toExternalForm();
-         }
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    });
-
-    // extract content
-    contentEnumeration = bundle.getEntryPaths("content/dist");
-    checkState(contentEnumeration != null, "No bundle entry path 'content/dist' found!");
-    Collections.list(contentEnumeration).forEach((entry) -> {
-      try {
-        FileLocator.toFileURL(bundle.getEntry(entry));
-      } catch (IOException e) {
-        e.printStackTrace();
+    ContentExtractor.extractContent(bundle, "content/", u -> {
+      if (u.getFile().endsWith("index.html")) {
+        this._mainUrl = u.toExternalForm();
+      } else if (u.getFile().endsWith("spinner.html")) {
+        this._inProgressUrl = u.toExternalForm();
       }
     });
 
     //
-    if (_mainUrl == null) {
+    if (this._mainUrl == null) {
       throw new RuntimeException("Missing resource '/content/index.html'.");
     }
 
     //
-    if (context != null) {
-      CustomQueryResultConsumer queryResultConsumer = new CustomQueryResultConsumer();
-      context.registerService(IQueryResultConsumer.class, queryResultConsumer, null);
-    }
+    CustomQueryResultConsumer queryResultConsumer = new CustomQueryResultConsumer();
+    context.registerService(IQueryResultConsumer.class, queryResultConsumer, null);
   }
 
   /**
@@ -111,15 +82,15 @@ public class Activator extends AbstractUIPlugin {
   }
 
   public boolean hasQueryResultViewPart() {
-    return _queryResultViewPart != null;
+    return this._queryResultViewPart != null;
   }
 
   public QueryResultViewPart getQueryResultViewPart() {
-    return _queryResultViewPart;
+    return this._queryResultViewPart;
   }
 
   public void setQueryResultViewPart(QueryResultViewPart queryResultViewPart) {
-    _queryResultViewPart = queryResultViewPart;
+    this._queryResultViewPart = queryResultViewPart;
   }
 
   /**

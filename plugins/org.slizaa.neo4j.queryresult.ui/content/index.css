@@ -1,0 +1,10 @@
+body {
+    font-family: Segoe UI, Arial, sans-serif;
+    margin: 0px;
+    margin: 0px;
+    /* overflow:hidden; */
+}
+
+.ReactTable {
+    display: block;
+}

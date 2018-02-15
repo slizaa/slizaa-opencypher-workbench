@@ -39,12 +39,13 @@ public class Main {
     new GetRecordsAsJsonFunction(browser, () -> createTestData());
 
     shell.open();
-    
-    File file = new File("content/index.html");
+
+    File file = new File("content/dev/index.html");
     browser.setUrl(file.toURI().toURL().toExternalForm());
     while (!shell.isDisposed()) {
-      if (!display.readAndDispatch())
+      if (!display.readAndDispatch()) {
         display.sleep();
+      }
     }
     display.dispose();
   }

@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="UTF-8" />
-    <title>slizaa query result view</title>
+    <head>
+        <meta charset="UTF-8" />
+        <title>slizaa query result view</title>
 
-    <!-- include the react-virtualized stylesheet -->
-    <link rel="stylesheet" type="text/css" href="./css/react-virtualized/styles.css">
-</head>
+        <!-- JS -->
+        <script crossorigin src="./polyfill.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <!-- script crossorigin src="https://unpkg.com/react-table@latest/react-table.js"></script-->
 
-<!-- The overflow property specifies what happens if content overflows an element's box.
-     hidden	The overflow is clipped, and the rest of the content will be invisible -->
-<body style="overflow:hidden; margin: 0px">
+        <!-- CSS -->
+        <link rel="stylesheet" href="./index.css">
+        <link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css">
 
-    <!-- the root element -->
-    <div id="root" style="position: absolute; top: 0; bottom: 0; width: 100%"></div>
+    </head>
 
-    <!-- Dependencies -->
-    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <body> 
 
-    <!-- Main -->
-    <script src="./dist/bundle.js"></script>
-
-</body>
+            <!-- the root element  style="position: absolute; top: 0; bottom: 0; width: 100%" -->
+            <div id="root"></div>
+    
+            <!-- Main -->
+            <script src="./dist/bundle.js"></script>
+    
+        </body>
 
 </html>

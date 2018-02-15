@@ -10,11 +10,14 @@
   "dependencies": {
     "@types/react": "^16.0.25",
     "@types/react-dom": "^16.0.3",
+    "@types/react-table": "^6.7.3",
     "@types/react-virtualized": "^9.7.7",
+    "babel-polyfill": "^6.26.0",
     "immutable": "^3.8.2",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-table": "^6.7.6",
     "react-virtualized": "^9.13.0"
   },
   "devDependencies": {

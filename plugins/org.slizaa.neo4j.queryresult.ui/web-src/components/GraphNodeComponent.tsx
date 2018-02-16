@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { IGraphNode } from "./QueryResultModel";
-import * as styles from "./queryResultComponent.scss";
+import * as styles from "./GraphNodeComponent.scss";
 
 
 /**
@@ -30,14 +30,32 @@ export class GraphNodeComponent extends React.Component<IGraphNode, {}> {
   render() {
 
     const graphNode = this.props;
+    const hasProperties = Object.keys(graphNode.properties).length != 0;
 
-    //
+    // https://jsfiddle.net/phlschmdt/y0wncx8y/
     return (
-      <table className={styles.nodeTable}>
+      <table className={styles.graphNode}>
+        <colgroup>
+          <col width="100" />
+          <col />
+        </colgroup>
         <tbody>
-          <tr><td className={styles.nodeKey}>ID</td><td className="nodeValue">{graphNode.id}</td></tr>
-          <tr><td className={styles.nodeKey}>Labels</td><td className="nodeValue">{"[" + graphNode.labels + "]"}</td></tr>
-          {Object.keys(graphNode.properties).map(key => <tr><td className={styles.nodeKey}>{key}</td><td className="nodeValue">{"" + graphNode.properties[key]}</td></tr>)}
+          <tr>
+            <td className={styles.graphNode_id} colSpan={2}>{graphNode.id}</td>
+          </tr>
+          <tr>
+            <td className={styles.graphNode_labels} colSpan={2}>{"[" + graphNode.labels + "]"}</td>
+          </tr>
+          {
+            hasProperties ?
+            Object.keys(graphNode.properties).map(key => <tr><td className={styles.graphNode_propkey}>{key}</td><td className={styles.graphNode_propvalue}>{"" + graphNode.properties[key]}</td></tr>) :
+            <tr>
+              <td className={styles.graphNode_nodata}> (empty) </td>
+            </tr>
+          }
+
+
+          {}
         </tbody>
       </table>);
   }

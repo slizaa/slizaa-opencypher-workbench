@@ -1,47 +1,46 @@
-$primary-color: #e0e8f0;
-$font-stack:    Segoe UI, Arial, sans-serif;
+$background-color: #e0e8f0;
+$separator-color: #bbbbbb;
+$font-stack:  Segoe UI, Arial, sans-serif;
 
 table.graphNode {
   table-layout:fixed;
   width: 100%;
   font-family: $font-stack;
   font-size: 9pt;
-  background: $primary-color;
+  background: $background-color;
   -moz-border-radius: 3px;
   border-radius: 3px;
   border: none;
-  margin: 3px;
-  text-overflow: ellipsis
 }
 
-td.graphNode_id {
+%graphNode_td {
+  padding-left: 3px;
   text-align: left;
-  border-bottom: none;
-  margin: 5px 0px;
-}
-
-td.graphNode_labels {
-  text-align: left;
-  padding-bottom: 6px;
-  border-bottom: solid #bbbbbb 1px;
-}
-
-td.graphNode_propkey {
-  text-align: left;
-  border-bottom: none;
-  width: 100px;
-  font-family: $font-stack;
-}
-
-td.graphNode_propvalue {
-  text-align: left;
-  border-bottom: none;
   font-family: $font-stack;
   text-overflow:ellipsis;
   overflow:hidden;
   white-space:nowrap;
 }
 
+td.graphNode_id {
+  @extend %graphNode_td;
+}
+
+td.graphNode_labels {
+  @extend %graphNode_td;
+  padding-bottom: 6px;
+  border-bottom: solid $separator-color 1px;
+}
+
+td.graphNode_propkey {
+  @extend %graphNode_td;
+  width: 120px;
+}
+
+td.graphNode_propvalue {
+  @extend %graphNode_td;
+}
+
 td.graphNode_nodata {
-  text-align: left;
+  @extend %graphNode_td;
 }

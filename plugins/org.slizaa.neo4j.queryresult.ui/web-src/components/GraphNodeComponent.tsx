@@ -36,7 +36,7 @@ export class GraphNodeComponent extends React.Component<IGraphNode, {}> {
     return (
       <table className={styles.graphNode}>
         <colgroup>
-          <col width="100" />
+          <col width="120px" />
           <col />
         </colgroup>
         <tbody>

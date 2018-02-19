@@ -5,5 +5,6 @@
 	<classpathentry kind="src" path="src-gen"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="lib" path="libs/neo4j-java-driver-1.5.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/netty-all-4.1.21.Final.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

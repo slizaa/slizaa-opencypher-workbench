@@ -221,7 +221,7 @@ public class ExtendedNeo4jClientImpl extends Neo4jClientImpl {
 
       //
       try {
-        result.peek();
+        
         consumer.handleQueryResultReceived(cypherString, result);
       } catch (Neo4jException e) {
         consumer.handleError(cypherString, result, e);

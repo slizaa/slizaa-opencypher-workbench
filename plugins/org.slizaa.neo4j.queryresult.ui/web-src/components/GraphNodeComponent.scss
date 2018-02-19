@@ -1,5 +1,5 @@
-$background-color: #e0e8f0;
-$separator-color: #bbbbbb;
+$background-color: #eeeeee;
+$separator-color: #ababab;
 $font-stack:  Segoe UI, Arial, sans-serif;
 
 table.graphNode {
@@ -10,7 +10,7 @@ table.graphNode {
   background: $background-color;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  border: none;
+  // border: solid $separator-color 1px; ;
 }
 
 %graphNode_td {

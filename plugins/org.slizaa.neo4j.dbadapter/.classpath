@@ -4,6 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src-gen"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry exported="true" kind="lib" path="libs/neo4j-java-driver-1.4.0.jar" sourcepath="C:/Users/wuetherich/.m2/repository/org/neo4j/driver/neo4j-java-driver/1.4.0/neo4j-java-driver-1.4.0-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/neo4j-java-driver-1.5.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

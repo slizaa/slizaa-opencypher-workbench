@@ -27,10 +27,12 @@ export class QueryResultComponent extends React.Component<QueryResultComponentPr
       <ReactTable
         showPaginationTop={true}
         showPaginationBottom={false}
+        sortable={false}
         defaultPageSize={20}
         noDataText="No Data Available"
         data={records}
         columns={this.computeColumns(columnNames)}
+        // className="-striped -highlight"
       />
     </div>);
   }

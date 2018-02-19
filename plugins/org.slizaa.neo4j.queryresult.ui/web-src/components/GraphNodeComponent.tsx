@@ -53,9 +53,6 @@ export class GraphNodeComponent extends React.Component<IGraphNode, {}> {
               <td className={styles.graphNode_nodata}> (empty) </td>
             </tr>
           }
-
-
-          {}
         </tbody>
       </table>);
   }

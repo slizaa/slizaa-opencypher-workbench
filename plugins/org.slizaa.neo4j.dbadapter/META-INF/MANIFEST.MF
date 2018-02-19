@@ -4,7 +4,8 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.slizaa.neo4j.dbadapter;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .,
- libs/neo4j-java-driver-1.5.1.jar
+ libs/neo4j-java-driver-1.5.1.jar,
+ libs/netty-all-4.1.21.Final.jar
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-ActivationPolicy: lazy

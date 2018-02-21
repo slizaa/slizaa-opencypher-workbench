@@ -2,8 +2,9 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import ReactTable, { Column } from 'react-table';
 import * as styles from "./queryResultComponent.scss";
-import { IGraphNode } from "./QueryResultModel";
+import * as QueryResultModel from "./QueryResultModel";
 import { GraphNodeComponent } from "./GraphNodeComponent";
+import { GraphRelationshipComponent } from "./GraphRelationshipComponent";
 
 export interface QueryResultComponentProps { columnNames: string[]; records: string[]; }
 
@@ -31,7 +32,7 @@ export class QueryResultComponent extends React.Component<QueryResultComponentPr
         defaultPageSize={20}
         data={records}
         columns={this.computeColumns(columnNames)}
-        // className="-striped -highlight"
+      // className="-striped -highlight"
       />
     </div>);
   }
@@ -61,19 +62,49 @@ export class QueryResultComponent extends React.Component<QueryResultComponentPr
 
     let value = props.value;
 
-    //
-    if (typeof value === 'object') {
+    // handle arrays
+    if (Array.isArray(value)) {
 
       //
-      let graphNode = value as IGraphNode;
-
-      //
-      return <GraphNodeComponent {...graphNode} />
+      return <div className={styles.attributeValue}>{'[' + value.toString() + ']'}</div>
     }
 
     //
+    else if (typeof value === 'object') {
+
+      let elementType = QueryResultModel.checkObject(value);
+
+      switch (elementType) {
+        case QueryResultModel.ResultElementType.NODE: {
+          let graphNode = value as QueryResultModel.IGraphNode;
+          return <GraphNodeComponent {...graphNode} />
+        }
+        case QueryResultModel.ResultElementType.RELATIONSHIP: {
+          let graphRelationship = value as QueryResultModel.IGraphRelationship;
+          return <GraphRelationshipComponent {...graphRelationship} />
+        }
+        case QueryResultModel.ResultElementType.PATH: {
+          //statements; 
+          break;
+        }
+        case QueryResultModel.ResultElementType.LIST: {
+          //statements; 
+          break;
+        }
+        case QueryResultModel.ResultElementType.MAP: {
+          //statements; 
+          break;
+        }
+        default: {
+          //statements; 
+          break;
+        }
+      }
+    }
+
+    // handle anything else
     else {
-      return <div className={styles.attributeValue}>{value}</div>
+      return <div className={styles.attributeValue}>{value == null ? 'null' : value.toString()}</div>
     }
   }
 }

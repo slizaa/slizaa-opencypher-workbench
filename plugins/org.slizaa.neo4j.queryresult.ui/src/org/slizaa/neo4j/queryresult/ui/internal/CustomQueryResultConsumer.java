@@ -23,7 +23,7 @@ public class CustomQueryResultConsumer implements IQueryResultConsumer {
    */
   @Override
   public void handleQueryStarted(String cypherQuery) {
-    System.out.println("handleQueryStarted");
+
     //
     bringQueryResultViewToFront();
 
@@ -35,7 +35,7 @@ public class CustomQueryResultConsumer implements IQueryResultConsumer {
 
   @Override
   public void handleQueryResultReceived(String cypherQuery, StatementResult result) {
-    System.out.println("handleQueryResultReceived");
+
     //
     bringQueryResultViewToFront();
 

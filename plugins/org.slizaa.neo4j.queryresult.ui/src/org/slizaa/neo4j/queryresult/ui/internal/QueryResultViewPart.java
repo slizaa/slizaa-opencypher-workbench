@@ -1,12 +1,9 @@
 /*******************************************************************************
- * Copyright (c) Gerd W�therich 2012-2016.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the GNU Public License v3.0
- * which accompanies this distribution, and is available at
+ * Copyright (c) Gerd W�therich 2012-2016. All rights reserved. This program and the accompanying materials are made
+ * available under the terms of the GNU Public License v3.0 which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/gpl.html
- * 
- * Contributors:
- *    Gerd Wuetherich (gerd@gerd-wuetherich.de) - initial API and implementation
+ *
+ * Contributors: Gerd Wuetherich (gerd@gerd-wuetherich.de) - initial API and implementation
  ******************************************************************************/
 package org.slizaa.neo4j.queryresult.ui.internal;
 
@@ -143,10 +140,7 @@ public class QueryResultViewPart {
    * @param cypherQuery
    * @param result
    */
-  public void handleQueryResultReceived(String cypherQuery, Object result) {
-
-    //
-    StatementResult statementResult = (StatementResult) result;
+  public void handleQueryResultReceived(String cypherQuery, StatementResult statementResult) {
 
     //
     this._columnNames = new ArrayList<>(statementResult.keys());

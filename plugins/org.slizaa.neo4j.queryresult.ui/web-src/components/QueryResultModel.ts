@@ -23,9 +23,20 @@ export interface IGraphPath {
 
 export interface IGraphPathSegment {
 
-    id: number;
-    labels: string[];
-    properties: any;
+    /** 
+     * The relationship underlying this path segment 
+     */
+    relationship: IGraphRelationship;
+
+    /**
+     * The node that this segment starts at.
+     */
+    start: IGraphNode;
+
+    /**
+     * The node that this segment ends at.
+     */
+    end: IGraphNode;
 }
 /**
  * 

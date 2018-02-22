@@ -1,10 +1,11 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import ReactTable, { Column } from 'react-table';
-import * as styles from "./queryResultComponent.scss";
 import * as QueryResultModel from "./QueryResultModel";
 import { GraphNodeComponent } from "./GraphNodeComponent";
 import { GraphRelationshipComponent } from "./GraphRelationshipComponent";
+import { GraphPathComponent } from "./GraphPathComponent";
+import * as styles from "./QueryResultComponents.scss";
 
 export interface QueryResultComponentProps { columnNames: string[]; records: string[]; }
 
@@ -84,8 +85,8 @@ export class QueryResultComponent extends React.Component<QueryResultComponentPr
           return <GraphRelationshipComponent {...graphRelationship} />
         }
         case QueryResultModel.ResultElementType.PATH: {
-          //statements; 
-          break;
+          let graphPath = value as QueryResultModel.IGraphPath;
+          return <GraphPathComponent {...graphPath} />
         }
         case QueryResultModel.ResultElementType.LIST: {
           //statements; 

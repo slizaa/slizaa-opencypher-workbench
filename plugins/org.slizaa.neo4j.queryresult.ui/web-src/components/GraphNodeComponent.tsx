@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { IGraphNode } from "./QueryResultModel";
-import * as styles from "./GraphNodeComponent.scss";
+import * as styles from "./QueryResultComponents.scss";
 
 
 /**

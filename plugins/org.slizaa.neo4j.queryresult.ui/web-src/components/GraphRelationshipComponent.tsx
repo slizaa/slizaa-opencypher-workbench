@@ -1,8 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { IGraphRelationship } from "./QueryResultModel";
-// TODO: SCSS
-import * as styles from "./GraphNodeComponent.scss";
+import * as styles from "./QueryResultComponents.scss";
 
 /**
  * 

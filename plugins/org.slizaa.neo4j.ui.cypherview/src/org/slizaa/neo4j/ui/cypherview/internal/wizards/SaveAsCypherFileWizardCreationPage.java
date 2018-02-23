@@ -40,4 +40,14 @@ public class SaveAsCypherFileWizardCreationPage extends WizardNewFileCreationPag
   protected InputStream getInitialContents() {
     return new ByteArrayInputStream(_initialContent.getBytes(StandardCharsets.UTF_8));
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean isPageComplete() {
+    boolean pageComplete = super.isPageComplete();
+    System.out.println("isPageComplete " + pageComplete);
+    return pageComplete;
+  }
 }

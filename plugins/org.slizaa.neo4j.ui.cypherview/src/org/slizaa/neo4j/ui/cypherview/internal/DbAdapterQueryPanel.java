@@ -39,7 +39,7 @@ public class DbAdapterQueryPanel extends Composite implements INeo4jClientListen
   private Text                       _activeDatabaseLabel;
 
   /** - */
-  private Neo4jClient                _neo4jClient;
+  private Neo4jClient                _boltClient;
 
   /** - */
   private List<IQueryResultConsumer> _queryResultConsumers;
@@ -96,11 +96,11 @@ public class DbAdapterQueryPanel extends Composite implements INeo4jClientListen
       return;
     }
 
-    _neo4jClient = client;
+    _boltClient = client;
 
     Display.getDefault().syncExec(() -> {
-      if (_neo4jClient != null) {
-        _activeDatabaseLabel.setText(_neo4jClient.getName());
+      if (_boltClient != null) {
+        _activeDatabaseLabel.setText(_boltClient.getName());
         _executeAction.setEnabled(true);
       } else {
         _activeDatabaseLabel.setText("");
@@ -201,7 +201,7 @@ public class DbAdapterQueryPanel extends Composite implements INeo4jClientListen
           return;
         }
 
-        if (_neo4jClient != null) {
+        if (_boltClient != null) {
           _executeAction.setEnabled(false);
           try {
 
@@ -211,7 +211,7 @@ public class DbAdapterQueryPanel extends Composite implements INeo4jClientListen
                 _queryResultConsumers.get(0));
 
             //
-            final Future<?> future = _neo4jClient.executeCypherQuery(cypherString, consumer);
+            final Future<?> future = _boltClient.executeCypherQuery(cypherString, consumer);
             new Thread(() -> {
               try {
                 while (!(future.isDone() || future.isCancelled())) {

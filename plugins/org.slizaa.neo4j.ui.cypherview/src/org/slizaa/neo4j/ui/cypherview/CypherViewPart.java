@@ -31,6 +31,7 @@ import org.eclipse.xtext.ui.editor.embedded.EmbeddedEditorFactory;
 import org.eclipse.xtext.ui.editor.embedded.EmbeddedEditorModelAccess;
 import org.slizaa.neo4j.opencypher.ui.internal.OpencypherActivator;
 import org.slizaa.neo4j.ui.cypherview.internal.DbAdapterQueryPanel;
+import org.slizaa.neo4j.ui.cypherview.internal.SaveAsCypherFileHandler;
 
 import com.google.inject.Injector;
 
@@ -51,14 +52,12 @@ public class CypherViewPart {
   public void createComposite(Composite parent, MPart mPart) {
 
     //
-    System.out.println("*************** " + mPart);
     MToolBar toolbar = MMenuFactory.INSTANCE.createToolBar();
     // create the tool item programmatically
     MDirectToolItem element = MMenuFactory.INSTANCE.createDirectToolItem();
     element.setElementId("myToolItemId");
-    element.setIconURI("platform:/plugin/org.slizaa.neo4j.ui.cypherview/icons/cypherView.png");
-    element.setContributionURI(
-        "bundleclass://org.slizaa.neo4j.ui.cypherview/org.slizaa.neo4j.ui.cypherview.internal.HandlerOne");
+    element.setIconURI("platform:/plugin/org.slizaa.neo4j.ui.cypherview/icons/save.png");
+    element.setContributionURI("bundleclass://org.slizaa.neo4j.ui.cypherview/" + SaveAsCypherFileHandler.class.getName());
     element.setVisible(true);
     element.setEnabled(true);
     toolbar.getChildren().add(element);

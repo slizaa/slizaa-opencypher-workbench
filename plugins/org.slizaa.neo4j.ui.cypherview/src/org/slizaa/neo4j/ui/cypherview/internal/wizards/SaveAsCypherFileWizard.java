@@ -1,5 +1,7 @@
 package org.slizaa.neo4j.ui.cypherview.internal.wizards;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -13,7 +15,7 @@ import org.eclipse.ui.internal.ide.DialogUtil;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 
-public class SaveCypherFileResourceWizard extends BasicNewResourceWizard {
+public class SaveAsCypherFileWizard extends BasicNewResourceWizard {
 
   /**
    * The wizard id for creating new files in the workspace.
@@ -24,17 +26,26 @@ public class SaveCypherFileResourceWizard extends BasicNewResourceWizard {
 
   private WizardNewFileCreationPage mainPage;
 
+  private String                    _content;
+
   /**
-   * Creates a wizard for creating a new file resource in the workspace.
+   * <p>
+   * Creates a new instance of type {@link SaveAsCypherFileWizard}.
+   * </p>
+   *
+   * @param content
    */
-  public SaveCypherFileResourceWizard() {
+  public SaveAsCypherFileWizard(String content) {
     super();
+
+    //
+    _content = checkNotNull(content);
   }
 
   @Override
   public void addPages() {
     super.addPages();
-    mainPage = new WizardSaveCypherFileCreationPage("newFilePage1", getSelection());//$NON-NLS-1$
+    mainPage = new SaveAsCypherFileWizardCreationPage("newFilePage1", getSelection(), _content);
     mainPage.setTitle("File");
     mainPage.setDescription("Create a new file resource.");
     addPage(mainPage);

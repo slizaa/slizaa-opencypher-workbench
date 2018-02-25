@@ -26,7 +26,7 @@ public class GetRecordsAsJsonFunction extends BrowserFunction {
   public GetRecordsAsJsonFunction(Browser browser, Supplier<JsonArray> recordSupplier) {
     super(browser, "getRecordsAsJson");
 
-    _recordSupplier = checkNotNull(recordSupplier);
+    this._recordSupplier = checkNotNull(recordSupplier);
   }
 
   /**
@@ -34,6 +34,6 @@ public class GetRecordsAsJsonFunction extends BrowserFunction {
    */
   @Override
   public Object function(Object[] arguments) {
-    return new GsonBuilder().disableHtmlEscaping().create().toJson(_recordSupplier.get());
+    return new GsonBuilder().disableHtmlEscaping().create().toJson(this._recordSupplier.get());
   }
 }

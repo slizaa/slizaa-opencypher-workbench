@@ -34,16 +34,16 @@ export class GraphPathComponent extends React.Component<QueryResultModel.IGraphP
 
       rows.push(
         <tr>
-          <td><GraphRelationshipComponent {...graphPath.segments[i].relationship} /></td>
+          <td className={styles.graphPath_relationship}><GraphRelationshipComponent {...graphPath.segments[i].relationship} /></td>
         </tr>);
-        
+
       rows.push(
         <tr>
           <td><GraphNodeComponent {...graphPath.segments[i].end} /></td>
         </tr>);
     }
 
-    return <table className={styles.graphNode}>
+    return <table className={styles.graphPath}>
       <tbody>{rows}</tbody>
     </table>
   }

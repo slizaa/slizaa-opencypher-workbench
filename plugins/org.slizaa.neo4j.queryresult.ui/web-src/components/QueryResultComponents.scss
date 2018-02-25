@@ -1,4 +1,5 @@
 $background-color: #eeeeee;
+$collection-border-color: #dddddd;
 $separator-color: #ababab;
 $font-stack:  Segoe UI, Arial, sans-serif;
 
@@ -10,7 +11,19 @@ table.graphNode {
   background: $background-color;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  // border: solid $separator-color 1px; ;
+  // border: solid $collection-border-color 1px;
+}
+
+table.graphPath {
+  table-layout:fixed;
+  width: 100%;
+  font-family: $font-stack;
+  font-size: 9pt;
+  // background: $collection-border-color;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  // padding: 2 px;
+  // border: solid $collection-border-color 2px;
 }
 
 %graphNode_td {
@@ -20,6 +33,11 @@ table.graphNode {
   text-overflow:ellipsis;
   overflow:hidden;
   white-space:nowrap;
+}
+
+td.graphPath_relationship {
+  padding-top: 3px ;
+  padding-bottom: 3px ;
 }
 
 td.graphNode_id {

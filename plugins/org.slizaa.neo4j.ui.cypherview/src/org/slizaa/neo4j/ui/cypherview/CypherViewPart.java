@@ -13,6 +13,9 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.menu.MDirectToolItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuFactory;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
+import org.eclipse.e4.ui.services.EContextService;
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
+import org.eclipse.e4.ui.workbench.modeling.IPartListener;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
@@ -57,7 +60,8 @@ public class CypherViewPart {
     MDirectToolItem element = MMenuFactory.INSTANCE.createDirectToolItem();
     element.setElementId("myToolItemId");
     element.setIconURI("platform:/plugin/org.slizaa.neo4j.ui.cypherview/icons/save.png");
-    element.setContributionURI("bundleclass://org.slizaa.neo4j.ui.cypherview/" + SaveAsCypherFileHandler.class.getName());
+    element
+        .setContributionURI("bundleclass://org.slizaa.neo4j.ui.cypherview/" + SaveAsCypherFileHandler.class.getName());
     element.setVisible(true);
     element.setEnabled(true);
     toolbar.getChildren().add(element);
@@ -162,6 +166,48 @@ public class CypherViewPart {
     // Configuring default font
     StyledText textWidget = editor.getViewer().getTextWidget();
     textWidget.setFont(JFaceResources.getFont(JFaceResources.TEXT_FONT));
+
+    // TODO: Clean up
+    // https://www.eclipse.org/forums/index.php/t/1059581/
+    // http://www.vogella.com/tutorials/EclipseRCP/article.html#key-bindings
+    // http://www.vogella.com/tutorials/EclipseCommandsKeybindings/article.html
+    EContextService contextService = mPart.getContext().get(EContextService.class);
+
+    EPartService ePartService = mPart.getContext().get(EPartService.class);
+    ePartService.addPartListener(new IPartListener() {
+
+      @Override
+      public void partVisible(MPart part) {
+        // TODO Auto-generated method stub
+
+      }
+
+      @Override
+      public void partHidden(MPart part) {
+        // TODO Auto-generated method stub
+        contextService.deactivateContext("org.slizaa.neo4j.ui.cypherview.context");
+      }
+
+      @Override
+      public void partDeactivated(MPart part) {
+        // TODO Auto-generated method stub
+
+      }
+
+      @Override
+      public void partBroughtToTop(MPart part) {
+        // TODO Auto-generated method stub
+        // org.slizaa.neo4j.ui.cypherview.scheme
+        System.out.println("partBroughtToTop");
+        contextService.activateContext("org.slizaa.neo4j.ui.cypherview.context");
+      }
+
+      @Override
+      public void partActivated(MPart part) {
+        // TODO Auto-generated method stub
+
+      }
+    });
 
     //
     this._panel.registerGraphDatabaseClientAdapterAwareOSGiService();

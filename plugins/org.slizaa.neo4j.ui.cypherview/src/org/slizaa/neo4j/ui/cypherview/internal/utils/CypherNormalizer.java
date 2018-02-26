@@ -1,11 +1,18 @@
-package org.slizaa.neo4j.ui.cypherview;
+package org.slizaa.neo4j.ui.cypherview.internal.utils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+/**
+ * <p>
+ * </p>
+ *
+ * @author Gerd W&uuml;therich (gerd@gerd-wuetherich.de)
+ */
 public class CypherNormalizer {
 
   // http://blog.ostermiller.org/find-comment
   
+  /** - */
   private static final String whitespace_chars         = ""                                     /*
                                                                                                  * dummy empty string
                                                                                                  * for homogeneity

@@ -16,4 +16,4 @@ Require-Bundle: org.slizaa.neo4j.opencypher;bundle-version="1.0.0",
  org.eclipse.e4.ui.workbench;bundle-version="1.5.1",
  org.eclipse.e4.core.contexts;bundle-version="1.6.0"
 Bundle-ActivationPolicy: lazy
-Bundle-Activator: org.slizaa.neo4j.ui.cypherview.internal.CypherViewActivator
+Bundle-Activator: org.slizaa.neo4j.ui.cypherview.internal.osgi.CypherViewActivator

@@ -15,7 +15,6 @@ import org.eclipse.e4.ui.model.application.ui.menu.MMenuFactory;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.services.EContextService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
-import org.eclipse.e4.ui.workbench.modeling.IPartListener;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
@@ -32,9 +31,12 @@ import org.eclipse.ui.part.ResourceTransfer;
 import org.eclipse.xtext.ui.editor.embedded.EmbeddedEditor;
 import org.eclipse.xtext.ui.editor.embedded.EmbeddedEditorFactory;
 import org.eclipse.xtext.ui.editor.embedded.EmbeddedEditorModelAccess;
+import org.slizaa.neo4j.dbadapter.Neo4jClient;
 import org.slizaa.neo4j.opencypher.ui.internal.OpencypherActivator;
+import org.slizaa.neo4j.ui.cypherview.internal.CypherViewPartListener;
 import org.slizaa.neo4j.ui.cypherview.internal.DbAdapterQueryPanel;
-import org.slizaa.neo4j.ui.cypherview.internal.SaveAsCypherFileHandler;
+import org.slizaa.neo4j.ui.cypherview.internal.handler.SaveAsCypherFileHandler;
+import org.slizaa.neo4j.ui.cypherview.internal.utils.OpenCypherResourceProvider;
 
 import com.google.inject.Injector;
 
@@ -47,25 +49,29 @@ public class CypherViewPart {
   /** - */
   private EmbeddedEditorModelAccess _model;
 
+  /**
+   * <p>
+   * </p>
+   *
+   * @return
+   */
+  public Neo4jClient getBoltClient() {
+    return this._panel.getBoltClient();
+  }
+
   public String getModel() {
     return this._model.getSerializedModel();
   }
 
+  public void update() {
+    this._panel.update();
+  }
+  
   @PostConstruct
   public void createComposite(Composite parent, MPart mPart) {
 
     //
-    MToolBar toolbar = MMenuFactory.INSTANCE.createToolBar();
-    // create the tool item programmatically
-    MDirectToolItem element = MMenuFactory.INSTANCE.createDirectToolItem();
-    element.setElementId("myToolItemId");
-    element.setIconURI("platform:/plugin/org.slizaa.neo4j.ui.cypherview/icons/save.png");
-    element
-        .setContributionURI("bundleclass://org.slizaa.neo4j.ui.cypherview/" + SaveAsCypherFileHandler.class.getName());
-    element.setVisible(true);
-    element.setEnabled(true);
-    toolbar.getChildren().add(element);
-    mPart.setToolbar(toolbar);
+    createToolBar(mPart);
 
     //
     OpencypherActivator activator = OpencypherActivator.getInstance();
@@ -172,45 +178,26 @@ public class CypherViewPart {
     // http://www.vogella.com/tutorials/EclipseRCP/article.html#key-bindings
     // http://www.vogella.com/tutorials/EclipseCommandsKeybindings/article.html
     EContextService contextService = mPart.getContext().get(EContextService.class);
-
     EPartService ePartService = mPart.getContext().get(EPartService.class);
-    ePartService.addPartListener(new IPartListener() {
-
-      @Override
-      public void partVisible(MPart part) {
-        // TODO Auto-generated method stub
-
-      }
-
-      @Override
-      public void partHidden(MPart part) {
-        // TODO Auto-generated method stub
-        contextService.deactivateContext("org.slizaa.neo4j.ui.cypherview.context");
-      }
-
-      @Override
-      public void partDeactivated(MPart part) {
-        // TODO Auto-generated method stub
-
-      }
-
-      @Override
-      public void partBroughtToTop(MPart part) {
-        // TODO Auto-generated method stub
-        // org.slizaa.neo4j.ui.cypherview.scheme
-        System.out.println("partBroughtToTop");
-        contextService.activateContext("org.slizaa.neo4j.ui.cypherview.context");
-      }
-
-      @Override
-      public void partActivated(MPart part) {
-        // TODO Auto-generated method stub
-
-      }
-    });
+    ePartService.addPartListener(new CypherViewPartListener(this, contextService));
 
     //
     this._panel.registerGraphDatabaseClientAdapterAwareOSGiService();
+  }
+
+  private void createToolBar(MPart mPart) {
+    //
+    MToolBar toolbar = MMenuFactory.INSTANCE.createToolBar();
+    // create the tool item programmatically
+    MDirectToolItem element = MMenuFactory.INSTANCE.createDirectToolItem();
+    element.setElementId("myToolItemId");
+    element.setIconURI("platform:/plugin/org.slizaa.neo4j.ui.cypherview/icons/save.png");
+    element
+        .setContributionURI("bundleclass://org.slizaa.neo4j.ui.cypherview/" + SaveAsCypherFileHandler.class.getName());
+    element.setVisible(true);
+    element.setEnabled(true);
+    toolbar.getChildren().add(element);
+    mPart.setToolbar(toolbar);
   }
 
   @PreDestroy

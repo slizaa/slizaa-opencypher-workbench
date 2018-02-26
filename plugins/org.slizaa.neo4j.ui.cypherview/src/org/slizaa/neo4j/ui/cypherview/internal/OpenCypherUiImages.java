@@ -3,6 +3,7 @@ package org.slizaa.neo4j.ui.cypherview.internal;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
+import org.slizaa.neo4j.ui.cypherview.internal.osgi.CypherViewActivator;
 
 /**
  * This enumeration provides a number of images for the plug-in.

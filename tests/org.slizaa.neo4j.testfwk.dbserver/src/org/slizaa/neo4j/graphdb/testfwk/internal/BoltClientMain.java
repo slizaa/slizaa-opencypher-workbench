@@ -67,8 +67,7 @@ public class BoltClientMain extends BoltClientConnectionRule {
         Future<StatementResult> resultFuture = neo4jClient.executeCypherQuery(query);
         StatementResult result = resultFuture.get();
 
-        //
-        // System.out.println(result.summary());
+        System.out.println(result);
 
         //
         result.forEachRemaining(record -> {
@@ -81,22 +80,6 @@ public class BoltClientMain extends BoltClientConnectionRule {
           for (Map.Entry<String, Object> entry : resultMap.entrySet()) {
             System.out.println(gson.toJson(entry.getValue()));
           }
-
-          // JsonElement json = gson.toJsonTree(record.asMap());
-          // System.out.println(json);
-          //
-          // //
-          // List<Pair<String, Value>> fields = record.fields();
-          //
-          // //
-          // for (Pair<String, Value> field : fields) {
-          //
-          // //
-          // Value value = field.value();
-          //
-          // //
-          // // System.out.println(field.key() + " : " + value + " (" + value.type().name() + ")");
-          // }
         });
       }
       //

@@ -32,6 +32,7 @@ import org.neo4j.driver.v1.exceptions.Neo4jException;
 import org.slizaa.neo4j.dbadapter.GsonConverter;
 import org.slizaa.neo4j.queryresult.ui.internal.action.CleanQueryResultHandler;
 import org.slizaa.neo4j.queryresult.ui.internal.functions.GetColumnNamesAsJsonFunction;
+import org.slizaa.neo4j.queryresult.ui.internal.functions.GetErrorMessageAsJsonFunction;
 import org.slizaa.neo4j.queryresult.ui.internal.functions.GetRecordsAsJsonFunction;
 
 import com.google.gson.Gson;
@@ -57,6 +58,9 @@ public class QueryResultViewPart {
 
   /** - */
   private JsonArray          _records;
+
+  /** - */
+  private String             _errorMessage;
 
   /** - */
   // private ServiceRegistration<IQueryResultConsumer> _serviceRegistration;
@@ -95,29 +99,23 @@ public class QueryResultViewPart {
     this._browser = new Browser(parent, SWT.NONE);
     GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
     this._browser.setLayoutData(gridData);
-    this._browser.setUrl(Activator.getDefault().getMainUrl());
-    // _browser.addControlListener(new ControlAdapter() {
-    //
-    // @Override
-    // public void controlResized(ControlEvent e) {
-    // System.out.println("resized");
-    // _browser.refresh();
-    // }
-    // });
+
+    this._browser.setUrl(QueryResultActivator.getDefault().getMainUrl());
 
     //
     new GetColumnNamesAsJsonFunction(this._browser, () -> this._columnNames);
     new GetRecordsAsJsonFunction(this._browser, () -> this._records);
+    new GetErrorMessageAsJsonFunction(this._browser, () -> this._errorMessage);
 
     //
-    Activator.getDefault().setQueryResultViewPart(this);
+    QueryResultActivator.getDefault().setQueryResultViewPart(this);
   }
 
   @PreDestroy
   public void dispose() {
 
     //
-    Activator.getDefault().setQueryResultViewPart(null);
+    QueryResultActivator.getDefault().setQueryResultViewPart(null);
   }
 
   /**
@@ -131,7 +129,7 @@ public class QueryResultViewPart {
     this._columnNames.clear();
 
     //
-    Display.getDefault().syncExec(() -> this._browser.setUrl(Activator.getDefault().getInProgressUrl()));
+    Display.getDefault().syncExec(() -> this._browser.setUrl(QueryResultActivator.getDefault().getInProgressUrl()));
   }
 
   /**
@@ -159,7 +157,7 @@ public class QueryResultViewPart {
 
     //
     Display.getDefault().syncExec(() -> {
-      this._browser.setUrl(Activator.getDefault().getMainUrl());
+      this._browser.setUrl(QueryResultActivator.getDefault().getMainUrl());
     });
   }
 
@@ -172,7 +170,11 @@ public class QueryResultViewPart {
    * @param exception
    */
   public void handleError(String cypherQuery, StatementResult result, Neo4jException exception) {
-    System.out.println("TODO: Handle error!!");
+
+    _errorMessage = exception.getMessage();
+
+    //
+    Display.getDefault().syncExec(() -> this._browser.setUrl(QueryResultActivator.getDefault().getErrorUrl()));
   }
 
   /**
@@ -182,8 +184,8 @@ public class QueryResultViewPart {
   public void clean() {
 
     //
-    this._columnNames = null;
     this._records = null;
+    this._columnNames.clear();
 
     //
     Display.getDefault().syncExec(() -> {
@@ -193,7 +195,7 @@ public class QueryResultViewPart {
       } catch (PartInitException e) {
         // do nothing
       }
-      this._browser.setUrl(Activator.getDefault().getMainUrl());
+      this._browser.setUrl(QueryResultActivator.getDefault().getMainUrl());
     });
   }
 

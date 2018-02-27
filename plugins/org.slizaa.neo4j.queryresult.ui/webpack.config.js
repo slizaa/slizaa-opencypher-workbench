@@ -1,7 +1,10 @@
 module.exports = {
-    entry: [ "./web-src/index.tsx" ],
+    entry: {
+        queryResult: './web-src/queryResult.tsx',
+        errorMessage: './web-src/errorMessage.tsx'
+      },
     output: {
-        filename: "bundle.js",
+        filename: '[name].js',
         path: __dirname + "/content/dist"
     },
 

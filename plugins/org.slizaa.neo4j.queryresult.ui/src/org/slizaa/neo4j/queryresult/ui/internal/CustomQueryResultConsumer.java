@@ -28,8 +28,8 @@ public class CustomQueryResultConsumer implements IQueryResultConsumer {
     bringQueryResultViewToFront();
 
     //
-    if (Activator.getDefault() != null && Activator.getDefault().hasQueryResultViewPart()) {
-      Activator.getDefault().getQueryResultViewPart().handleQueryStarted();
+    if (QueryResultActivator.getDefault() != null && QueryResultActivator.getDefault().hasQueryResultViewPart()) {
+      QueryResultActivator.getDefault().getQueryResultViewPart().handleQueryStarted();
     }
   }
 
@@ -40,8 +40,8 @@ public class CustomQueryResultConsumer implements IQueryResultConsumer {
     bringQueryResultViewToFront();
 
     //
-    if (Activator.getDefault() != null && Activator.getDefault().hasQueryResultViewPart()) {
-      Activator.getDefault().getQueryResultViewPart().handleQueryResultReceived(cypherQuery, result);
+    if (QueryResultActivator.getDefault() != null && QueryResultActivator.getDefault().hasQueryResultViewPart()) {
+      QueryResultActivator.getDefault().getQueryResultViewPart().handleQueryResultReceived(cypherQuery, result);
     }
   }
 
@@ -52,8 +52,8 @@ public class CustomQueryResultConsumer implements IQueryResultConsumer {
     bringQueryResultViewToFront();
 
     //
-    if (Activator.getDefault() != null && Activator.getDefault().hasQueryResultViewPart()) {
-      Activator.getDefault().getQueryResultViewPart().handleError(cypherQuery, result, exception);
+    if (QueryResultActivator.getDefault() != null && QueryResultActivator.getDefault().hasQueryResultViewPart()) {
+      QueryResultActivator.getDefault().getQueryResultViewPart().handleError(cypherQuery, result, exception);
     }
   }
 

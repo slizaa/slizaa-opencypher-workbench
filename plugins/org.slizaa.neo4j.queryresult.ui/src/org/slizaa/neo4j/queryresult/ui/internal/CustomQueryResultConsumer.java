@@ -52,7 +52,9 @@ public class CustomQueryResultConsumer implements IQueryResultConsumer {
     bringQueryResultViewToFront();
 
     //
-    System.out.println("ERROR!! ERROR!! ERROR!!");
+    if (Activator.getDefault() != null && Activator.getDefault().hasQueryResultViewPart()) {
+      Activator.getDefault().getQueryResultViewPart().handleError(cypherQuery, result, exception);
+    }
   }
 
   /**

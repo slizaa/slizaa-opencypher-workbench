@@ -28,6 +28,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.neo4j.driver.v1.Record;
 import org.neo4j.driver.v1.StatementResult;
+import org.neo4j.driver.v1.exceptions.Neo4jException;
 import org.slizaa.neo4j.dbadapter.GsonConverter;
 import org.slizaa.neo4j.queryresult.ui.internal.action.CleanQueryResultHandler;
 import org.slizaa.neo4j.queryresult.ui.internal.functions.GetColumnNamesAsJsonFunction;
@@ -162,6 +163,22 @@ public class QueryResultViewPart {
     });
   }
 
+  /**
+   * <p>
+   * </p>
+   *
+   * @param cypherQuery
+   * @param result
+   * @param exception
+   */
+  public void handleError(String cypherQuery, StatementResult result, Neo4jException exception) {
+    System.out.println("TODO: Handle error!!");
+  }
+
+  /**
+   * <p>
+   * </p>
+   */
   public void clean() {
 
     //

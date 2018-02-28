@@ -9,6 +9,7 @@ import javax.annotation.PreDestroy;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.menu.MDirectToolItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuFactory;
@@ -49,6 +50,8 @@ public class CypherViewPart {
   /** - */
   private EmbeddedEditorModelAccess _model;
 
+  private EmbeddedEditor            _editor;
+
   /**
    * <p>
    * </p>
@@ -66,7 +69,12 @@ public class CypherViewPart {
   public void update() {
     this._panel.update();
   }
-  
+
+  @Focus
+  public void onFocus() {
+    this._editor.getViewer().getControl().setFocus();
+  }
+
   @PostConstruct
   public void createComposite(Composite parent, MPart mPart) {
 
@@ -89,12 +97,12 @@ public class CypherViewPart {
     //
     Composite interim = new Composite(this._panel.getEditorArea(), SWT.NONE);
     interim.setLayout(GridLayoutFactory.fillDefaults().extendedMargins(0, 0, 0, 0).margins(0, 0).create());
-    EmbeddedEditor editor = factory.newEditor(provider).showErrorAndWarningAnnotations().withParent(interim);
-    this._model = editor.createPartialEditor();
+    this._editor = factory.newEditor(provider).showErrorAndWarningAnnotations().withParent(interim);
+    this._model = this._editor.createPartialEditor();
 
     // Allow data to be copied or moved to the drop target
     int operations = DND.DROP_MOVE | DND.DROP_COPY | DND.DROP_DEFAULT;
-    DropTarget target = new DropTarget(editor.getViewer().getControl(), operations);
+    DropTarget target = new DropTarget(this._editor.getViewer().getControl(), operations);
 
     // Receive data in Text or File format
     final TextTransfer textTransfer = TextTransfer.getInstance();
@@ -170,7 +178,7 @@ public class CypherViewPart {
     });
 
     // Configuring default font
-    StyledText textWidget = editor.getViewer().getTextWidget();
+    StyledText textWidget = this._editor.getViewer().getTextWidget();
     textWidget.setFont(JFaceResources.getFont(JFaceResources.TEXT_FONT));
 
     // TODO: Clean up
@@ -185,9 +193,17 @@ public class CypherViewPart {
     this._panel.registerGraphDatabaseClientAdapterAwareOSGiService();
   }
 
+  /**
+   * <p>
+   * </p>
+   *
+   * @param mPart
+   */
   private void createToolBar(MPart mPart) {
+
     //
     MToolBar toolbar = MMenuFactory.INSTANCE.createToolBar();
+
     // create the tool item programmatically
     MDirectToolItem element = MMenuFactory.INSTANCE.createDirectToolItem();
     element.setElementId("myToolItemId");

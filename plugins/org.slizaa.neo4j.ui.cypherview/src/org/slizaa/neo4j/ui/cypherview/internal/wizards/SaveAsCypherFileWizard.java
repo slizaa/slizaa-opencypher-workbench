@@ -6,12 +6,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
-import org.eclipse.ui.ide.IDE;
-import org.eclipse.ui.internal.ide.DialogUtil;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 
@@ -19,7 +14,7 @@ public class SaveAsCypherFileWizard extends BasicNewResourceWizard {
 
   /**
    * The wizard id for creating new files in the workspace.
-   * 
+   *
    * @since 3.4
    */
   public static final String        WIZARD_ID = "org.eclipse.ui.wizards.new.file"; //$NON-NLS-1$
@@ -39,16 +34,16 @@ public class SaveAsCypherFileWizard extends BasicNewResourceWizard {
     super();
 
     //
-    _content = checkNotNull(content);
+    this._content = checkNotNull(content);
   }
 
   @Override
   public void addPages() {
     super.addPages();
-    mainPage = new SaveAsCypherFileWizardCreationPage("newFilePage1", getSelection(), _content);
-    mainPage.setTitle("File");
-    mainPage.setDescription("Create a new file resource.");
-    addPage(mainPage);
+    this.mainPage = new SaveAsCypherFileWizardCreationPage("newFilePage1", getSelection(), this._content);
+    this.mainPage.setTitle("File");
+    this.mainPage.setDescription("Create a new file resource.");
+    addPage(this.mainPage);
   }
 
   @Override
@@ -66,25 +61,25 @@ public class SaveAsCypherFileWizard extends BasicNewResourceWizard {
 
   @Override
   public boolean performFinish() {
-    IFile file = mainPage.createNewFile();
+    IFile file = this.mainPage.createNewFile();
     if (file == null) {
       return false;
     }
 
     selectAndReveal(file);
 
-    // Open editor on new file.
-    IWorkbenchWindow dw = getWorkbench().getActiveWorkbenchWindow();
-    try {
-      if (dw != null) {
-        IWorkbenchPage page = dw.getActivePage();
-        if (page != null) {
-          IDE.openEditor(page, file, true);
-        }
-      }
-    } catch (PartInitException e) {
-      DialogUtil.openError(dw.getShell(), "Problems Opening Editor", e.getMessage(), e);
-    }
+    // // Open editor on new file.
+    // IWorkbenchWindow dw = getWorkbench().getActiveWorkbenchWindow();
+    // try {
+    // if (dw != null) {
+    // IWorkbenchPage page = dw.getActivePage();
+    // if (page != null) {
+    // IDE.openEditor(page, file, true);
+    // }
+    // }
+    // } catch (PartInitException e) {
+    // DialogUtil.openError(dw.getShell(), "Problems Opening Editor", e.getMessage(), e);
+    // }
 
     return true;
   }

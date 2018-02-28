@@ -15,8 +15,17 @@ import org.slizaa.neo4j.dbadapter.IQueryResultConsumer;
 
 public class QueryResultActivator extends AbstractUIPlugin {
 
+  /** - */
+  public static final String                         PAGE_URL_ERROR_MESSAGE = "/content/errorMessage.html";
+
+  /** - */
+  public static final String                         PAGE_URL_SPINNER       = "/content/spinner.html";
+
+  /** - */
+  public static final String                         PAGE_URL_QUERY_RESULT  = "/content/queryResult.html";
+
   // The plug-in ID
-  public static final String                         PLUGIN_ID = "org.slizaa.neo4j.hierarchicalgraph.mapping.service"; //$NON-NLS-1$
+  public static final String                         PLUGIN_ID              = "org.slizaa.neo4j.hierarchicalgraph.mapping.service"; //$NON-NLS-1$
 
   // The shared instance
   private static QueryResultActivator                _instance;
@@ -40,11 +49,12 @@ public class QueryResultActivator extends AbstractUIPlugin {
     super.start(context);
 
     //
-    _urlConverterServiceTracker = new ServiceTracker<URLConverter, URLConverter>(context, URLConverter.class, null);
-    _urlConverterServiceTracker.open();
+    this._urlConverterServiceTracker = new ServiceTracker<URLConverter, URLConverter>(context, URLConverter.class,
+        null);
+    this._urlConverterServiceTracker.open();
 
     //
-    _resolvedUrlCache = new HashMap<>();
+    this._resolvedUrlCache = new HashMap<>();
 
     //
     _instance = this;
@@ -64,8 +74,8 @@ public class QueryResultActivator extends AbstractUIPlugin {
     _instance = null;
 
     //
-    _urlConverterServiceTracker.close();
-    _resolvedUrlCache.clear();
+    this._urlConverterServiceTracker.close();
+    this._resolvedUrlCache.clear();
 
     //
     super.stop(context);
@@ -77,37 +87,32 @@ public class QueryResultActivator extends AbstractUIPlugin {
    *
    * @return
    */
-  public String getMainUrl() {
+  public String getCachedUrl(String path) {
 
     //
-    return getCachedUrl("/content/index.html");
-  }
+    if (!this._resolvedUrlCache.containsKey(checkNotNull(path))) {
 
-  /**
-   * <p>
-   * </p>
-   *
-   * @return
-   */
-  public String getInProgressUrl() {
+      //
+      URL url = getBundle().getEntry(path);
 
-    //
-    return getCachedUrl("/content/spinner/spinner.html");
-  }
+      if (url != null) {
 
-  /**
-   * <p>
-   * </p>
-   *
-   * @return
-   */
-  public String getErrorUrl() {
+        try {
+          return this._urlConverterServiceTracker.getService().toFileURL(url).toExternalForm();
+        } catch (IOException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+          return null;
+        }
+      } else {
+        throw new RuntimeException("No entry for path '" + path + "'.");
+      }
+    }
 
     //
-    return getCachedUrl("/content/error.html");
+    return this._resolvedUrlCache.get(checkNotNull(path));
   }
 
-  
   /**
    * <p>
    * </p>
@@ -145,32 +150,5 @@ public class QueryResultActivator extends AbstractUIPlugin {
    */
   public static QueryResultActivator getDefault() {
     return _instance;
-  }
-
-  /**
-   * <p>
-   * </p>
-   *
-   * @return
-   */
-  private String getCachedUrl(String path) {
-
-    //
-    if (!_resolvedUrlCache.containsKey(checkNotNull(path))) {
-
-      //
-      URL url = getBundle().getEntry(path);
-
-      try {
-        return _urlConverterServiceTracker.getService().toFileURL(url).toExternalForm();
-      } catch (IOException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-        return null;
-      }
-    }
-
-    //
-    return _resolvedUrlCache.get(checkNotNull(path));
   }
 }

@@ -27,7 +27,7 @@ public class SaveAsCypherFileWizardCreationPage extends WizardNewFileCreationPag
     super(pageName, selection);
 
     //
-    _initialContent = checkNotNull(intialContent);
+    this._initialContent = checkNotNull(intialContent);
 
     //
     setFileExtension("cypher");
@@ -38,7 +38,7 @@ public class SaveAsCypherFileWizardCreationPage extends WizardNewFileCreationPag
    */
   @Override
   protected InputStream getInitialContents() {
-    return new ByteArrayInputStream(_initialContent.getBytes(StandardCharsets.UTF_8));
+    return new ByteArrayInputStream(this._initialContent.getBytes(StandardCharsets.UTF_8));
   }
 
   /**
@@ -47,7 +47,6 @@ public class SaveAsCypherFileWizardCreationPage extends WizardNewFileCreationPag
   @Override
   public boolean isPageComplete() {
     boolean pageComplete = super.isPageComplete();
-    System.out.println("isPageComplete " + pageComplete);
     return pageComplete;
   }
 }

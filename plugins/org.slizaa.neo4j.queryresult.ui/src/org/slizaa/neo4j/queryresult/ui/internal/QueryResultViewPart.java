@@ -8,8 +8,8 @@
 package org.slizaa.neo4j.queryresult.ui.internal;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -26,7 +26,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.neo4j.driver.v1.Record;
 import org.neo4j.driver.v1.StatementResult;
 import org.neo4j.driver.v1.exceptions.Neo4jException;
 import org.slizaa.neo4j.dbadapter.GsonConverter;
@@ -37,7 +36,6 @@ import org.slizaa.neo4j.queryresult.ui.internal.functions.GetRecordsAsJsonFuncti
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 
 /**
  * <p>
@@ -60,10 +58,7 @@ public class QueryResultViewPart {
   private JsonArray          _records;
 
   /** - */
-  private String             _errorMessage;
-
-  /** - */
-  // private ServiceRegistration<IQueryResultConsumer> _serviceRegistration;
+  private List<String>       _errorMessage;
 
   /**
    * <p>
@@ -99,8 +94,9 @@ public class QueryResultViewPart {
     this._browser = new Browser(parent, SWT.NONE);
     GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
     this._browser.setLayoutData(gridData);
+    QueryResultActivator r = QueryResultActivator.getDefault();
 
-    this._browser.setUrl(QueryResultActivator.getDefault().getMainUrl());
+    this._browser.setUrl(r.getCachedUrl(QueryResultActivator.PAGE_URL_QUERY_RESULT));
 
     //
     new GetColumnNamesAsJsonFunction(this._browser, () -> this._columnNames);
@@ -127,9 +123,10 @@ public class QueryResultViewPart {
     // set the current result to null
     this._records = null;
     this._columnNames.clear();
+    QueryResultActivator r = QueryResultActivator.getDefault();
 
     //
-    Display.getDefault().syncExec(() -> this._browser.setUrl(QueryResultActivator.getDefault().getInProgressUrl()));
+    Display.getDefault().syncExec(() -> this._browser.setUrl(r.getCachedUrl(QueryResultActivator.PAGE_URL_SPINNER)));
   }
 
   /**
@@ -149,15 +146,12 @@ public class QueryResultViewPart {
     //
     this._records = new JsonArray();
     while (statementResult.hasNext()) {
-      Record record = statementResult.next();
-      Map<String, Object> map = record.asMap();
-      JsonElement json = gson.toJsonTree(map);
-      this._records.add(json);
+      this._records.add(gson.toJsonTree(statementResult.next().asMap()));
     }
 
     //
     Display.getDefault().syncExec(() -> {
-      this._browser.setUrl(QueryResultActivator.getDefault().getMainUrl());
+      this._browser.setUrl(QueryResultActivator.getDefault().getCachedUrl(QueryResultActivator.PAGE_URL_QUERY_RESULT));
     });
   }
 
@@ -171,10 +165,21 @@ public class QueryResultViewPart {
    */
   public void handleError(String cypherQuery, StatementResult result, Neo4jException exception) {
 
-    _errorMessage = exception.getMessage();
+    //
+    String exceptionMessage = exception.getMessage();
+
+    System.out.println("-----------------------------");
+    System.out.println(exceptionMessage);
 
     //
-    Display.getDefault().syncExec(() -> this._browser.setUrl(QueryResultActivator.getDefault().getErrorUrl()));
+    String[] splittedMessage = exceptionMessage.split(System.getProperty("line.separator"));
+
+    //
+    this._errorMessage = Arrays.asList(splittedMessage);
+
+    //
+    Display.getDefault().syncExec(() -> this._browser
+        .setUrl(QueryResultActivator.getDefault().getCachedUrl(QueryResultActivator.PAGE_URL_ERROR_MESSAGE)));
   }
 
   /**
@@ -195,7 +200,7 @@ public class QueryResultViewPart {
       } catch (PartInitException e) {
         // do nothing
       }
-      this._browser.setUrl(QueryResultActivator.getDefault().getMainUrl());
+      this._browser.setUrl(QueryResultActivator.getDefault().getCachedUrl(QueryResultActivator.PAGE_URL_QUERY_RESULT));
     });
   }
 

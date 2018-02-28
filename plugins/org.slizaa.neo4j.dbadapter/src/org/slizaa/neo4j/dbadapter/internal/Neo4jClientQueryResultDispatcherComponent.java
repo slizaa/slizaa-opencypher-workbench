@@ -3,9 +3,7 @@ package org.slizaa.neo4j.dbadapter.internal;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 import org.osgi.service.component.annotations.ReferencePolicy;
@@ -30,16 +28,6 @@ public class Neo4jClientQueryResultDispatcherComponent {
   /** - */
   private List<IQueryResultConsumerListener> _queryResultConsumerAwares = new CopyOnWriteArrayList<>();
 
-  @Activate
-  public void activate() {
-    System.out.println("Activate...");
-  }
-  
-  @Deactivate
-  public void deactivate() {
-    System.out.println("Deactivate...");
-  }
-  
   /**
    * <p>
    * </p>
@@ -48,12 +36,12 @@ public class Neo4jClientQueryResultDispatcherComponent {
   public void addGraphDatabaseClientAdapterConsumer(INeo4jClientListener consumer) {
 
     //
-    if (_currentNeo4jClient != null) {
-      consumer.neo4jClientAdded(_currentNeo4jClient);
+    if (this._currentNeo4jClient != null) {
+      consumer.neo4jClientAdded(this._currentNeo4jClient);
     }
 
     //
-    _neo4jClientListeners.add(consumer);
+    this._neo4jClientListeners.add(consumer);
   }
 
   /**
@@ -63,11 +51,11 @@ public class Neo4jClientQueryResultDispatcherComponent {
   public void removeGraphDatabaseClientAdapterConsumer(INeo4jClientListener consumer) {
 
     //
-    _neo4jClientListeners.remove(consumer);
+    this._neo4jClientListeners.remove(consumer);
 
     //
-    if (_currentNeo4jClient != null) {
-      consumer.neo4jClientRemoved(_currentNeo4jClient);
+    if (this._currentNeo4jClient != null) {
+      consumer.neo4jClientRemoved(this._currentNeo4jClient);
     }
   }
 
@@ -81,11 +69,11 @@ public class Neo4jClientQueryResultDispatcherComponent {
   public void setNeo4jClient(Neo4jClient client) {
 
     //
-    _currentNeo4jClient = client;
+    this._currentNeo4jClient = client;
 
     //
-    for (INeo4jClientListener consumer : _neo4jClientListeners) {
-      consumer.neo4jClientAdded(_currentNeo4jClient);
+    for (INeo4jClientListener consumer : this._neo4jClientListeners) {
+      consumer.neo4jClientAdded(this._currentNeo4jClient);
     }
   }
 
@@ -98,12 +86,12 @@ public class Neo4jClientQueryResultDispatcherComponent {
   public void unsetNeo4jClient(Neo4jClient client) {
 
     //
-    for (INeo4jClientListener consumer : _neo4jClientListeners) {
-      consumer.neo4jClientRemoved(_currentNeo4jClient);
+    for (INeo4jClientListener consumer : this._neo4jClientListeners) {
+      consumer.neo4jClientRemoved(this._currentNeo4jClient);
     }
 
     //
-    _currentNeo4jClient = null;
+    this._currentNeo4jClient = null;
   }
 
   /**
@@ -116,12 +104,12 @@ public class Neo4jClientQueryResultDispatcherComponent {
   public void addQueryResultConsumerListener(IQueryResultConsumerListener consumerAware) {
 
     //
-    for (IQueryResultConsumer resultConsumer : _queryResultConsumers) {
+    for (IQueryResultConsumer resultConsumer : this._queryResultConsumers) {
       consumerAware.queryResultConsumerAdded(resultConsumer);
     }
 
     //
-    _queryResultConsumerAwares.add(consumerAware);
+    this._queryResultConsumerAwares.add(consumerAware);
   }
 
   /**
@@ -133,12 +121,12 @@ public class Neo4jClientQueryResultDispatcherComponent {
   public void removeQueryResultConsumerListener(IQueryResultConsumerListener consumerAware) {
 
     //
-    for (IQueryResultConsumer resultConsumer : _queryResultConsumers) {
+    for (IQueryResultConsumer resultConsumer : this._queryResultConsumers) {
       consumerAware.queryResultConsumerRemoved(resultConsumer);
     }
 
     //
-    _queryResultConsumerAwares.remove(consumerAware);
+    this._queryResultConsumerAwares.remove(consumerAware);
   }
 
   /**
@@ -151,12 +139,12 @@ public class Neo4jClientQueryResultDispatcherComponent {
   public void addQueryResultConsumer(IQueryResultConsumer queryResultConsumer) {
 
     //
-    for (IQueryResultConsumerListener aware : _queryResultConsumerAwares) {
+    for (IQueryResultConsumerListener aware : this._queryResultConsumerAwares) {
       aware.queryResultConsumerAdded(queryResultConsumer);
     }
 
     //
-    _queryResultConsumers.add(queryResultConsumer);
+    this._queryResultConsumers.add(queryResultConsumer);
   }
 
   /**
@@ -166,10 +154,10 @@ public class Neo4jClientQueryResultDispatcherComponent {
   public void removeQueryResultConsumer(IQueryResultConsumer queryResultConsumer) {
 
     //
-    _queryResultConsumers.remove(queryResultConsumer);
+    this._queryResultConsumers.remove(queryResultConsumer);
 
     //
-    for (IQueryResultConsumerListener aware : _queryResultConsumerAwares) {
+    for (IQueryResultConsumerListener aware : this._queryResultConsumerAwares) {
       aware.queryResultConsumerRemoved(queryResultConsumer);
     }
   }

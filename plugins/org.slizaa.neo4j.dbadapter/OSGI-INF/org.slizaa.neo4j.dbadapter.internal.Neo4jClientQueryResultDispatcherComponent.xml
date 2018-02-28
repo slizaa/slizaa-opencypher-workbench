@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" activate="activate" deactivate="deactivate" name="org.slizaa.neo4j.dbadapter.internal.Neo4jClientQueryResultDispatcherComponent">
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="org.slizaa.neo4j.dbadapter.internal.Neo4jClientQueryResultDispatcherComponent">
    <reference bind="addGraphDatabaseClientAdapterConsumer" cardinality="0..n" interface="org.slizaa.neo4j.dbadapter.INeo4jClientListener" name="GraphDatabaseClientAdapterConsumer" policy="dynamic" unbind="removeGraphDatabaseClientAdapterConsumer"/>
    <reference bind="setNeo4jClient" cardinality="0..1" interface="org.slizaa.neo4j.dbadapter.Neo4jClient" name="Neo4jClient" policy="dynamic" policy-option="greedy" unbind="unsetNeo4jClient"/>
    <reference bind="addQueryResultConsumer" cardinality="0..n" interface="org.slizaa.neo4j.dbadapter.IQueryResultConsumer" name="QueryResultConsumer" policy="dynamic" unbind="removeQueryResultConsumer"/>

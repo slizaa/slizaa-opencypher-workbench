@@ -2,6 +2,7 @@ package org.slizaa.neo4j.queryresult.ui.internal.functions;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 import org.eclipse.swt.browser.Browser;
@@ -18,7 +19,7 @@ import com.google.gson.GsonBuilder;
 public class GetErrorMessageAsJsonFunction extends BrowserFunction {
 
   /** - */
-  private Supplier<String> _errorMessageSupplier;
+  private Supplier<List<String>> _columnNameSupplier;
 
   /**
    * <p>
@@ -28,10 +29,10 @@ public class GetErrorMessageAsJsonFunction extends BrowserFunction {
    * @param browser
    * @param name
    */
-  public GetErrorMessageAsJsonFunction(Browser browser, Supplier<String> errorMessageSupplier) {
+  public GetErrorMessageAsJsonFunction(Browser browser, Supplier<List<String>> errorMessageSupplier) {
     super(browser, "getErrorMessageAsJson");
 
-    this._errorMessageSupplier = checkNotNull(errorMessageSupplier);
+    this._columnNameSupplier = checkNotNull(errorMessageSupplier);
   }
 
   /**
@@ -39,6 +40,6 @@ public class GetErrorMessageAsJsonFunction extends BrowserFunction {
    */
   @Override
   public Object function(Object[] arguments) {
-    return new GsonBuilder().disableHtmlEscaping().create().toJson(this._errorMessageSupplier.get());
+    return new GsonBuilder().disableHtmlEscaping().create().toJson(this._columnNameSupplier.get());
   }
 }

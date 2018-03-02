@@ -168,9 +168,6 @@ public class QueryResultViewPart {
     //
     String exceptionMessage = exception.getMessage();
 
-    System.out.println("-----------------------------");
-    System.out.println(exceptionMessage);
-
     //
     String[] splittedMessage = exceptionMessage.split(System.getProperty("line.separator"));
 

@@ -5,8 +5,9 @@ import * as QueryResultModel from "./QueryResultModel";
 import { GraphNodeComponent } from "./GraphNodeComponent";
 import { GraphRelationshipComponent } from "./GraphRelationshipComponent";
 import { GraphPathComponent } from "./GraphPathComponent";
-import * as styles from "./QueryResultComponents.scss";
 import { GraphListComponent } from "./GraphListComponent";
+import { GraphMapComponent } from "./GraphMapComponent";
+import * as styles from "./QueryResultComponents.scss";
 
 export function renderCell(value: any) : JSX.Element {
 
@@ -34,8 +35,7 @@ export function renderCell(value: any) : JSX.Element {
           return <GraphPathComponent {...graphPath} />
         }
         case QueryResultModel.ResultElementType.MAP: {
-          //statements; 
-          break;
+          return <GraphMapComponent map={value} />
         }
         default: {
           //statements; 

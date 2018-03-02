@@ -70,6 +70,6 @@ export function checkObject(value: object): ResultElementType {
 
     //
     else {
-        return ResultElementType.UNKNOWN
+        return ResultElementType.MAP
     }
 }

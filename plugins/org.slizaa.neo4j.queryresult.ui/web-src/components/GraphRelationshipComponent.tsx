@@ -39,16 +39,16 @@ export class GraphRelationshipComponent extends React.Component<IGraphRelationsh
         </colgroup>
         <tbody>
           <tr>
-            <td className={styles.graphNode_id} colSpan={2}>{graphRelationship.id}</td>
+            <td className={styles.graphNode} colSpan={2}>{graphRelationship.id}</td>
           </tr>
           <tr>
             <td className={styles.graphNode_labels} colSpan={2}>{ "(" + graphRelationship.start + ") -[:" + graphRelationship.type + "]-> (" + graphRelationship.end + ")"}</td>
           </tr>
           {
             hasProperties ?
-              Object.keys(graphRelationship.properties).map(key => <tr><td className={styles.graphNode_propkey}>{key}</td><td className={styles.graphNode_propvalue}>{"" + graphRelationship.properties[key]}</td></tr>) :
+              Object.keys(graphRelationship.properties).map(key => <tr><td className={styles.graphNode_propkey}>{key}</td><td className={styles.graphNode}>{"" + graphRelationship.properties[key]}</td></tr>) :
               <tr>
-                <td className={styles.graphNode_nodata}> (empty) </td>
+                <td className={styles.graphNode}> (empty) </td>
               </tr>
           }
         </tbody>

@@ -36,6 +36,7 @@ import org.slizaa.neo4j.queryresult.ui.internal.functions.GetRecordsAsJsonFuncti
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 
 /**
  * <p>
@@ -146,7 +147,9 @@ public class QueryResultViewPart {
     //
     this._records = new JsonArray();
     while (statementResult.hasNext()) {
-      this._records.add(gson.toJsonTree(statementResult.next().asMap()));
+      JsonElement element = gson.toJsonTree(statementResult.next().asMap());
+      System.out.println(element);
+      this._records.add(element);
     }
 
     //

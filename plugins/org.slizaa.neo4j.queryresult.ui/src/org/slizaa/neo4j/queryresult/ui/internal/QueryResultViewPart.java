@@ -148,7 +148,6 @@ public class QueryResultViewPart {
     this._records = new JsonArray();
     while (statementResult.hasNext()) {
       JsonElement element = gson.toJsonTree(statementResult.next().asMap());
-      System.out.println(element);
       this._records.add(element);
     }
 

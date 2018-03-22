@@ -1,3 +1,8 @@
+/**
+ * 
+ * @export
+ * @interface IGraphNode
+ */
 export interface IGraphNode {
 
     id: number;
@@ -5,6 +10,11 @@ export interface IGraphNode {
     properties: any;
 }
 
+/**
+ * 
+ * @export
+ * @interface IGraphRelationship
+ */
 export interface IGraphRelationship {
 
     id: number;
@@ -14,6 +24,11 @@ export interface IGraphRelationship {
     properties: any;
 }
 
+/**
+ * 
+ * @export
+ * @interface IGraphPath
+ */
 export interface IGraphPath {
 
     nodes: IGraphNode[];
@@ -21,6 +36,11 @@ export interface IGraphPath {
     segments: IGraphPathSegment[];
 }
 
+/**
+ * 
+ * @export
+ * @interface IGraphPathSegment
+ */
 export interface IGraphPathSegment {
 
     /** 
@@ -38,6 +58,7 @@ export interface IGraphPathSegment {
      */
     end: IGraphNode;
 }
+
 /**
  * 
  * @enum {number}
@@ -50,22 +71,34 @@ export enum ResultElementType {
     RELATIONSHIP,
     UNKNOWN
 }
-
+/**
+ * Returns the type of the query result element (NODE, RELATIONSHIP, PATH, MAP).
+ * 
+ * @export
+ * @param  {object} value 
+ * @return ResultElementType 
+ */
 export function checkObject(value: object): ResultElementType {
 
     //
-    if (value.hasOwnProperty('id') && value.hasOwnProperty('labels') && value.hasOwnProperty('properties')) {
-        return ResultElementType.NODE
-    }
+    if (value.hasOwnProperty('__type')) {
 
-    //
-    else if (value.hasOwnProperty('id') && value.hasOwnProperty('start') && value.hasOwnProperty('end') && value.hasOwnProperty('type') && value.hasOwnProperty('properties')) {
-        return ResultElementType.RELATIONSHIP
-    }
+        //
+        switch((<any>value)['__type']) { 
 
-    //
-    else if (value.hasOwnProperty('nodes') && value.hasOwnProperty('relationships') && value.hasOwnProperty('segments')) {
-        return ResultElementType.PATH
+            case 'NODE': { 
+                return ResultElementType.NODE
+            } 
+            case 'RELATIONSHIP': { 
+                return ResultElementType.RELATIONSHIP
+            } 
+            case 'PATH': { 
+                return ResultElementType.PATH
+            } 
+            default: { 
+                return ResultElementType.MAP
+            } 
+         } 
     }
 
     //

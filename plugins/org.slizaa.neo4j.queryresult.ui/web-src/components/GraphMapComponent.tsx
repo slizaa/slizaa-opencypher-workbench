@@ -29,20 +29,20 @@ export class GraphMapComponent extends React.Component<GraphListComponentPropert
         rows.push(
           <tr>
             <td className={styles.graphNode_propkey}>{entry}</td>
-            <td className={styles.graphNode_propvalue}>{renderCell(value)}</td>
+            <td className={styles.graphNode}>{renderCell(value)}</td>
           </tr>);
       }
 
     } else {
       rows.push(
         <tr>
-          <td className={styles.graphNode_nodata}> (empty) </td>
+          <td className={styles.graphNode}> (empty) </td>
         </tr>);
     }
 
 
      <tr>
-      <td className={styles.graphNode_nodata}> (empty) </td>
+      <td className={styles.graphNode}> (empty) </td>
     </tr>
 
     // https://jsfiddle.net/phlschmdt/y0wncx8y/

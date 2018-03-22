@@ -51,9 +51,7 @@ public class InternalValueAdapter implements JsonSerializer<Value> {
     }
     case "LIST": {
       JsonArray jsonArray = new JsonArray();
-      value.asList().forEach(o -> {
-        jsonArray.add(context.serialize(o));
-      });
+      value.asList().forEach(o -> jsonArray.add(context.serialize(o)));
       return jsonArray;
     }
     case "MAP": {

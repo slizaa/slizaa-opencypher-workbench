@@ -41,16 +41,16 @@ export class GraphNodeComponent extends React.Component<IGraphNode, {}> {
         </colgroup>
         <tbody>
           <tr>
-            <td className={styles.graphNode_id} colSpan={2}>{graphNode.id}</td>
+            <td className={styles.graphNode} colSpan={2}>{graphNode.id}</td>
           </tr>
           <tr>
             <td className={styles.graphNode_labels} colSpan={2}>{"[" + graphNode.labels + "]"}</td>
           </tr>
           {
             hasProperties ?
-            Object.keys(graphNode.properties).map(key => <tr><td className={styles.graphNode_propkey}>{key}</td><td className={styles.graphNode_propvalue}>{"" + graphNode.properties[key]}</td></tr>) :
+            Object.keys(graphNode.properties).map(key => <tr><td className={styles.graphNode_propkey}>{key}</td><td className={styles.graphNode}>{"" + graphNode.properties[key]}</td></tr>) :
             <tr>
-              <td className={styles.graphNode_nodata}> (empty) </td>
+              <td className={styles.graphNode}> (empty) </td>
             </tr>
           }
         </tbody>

@@ -1,9 +1,9 @@
-$background-color: #eeeeee;
+$background-color: #d3dee9;
 $collection-border-color: #cccccc;
-$separator-color: #ababab;
+$separator-color: #97a5b3;
 $font-stack:  Segoe UI, Arial, sans-serif;
-
-table.graphNode {
+// #eff4fa; #b2c2d1 ; #97a5b3; #d3dee9
+%object_table {
   table-layout:fixed;
   width: 100%;
   font-family: $font-stack;
@@ -11,18 +11,14 @@ table.graphNode {
   background: $background-color;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  // border: solid $collection-border-color 1px;
+}
+
+table.graphNode {
+  @extend %object_table;
 }
 
 table.graphPath {
-  table-layout:fixed;
-  width: 100%;
-  font-family: $font-stack;
-  font-size: 9pt;
-  // background: $collection-border-color;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  // border: solid $collection-border-color 2px;
+  @extend %object_table;
 }
 
 %graphNode_td {

@@ -18,6 +18,19 @@ body {
     border-bottom: solid #efefef 1px;
 }
 
+.ReactTable .-pagination .-btn {
+    background-color: #fff;
+    border:none; 
+}
+
+.ReactTable .-pagination .-btn[disabled] {
+    opacity: .0;
+}
+.ReactTable .-pagination .-btn:not([disabled]):hover{
+    background:#7698B9;
+    color:#fff
+}
+
 .ReactTable.-striped .rt-tr.-odd {
     background: rgba(0,0,0,0.03);
   }

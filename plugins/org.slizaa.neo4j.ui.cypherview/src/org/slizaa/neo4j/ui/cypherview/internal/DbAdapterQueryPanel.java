@@ -156,8 +156,6 @@ public class DbAdapterQueryPanel extends Composite implements INeo4jClientListen
     //
     _activeDatabaseLabel = new Text(composite, SWT.NONE);
     _activeDatabaseLabel.setEditable(false);
-    // TODO!!
-    // _activeDatabaseLabel.setBackground(CustomOpenCypherActivator.getCustomOpenCypherActivator().getLightGray());
     GridData gridData = new GridData(30 * 10, SWT.DEFAULT);
     _activeDatabaseLabel.setLayoutData(gridData);
 
@@ -176,50 +174,6 @@ public class DbAdapterQueryPanel extends Composite implements INeo4jClientListen
     param.style = CommandContributionItem.STYLE_PUSH;
     _item = new CommandContributionItem(param);
     _item.fill(toolBar, -1);
-
-    // _executeAction = new ToolItem(toolBar, SWT.PUSH);
-    // _executeAction.setEnabled(false);
-    // _executeAction.setImage(OpenCypherUiImages.EXECUTE_QUERY.getImage());
-    // _executeAction.addSelectionListener(new SelectionListener() {
-    // @Override
-    // public void widgetSelected(SelectionEvent e) {
-    //
-    // String cypherString = cypherQuerySupplier.get();
-    //
-    // if (_queryResultConsumers.size() == 0) {
-    // return;
-    // }
-    //
-    // if (_boltClient != null) {
-    // _executeAction.setEnabled(false);
-    // try {
-    //
-    // //
-    // final Future<?> future = _boltClient.executeCypherQuery(cypherString, _queryResultConsumers.get(0));
-    // new Thread(() -> {
-    // try {
-    // while (!(future.isDone() || future.isCancelled())) {
-    // Thread.sleep(500);
-    // }
-    // } catch (Exception exception) {
-    // exception.printStackTrace();
-    // } finally {
-    // Display.getDefault().syncExec(() -> _executeAction.setEnabled(true));
-    // }
-    // }).start();
-    //
-    // } catch (Exception exception) {
-    // _executeAction.setEnabled(true);
-    // }
-    // }
-    //
-    // }
-    //
-    // @Override
-    // public void widgetDefaultSelected(SelectionEvent e) {
-    // //
-    // }
-    // });
   }
 
   /**
@@ -247,7 +201,7 @@ public class DbAdapterQueryPanel extends Composite implements INeo4jClientListen
       }
 
       //
-      _item.isEnabled();
+      _item.update();
     });
   }
 }

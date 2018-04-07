@@ -31,8 +31,8 @@ public final class CypherViewPartListener implements IPartListener {
    * @param contextService
    */
   public CypherViewPartListener(CypherViewPart cypherViewPart, EContextService contextService) {
-    _cypherViewPart = checkNotNull(cypherViewPart);
-    _contextService = checkNotNull(contextService);
+    this._cypherViewPart = checkNotNull(cypherViewPart);
+    this._contextService = checkNotNull(contextService);
   }
 
   /**
@@ -40,8 +40,8 @@ public final class CypherViewPartListener implements IPartListener {
    */
   @Override
   public void partBroughtToTop(MPart part) {
-    CypherViewActivator.getInstance().setCurrentCypherViewPart(_cypherViewPart);
-    _contextService.activateContext("org.slizaa.neo4j.ui.cypherview.context");
+    CypherViewActivator.getInstance().setCurrentCypherViewPart(this._cypherViewPart);
+    this._contextService.activateContext("org.slizaa.neo4j.ui.cypherview.context");
   }
 
   /**
@@ -49,7 +49,7 @@ public final class CypherViewPartListener implements IPartListener {
    */
   @Override
   public void partHidden(MPart part) {
-    _contextService.deactivateContext("org.slizaa.neo4j.ui.cypherview.context");
+    this._contextService.deactivateContext("org.slizaa.neo4j.ui.cypherview.context");
     CypherViewActivator.getInstance().setCurrentCypherViewPart(null);
   }
 
@@ -58,7 +58,8 @@ public final class CypherViewPartListener implements IPartListener {
    */
   @Override
   public void partActivated(MPart part) {
-    //
+    CypherViewActivator.getInstance().setCurrentCypherViewPart(this._cypherViewPart);
+    this._contextService.activateContext("org.slizaa.neo4j.ui.cypherview.context");
   }
 
   /**
@@ -66,7 +67,8 @@ public final class CypherViewPartListener implements IPartListener {
    */
   @Override
   public void partDeactivated(MPart part) {
-    //
+    this._contextService.deactivateContext("org.slizaa.neo4j.ui.cypherview.context");
+    CypherViewActivator.getInstance().setCurrentCypherViewPart(null);
   }
 
   /**

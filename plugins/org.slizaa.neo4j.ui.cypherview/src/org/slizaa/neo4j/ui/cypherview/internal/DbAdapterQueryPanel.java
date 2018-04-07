@@ -6,6 +6,8 @@ import java.util.function.Supplier;
 
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -14,15 +16,12 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.menus.CommandContributionItem;
-import org.eclipse.ui.menus.CommandContributionItemParameter;
+import org.eclipse.swt.widgets.ToolItem;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceRegistration;
 import org.slizaa.neo4j.dbadapter.INeo4jClientListener;
 import org.slizaa.neo4j.dbadapter.Neo4jClient;
+import org.slizaa.neo4j.ui.cypherview.internal.handler.ExecuteQuery;
 
 /**
  * <p>
@@ -33,19 +32,19 @@ import org.slizaa.neo4j.dbadapter.Neo4jClient;
 public class DbAdapterQueryPanel extends Composite implements INeo4jClientListener {
 
   /** - */
-  private Text                    _activeDatabaseLabel;
+  private Text                   _activeDatabaseLabel;
 
   /** - */
-  private Neo4jClient             _boltClient;
+  private Neo4jClient            _boltClient;
 
   /** - */
-  private Composite               _panel;
+  private Composite              _panel;
 
   /** - */
-  private ServiceRegistration<?>  _serviceRegistration;
+  private ServiceRegistration<?> _serviceRegistration;
 
   /** - */
-  private CommandContributionItem _item;
+  private ToolItem               _executeAction;
 
   /**
    * <p>
@@ -65,9 +64,9 @@ public class DbAdapterQueryPanel extends Composite implements INeo4jClientListen
 
     createQueryComposite(this, cypherQuerySupplier);
 
-    _panel = new Composite(this, SWT.NONE);
-    _panel.setLayout(new FillLayout());
-    _panel.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
+    this._panel = new Composite(this, SWT.NONE);
+    this._panel.setLayout(new FillLayout());
+    this._panel.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
   }
 
   /**
@@ -77,7 +76,7 @@ public class DbAdapterQueryPanel extends Composite implements INeo4jClientListen
    * @return
    */
   public Neo4jClient getBoltClient() {
-    return _boltClient;
+    return this._boltClient;
   }
 
   /**
@@ -87,7 +86,7 @@ public class DbAdapterQueryPanel extends Composite implements INeo4jClientListen
    * @return
    */
   public Composite getEditorArea() {
-    return _panel;
+    return this._panel;
   }
 
   @Override
@@ -111,7 +110,7 @@ public class DbAdapterQueryPanel extends Composite implements INeo4jClientListen
 
     // register as OSGi service
     try {
-      _serviceRegistration = FrameworkUtil.getBundle(DbAdapterQueryPanel.class).getBundleContext()
+      this._serviceRegistration = FrameworkUtil.getBundle(DbAdapterQueryPanel.class).getBundleContext()
           .registerService(new String[] { INeo4jClientListener.class.getName() }, this, null);
     } catch (Exception e) {
       // TODO Auto-generated catch block
@@ -125,9 +124,9 @@ public class DbAdapterQueryPanel extends Composite implements INeo4jClientListen
    */
   public void unregisterGraphDatabaseClientAdapterAwareOSGiService() {
 
-    if (_serviceRegistration != null) {
+    if (this._serviceRegistration != null) {
       // deregister as OSGi service
-      _serviceRegistration.unregister();
+      this._serviceRegistration.unregister();
     }
   }
 
@@ -154,26 +153,91 @@ public class DbAdapterQueryPanel extends Composite implements INeo4jClientListen
     label.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, true));
 
     //
-    _activeDatabaseLabel = new Text(composite, SWT.NONE);
-    _activeDatabaseLabel.setEditable(false);
+    this._activeDatabaseLabel = new Text(composite, SWT.NONE);
+    this._activeDatabaseLabel.setEditable(false);
     GridData gridData = new GridData(30 * 10, SWT.DEFAULT);
-    _activeDatabaseLabel.setLayoutData(gridData);
+    this._activeDatabaseLabel.setLayoutData(gridData);
 
     //
     ToolBar toolBar = new ToolBar(composite, SWT.FLAT);
     toolBar.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, true));
 
     //
-    IWorkbench wb = PlatformUI.getWorkbench();
-    IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+    // IWorkbench wb = PlatformUI.getWorkbench();
+    // IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 
-    CommandContributionItemParameter param = new CommandContributionItemParameter(win, "myCommand",
-        "org.slizaa.neo4j.ui.cypherview.executeCypherQuery", CommandContributionItem.STYLE_PUSH);
-    param.icon = OpenCypherUiImages.EXECUTE_QUERY.getImageDescriptor();
-    param.mode = 0;
-    param.style = CommandContributionItem.STYLE_PUSH;
-    _item = new CommandContributionItem(param);
-    _item.fill(toolBar, -1);
+    this._executeAction = new ToolItem(toolBar, SWT.PUSH);
+    this._executeAction.setEnabled(false);
+    this._executeAction.setImage(OpenCypherUiImages.EXECUTE_QUERY.getImage());
+    this._executeAction.addSelectionListener(new SelectionListener() {
+
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+
+        //
+        ExecuteQuery.executeQuery();
+
+        // String cypherString = cypherQuerySupplier.get();
+        //
+        // if (_queryResultConsumers.size() == 0) {
+        // return;
+        // }
+        //
+        // if (DbAdapterQueryPanel.this._boltClient != null) {
+        // DbAdapterQueryPanel.this._executeAction.setEnabled(false);
+        // try {
+        //
+        // // TODO
+        //
+        // ErrorMessageQueryResultConsumer consumer = new ErrorMessageQueryResultConsumer(
+        // _queryResultConsumers.get(0));
+        //
+        // //
+        // final Future<?> future = DbAdapterQueryPanel.this._boltClient.executeCypherQuery(cypherString, consumer);
+        // new Thread(() -> {
+        // try {
+        // while (!(future.isDone() || future.isCancelled())) {
+        // Thread.sleep(500);
+        // }
+        // } catch (Exception exception) {
+        // exception.printStackTrace();
+        // } finally {
+        // Display.getDefault().syncExec(() -> DbAdapterQueryPanel.this._executeAction.setEnabled(true));
+        // }
+        // }).start();
+        //
+        // } catch (Exception exception) {
+        // DbAdapterQueryPanel.this._executeAction.setEnabled(true);
+        // }
+        // }
+
+      }
+
+      @Override
+      public void widgetDefaultSelected(SelectionEvent e) {
+        //
+      }
+    });
+
+    // CommandContributionItemParameter param = new CommandContributionItemParameter(win, "myCommand",
+    // "org.slizaa.neo4j.ui.cypherview.executeCypherQuery", CommandContributionItem.STYLE_PUSH);
+    // param.icon = OpenCypherUiImages.EXECUTE_QUERY.getImageDescriptor();
+    // param.mode = 0;
+    // param.style = CommandContributionItem.STYLE_PUSH;
+    // this._item = new CommandContributionItem(param) {
+    //
+    // @Override
+    // public boolean isDirty() {
+    // return true;
+    // }
+    //
+    // @Override
+    // public boolean isDynamic() {
+    // return true;
+    // }
+    //
+    // };
+    // this._item.fill(toolBar, -1);
   }
 
   /**
@@ -190,18 +254,17 @@ public class DbAdapterQueryPanel extends Composite implements INeo4jClientListen
     }
 
     // set the bolt client
-    _boltClient = client;
+    this._boltClient = client;
 
     // update ui
     Display.getDefault().syncExec(() -> {
-      if (_boltClient != null) {
-        _activeDatabaseLabel.setText(_boltClient.getName());
+      if (this._boltClient != null) {
+        this._activeDatabaseLabel.setText(this._boltClient.getName());
+        this._executeAction.setEnabled(true);
       } else {
-        _activeDatabaseLabel.setText("");
+        this._activeDatabaseLabel.setText("");
+        this._executeAction.setEnabled(false);
       }
-
-      //
-      _item.update();
     });
   }
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import java.util.concurrent.Future;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import org.eclipse.emf.ecore.EObject;
 
 import org.neo4j.driver.v1.StatementResult;
@@ -215,6 +216,22 @@ public interface Neo4jClient extends EObject, IGraphMetaDataProvider {
    * @generated
    */
   Future<Void> executeCypherQuery(String cypherQuery, Map<String, Object> params, Consumer<StatementResult> consumer);
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @model dataType="org.slizaa.neo4j.dbadapter.Future&lt;T&gt;" consumerDataType="org.slizaa.neo4j.dbadapter.Function&lt;org.slizaa.neo4j.dbadapter.StatementResult, T&gt;"
+   * @generated
+   */
+  <T> Future<T> executeCypherQuery(String cypherQuery, Function<StatementResult, T> consumer);
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @model dataType="org.slizaa.neo4j.dbadapter.Future&lt;T&gt;" consumerDataType="org.slizaa.neo4j.dbadapter.Function&lt;org.slizaa.neo4j.dbadapter.StatementResult, T&gt;"
+   * @generated
+   */
+  <T> Future<T> executeCypherQuery(String cypherQuery, Map<String, Object> params, Function<StatementResult, T> consumer);
 
   /**
    * <!-- begin-user-doc -->

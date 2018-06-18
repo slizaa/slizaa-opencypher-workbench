@@ -1,8 +1,6 @@
 /*******************************************************************************
- * Copyright (c) Gerd Wuetherich 2012-2016.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the GNU Public License v3.0
- * which accompanies this distribution, and is available at
+ * Copyright (c) Gerd Wuetherich 2012-2016. All rights reserved. This program and the accompanying materials are made
+ * available under the terms of the GNU Public License v3.0 which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/gpl.html
  * 
  * Contributors:
@@ -18,6 +16,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -61,12 +60,13 @@ public class ExtendedNeo4jClientImpl extends Neo4jClientImpl {
 
     //
     Config config = Config.build().withoutEncryption().toConfig();
-    _driver = GraphDatabase.driver(getUri(), config);
+    this._driver = GraphDatabase.driver(getUri(), config);
 
     // register adapter
     try {
-      _serviceRegistration = FrameworkUtil.getBundle(ExtendedNeo4jClientImpl.class).getBundleContext().registerService(
-          new String[] { IGraphMetaDataProvider.class.getName(), Neo4jClient.class.getName() }, this, null);
+      this._serviceRegistration = FrameworkUtil.getBundle(ExtendedNeo4jClientImpl.class).getBundleContext()
+          .registerService(new String[] { IGraphMetaDataProvider.class.getName(), Neo4jClient.class.getName() }, this,
+              null);
     } catch (Exception exception) {
       //
     }
@@ -82,12 +82,12 @@ public class ExtendedNeo4jClientImpl extends Neo4jClientImpl {
   public void disconnect() {
 
     // register adapter
-    if (_serviceRegistration != null) {
-      _serviceRegistration.unregister();
+    if (this._serviceRegistration != null) {
+      this._serviceRegistration.unregister();
     }
 
     //
-    _driver.close();
+    this._driver.close();
 
     //
     setConnected(false);
@@ -101,7 +101,7 @@ public class ExtendedNeo4jClientImpl extends Neo4jClientImpl {
 
     assertConnected();
 
-    try (Session session = _driver.session()) {
+    try (Session session = this._driver.session()) {
       StatementResult result = session.run(String.format("MATCH ()-[r]->() WHERE id(r) = %s RETURN r ", nodeId));
       return result.single().get("r").asRelationship();
     }
@@ -115,7 +115,7 @@ public class ExtendedNeo4jClientImpl extends Neo4jClientImpl {
 
     assertConnected();
 
-    try (Session session = _driver.session()) {
+    try (Session session = this._driver.session()) {
       StatementResult result = session.run(String.format("MATCH (n) WHERE id(n) = %s RETURN n ", nodeId));
       return result.single().get("n").asNode();
     }
@@ -129,7 +129,7 @@ public class ExtendedNeo4jClientImpl extends Neo4jClientImpl {
 
     assertConnected();
 
-    try (Session session = _driver.session()) {
+    try (Session session = this._driver.session()) {
 
       StatementResult result = session.run("CALL db.relationshipTypes");
 
@@ -145,7 +145,7 @@ public class ExtendedNeo4jClientImpl extends Neo4jClientImpl {
 
     assertConnected();
 
-    try (Session session = _driver.session()) {
+    try (Session session = this._driver.session()) {
 
       StatementResult result = session.run("CALL db.labels");
 
@@ -161,7 +161,7 @@ public class ExtendedNeo4jClientImpl extends Neo4jClientImpl {
 
     assertConnected();
 
-    try (Session session = _driver.session()) {
+    try (Session session = this._driver.session()) {
 
       StatementResult result = session.run("CALL db.propertyKeys");
 
@@ -188,11 +188,11 @@ public class ExtendedNeo4jClientImpl extends Neo4jClientImpl {
     assertConnected();
     checkNotNull(cypherQuery);
 
-    try (Session session = _driver.session()) {
+    try (Session session = this._driver.session()) {
 
       // create future task
       FutureTask<StatementResult> futureTask = new FutureTask<StatementResult>(
-          new StatementCallable(_driver, checkNotNull(cypherQuery), params));
+          new StatementCallable<StatementResult>(this._driver, checkNotNull(cypherQuery), params, result -> result));
 
       // execute
       getExecutor().execute(futureTask);
@@ -203,28 +203,74 @@ public class ExtendedNeo4jClientImpl extends Neo4jClientImpl {
   }
 
   /**
-   * <p>
-   * </p>
-   *
-   * @param cypher
-   * @param serializer
-   * @param defaultLimit
+   * {@inheritDoc}
    */
   @Override
-  public Future<Void> executeCypherQuery(String cypherString, IQueryResultConsumer consumer) {
+  public <T> Future<T> executeCypherQuery(String cypherQuery, Function<StatementResult, T> consumer) {
+    return this.executeCypherQuery(cypherQuery, (Map<String, Object>) null, consumer);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public <T> Future<T> executeCypherQuery(String cypherQuery, Map<String, Object> params,
+      Function<StatementResult, T> consumer) {
 
     //
-    consumer.handleQueryStarted(cypherString);
+    assertConnected();
+    checkNotNull(cypherQuery);
+
+    try (Session session = this._driver.session()) {
+
+      // create future task
+      FutureTask<T> futureTask = new FutureTask<T>(
+          new StatementCallable<T>(this._driver, checkNotNull(cypherQuery), params, consumer));
+
+      // execute
+      getExecutor().execute(futureTask);
+
+      // return the running task
+      return futureTask;
+    }
 
     //
-    Future<Void> future = executeCypherQuery(cypherString, result -> {
+    // //
+    // Future<T> future = executeCypherQuery(cypherQuery, result -> {
+    // return consumer.apply(result);
+    // });
+    //
+    // //
+    // return future;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Future<Void> executeCypherQuery(String cypherQuery, IQueryResultConsumer consumer) {
+    return this.executeCypherQuery(cypherQuery, (Map<String, Object>) null, consumer);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Future<Void> executeCypherQuery(String cypherQuery, Map<String, Object> params,
+      IQueryResultConsumer consumer) {
+
+    //
+    consumer.handleQueryStarted(cypherQuery);
+
+    //
+    Future<Void> future = executeCypherQuery(cypherQuery, result -> {
 
       //
       try {
-        
-        consumer.handleQueryResultReceived(cypherString, result);
+
+        consumer.handleQueryResultReceived(cypherQuery, result);
       } catch (Neo4jException e) {
-        consumer.handleError(cypherString, result, e);
+        consumer.handleError(cypherQuery, result, e);
       }
 
     });
@@ -252,11 +298,11 @@ public class ExtendedNeo4jClientImpl extends Neo4jClientImpl {
     assertConnected();
     checkNotNull(cypherQuery);
 
-    try (Session session = _driver.session()) {
+    try (Session session = this._driver.session()) {
 
       // create future task
       FutureTask<Void> futureTask = new FutureTask<Void>(
-          new StatementResultConsumerCallable(_driver, checkNotNull(cypherQuery), null, consumer, this));
+          new StatementResultConsumerCallable(this._driver, checkNotNull(cypherQuery), null, consumer, this));
 
       // execute
       getExecutor().execute(futureTask);
@@ -273,11 +319,12 @@ public class ExtendedNeo4jClientImpl extends Neo4jClientImpl {
    * @param newConnected
    */
   protected void setConnected(boolean newConnected) {
-    boolean oldConnected = connected;
-    connected = newConnected;
-    if (eNotificationRequired())
+    boolean oldConnected = this.connected;
+    this.connected = newConnected;
+    if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, DbAdapterPackage.NEO4J_CLIENT__CONNECTED, oldConnected,
-          connected));
+          this.connected));
+    }
   }
 
   /**

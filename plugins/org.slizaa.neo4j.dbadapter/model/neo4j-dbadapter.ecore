@@ -61,6 +61,38 @@
     </eOperations>
     <eOperations name="executeCypherQuery">
       <eGenericType eClassifier="#//Future">
+        <eTypeArguments eTypeParameter="#//Neo4jClient/executeCypherQuery.4/T"/>
+      </eGenericType>
+      <eTypeParameters name="T"/>
+      <eParameters name="cypherQuery" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="consumer">
+        <eGenericType eClassifier="#//Function">
+          <eTypeArguments eClassifier="#//StatementResult"/>
+          <eTypeArguments eTypeParameter="#//Neo4jClient/executeCypherQuery.4/T"/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
+    <eOperations name="executeCypherQuery">
+      <eGenericType eClassifier="#//Future">
+        <eTypeArguments eTypeParameter="#//Neo4jClient/executeCypherQuery.5/T"/>
+      </eGenericType>
+      <eTypeParameters name="T"/>
+      <eParameters name="cypherQuery" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="params">
+        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+        </eGenericType>
+      </eParameters>
+      <eParameters name="consumer">
+        <eGenericType eClassifier="#//Function">
+          <eTypeArguments eClassifier="#//StatementResult"/>
+          <eTypeArguments eTypeParameter="#//Neo4jClient/executeCypherQuery.5/T"/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
+    <eOperations name="executeCypherQuery">
+      <eGenericType eClassifier="#//Future">
         <eTypeArguments eClassifier="#//Void"/>
       </eGenericType>
       <eParameters name="cypherQuery" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -103,4 +135,8 @@
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EDataType" name="IQueryResultConsumer" instanceClassName="org.slizaa.neo4j.dbadapter.IQueryResultConsumer"
       serializable="false"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Function" instanceClassName="java.util.function.Function">
+    <eTypeParameters name="T"/>
+    <eTypeParameters name="R"/>
+  </eClassifiers>
 </ecore:EPackage>

@@ -1,12 +1,9 @@
 /*******************************************************************************
- * Copyright (c) Gerd W�therich 2012-2016.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the GNU Public License v3.0
- * which accompanies this distribution, and is available at
+ * Copyright (c) Gerd W�therich 2012-2016. All rights reserved. This program and the accompanying materials are made
+ * available under the terms of the GNU Public License v3.0 which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/gpl.html
- * 
- * Contributors:
- *    Gerd W�therich (gerd@gerd-wuetherich.de) - initial API and implementation
+ *
+ * Contributors: Gerd W�therich (gerd@gerd-wuetherich.de) - initial API and implementation
  ******************************************************************************/
 package org.slizaa.neo4j.dbadapter.internal.bolt;
 
@@ -14,6 +11,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Map;
 import java.util.concurrent.Callable;
+import java.util.function.Function;
 
 import org.neo4j.driver.v1.Driver;
 import org.neo4j.driver.v1.Session;
@@ -25,15 +23,18 @@ import org.neo4j.driver.v1.StatementResult;
  *
  * @author Gerd W&uuml;therich (gerd@gerd-wuetherich.de)
  */
-public class StatementCallable implements Callable<StatementResult> {
+public class StatementCallable<R> implements Callable<R> {
 
-  private Driver              _driver;
-
-  /** - */
-  private String              _statement;
+  private Driver                       _driver;
 
   /** - */
-  private Map<String, Object> _params;
+  private String                       _statement;
+
+  /** - */
+  private Function<StatementResult, R> _function;
+
+  /** - */
+  private Map<String, Object>          _params;
 
   /**
    * <p>
@@ -44,25 +45,30 @@ public class StatementCallable implements Callable<StatementResult> {
    * @param statement
    * @param params
    */
-  public StatementCallable(Driver driver, String statement, Map<String, Object> params) {
-    _driver = checkNotNull(driver);
-    _statement = checkNotNull(statement);
-    _params = params;
+  public StatementCallable(Driver driver, String statement, Map<String, Object> params,
+      Function<StatementResult, R> function) {
+    this._driver = checkNotNull(driver);
+    this._statement = checkNotNull(statement);
+    this._function = checkNotNull(function);
+    this._params = params;
   }
 
   /**
    * {@inheritDoc}
    */
-  public StatementResult call() throws Exception {
+  @Override
+  public R call() throws Exception {
 
-    try (Session session = _driver.session()) {
+    try (Session session = this._driver.session()) {
 
-      if (_params == null) {
-        return session.run(_statement);
+      if (this._params == null) {
+        StatementResult statementResult = session.run(this._statement);
+        return this._function.apply(statementResult);
       }
       //
       else {
-        return session.run(_statement, _params);
+        StatementResult statementResult = session.run(this._statement, this._params);
+        return this._function.apply(statementResult);
       }
     }
   }

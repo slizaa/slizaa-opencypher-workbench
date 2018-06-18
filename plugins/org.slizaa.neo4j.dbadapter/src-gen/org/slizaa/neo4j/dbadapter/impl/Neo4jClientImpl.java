@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.concurrent.Future;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.EList;
@@ -340,6 +341,28 @@ public class Neo4jClientImpl extends MinimalEObjectImpl.Container implements Neo
    * <!-- end-user-doc -->
    * @generated
    */
+  public <T> Future<T> executeCypherQuery(String cypherQuery, Function<StatementResult, T> consumer) {
+    // TODO: implement this method
+    // Ensure that you remove @generated or mark it @generated NOT
+    throw new UnsupportedOperationException();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public <T> Future<T> executeCypherQuery(String cypherQuery, Map<String, Object> params, Function<StatementResult, T> consumer) {
+    // TODO: implement this method
+    // Ensure that you remove @generated or mark it @generated NOT
+    throw new UnsupportedOperationException();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Future<Void> executeCypherQuery(String cypherQuery, IQueryResultConsumer consumer) {
     // TODO: implement this method
     // Ensure that you remove @generated or mark it @generated NOT
@@ -472,6 +495,10 @@ public class Neo4jClientImpl extends MinimalEObjectImpl.Container implements Neo
         return executeCypherQuery((String)arguments.get(0), (Consumer<StatementResult>)arguments.get(1));
       case DbAdapterPackage.NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_MAP_CONSUMER:
         return executeCypherQuery((String)arguments.get(0), (Map<String, Object>)arguments.get(1), (Consumer<StatementResult>)arguments.get(2));
+      case DbAdapterPackage.NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_FUNCTION:
+        return executeCypherQuery((String)arguments.get(0), (Function)arguments.get(1));
+      case DbAdapterPackage.NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_MAP_FUNCTION:
+        return executeCypherQuery((String)arguments.get(0), (Map<String, Object>)arguments.get(1), (Function)arguments.get(2));
       case DbAdapterPackage.NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_IQUERYRESULTCONSUMER:
         return executeCypherQuery((String)arguments.get(0), (IQueryResultConsumer)arguments.get(1));
       case DbAdapterPackage.NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_MAP_IQUERYRESULTCONSUMER:

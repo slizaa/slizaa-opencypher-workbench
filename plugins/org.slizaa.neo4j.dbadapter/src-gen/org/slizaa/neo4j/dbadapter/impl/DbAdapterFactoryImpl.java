@@ -6,6 +6,7 @@ import java.util.concurrent.Future;
 
 import java.util.function.Consumer;
 
+import java.util.function.Function;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
@@ -79,6 +80,8 @@ public class DbAdapterFactoryImpl extends EFactoryImpl implements DbAdapterFacto
         return createRelationshipFromString(eDataType, initialValue);
       case DbAdapterPackage.VOID:
         return createVoidFromString(eDataType, initialValue);
+      case DbAdapterPackage.FUNCTION:
+        return createFunctionFromString(eDataType, initialValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -99,6 +102,8 @@ public class DbAdapterFactoryImpl extends EFactoryImpl implements DbAdapterFacto
         return convertRelationshipToString(eDataType, instanceValue);
       case DbAdapterPackage.VOID:
         return convertVoidToString(eDataType, instanceValue);
+      case DbAdapterPackage.FUNCTION:
+        return convertFunctionToString(eDataType, instanceValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -175,6 +180,24 @@ public class DbAdapterFactoryImpl extends EFactoryImpl implements DbAdapterFacto
    */
   public String convertVoidToString(EDataType eDataType, Object instanceValue) {
     return super.convertToString(eDataType, instanceValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Function<?, ?> createFunctionFromString(EDataType eDataType, String initialValue) {
+    return (Function<?, ?>)super.createFromString(initialValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertFunctionToString(EDataType eDataType, Object instanceValue) {
+    return super.convertToString(instanceValue);
   }
 
   /**

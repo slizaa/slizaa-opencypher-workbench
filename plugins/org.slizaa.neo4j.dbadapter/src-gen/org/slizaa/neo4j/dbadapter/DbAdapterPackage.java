@@ -319,7 +319,7 @@ public interface DbAdapterPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_IQUERYRESULTCONSUMER = IGRAPH_META_DATA_PROVIDER_OPERATION_COUNT + 11;
+  int NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_FUNCTION = IGRAPH_META_DATA_PROVIDER_OPERATION_COUNT + 11;
 
   /**
    * The operation id for the '<em>Execute Cypher Query</em>' operation.
@@ -328,7 +328,25 @@ public interface DbAdapterPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_MAP_IQUERYRESULTCONSUMER = IGRAPH_META_DATA_PROVIDER_OPERATION_COUNT + 12;
+  int NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_MAP_FUNCTION = IGRAPH_META_DATA_PROVIDER_OPERATION_COUNT + 12;
+
+  /**
+   * The operation id for the '<em>Execute Cypher Query</em>' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_IQUERYRESULTCONSUMER = IGRAPH_META_DATA_PROVIDER_OPERATION_COUNT + 13;
+
+  /**
+   * The operation id for the '<em>Execute Cypher Query</em>' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_MAP_IQUERYRESULTCONSUMER = IGRAPH_META_DATA_PROVIDER_OPERATION_COUNT + 14;
 
   /**
    * The number of operations of the '<em>Neo4j Client</em>' class.
@@ -337,7 +355,7 @@ public interface DbAdapterPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int NEO4J_CLIENT_OPERATION_COUNT = IGRAPH_META_DATA_PROVIDER_OPERATION_COUNT + 13;
+  int NEO4J_CLIENT_OPERATION_COUNT = IGRAPH_META_DATA_PROVIDER_OPERATION_COUNT + 15;
 
 
   /**
@@ -349,6 +367,16 @@ public interface DbAdapterPackage extends EPackage {
    * @generated
    */
   int IQUERY_RESULT_CONSUMER = 9;
+
+  /**
+   * The meta object id for the '<em>Function</em>' data type.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see java.util.function.Function
+   * @see org.slizaa.neo4j.dbadapter.impl.DbAdapterPackageImpl#getFunction()
+   * @generated
+   */
+  int FUNCTION = 10;
 
   /**
    * Returns the meta object for class '{@link org.slizaa.neo4j.dbadapter.Neo4jClient <em>Neo4j Client</em>}'.
@@ -515,6 +543,26 @@ public interface DbAdapterPackage extends EPackage {
   EOperation getNeo4jClient__ExecuteCypherQuery__String_Map_Consumer();
 
   /**
+   * Returns the meta object for the '{@link org.slizaa.neo4j.dbadapter.Neo4jClient#executeCypherQuery(java.lang.String, java.util.function.Function) <em>Execute Cypher Query</em>}' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the '<em>Execute Cypher Query</em>' operation.
+   * @see org.slizaa.neo4j.dbadapter.Neo4jClient#executeCypherQuery(java.lang.String, java.util.function.Function)
+   * @generated
+   */
+  EOperation getNeo4jClient__ExecuteCypherQuery__String_Function();
+
+  /**
+   * Returns the meta object for the '{@link org.slizaa.neo4j.dbadapter.Neo4jClient#executeCypherQuery(java.lang.String, java.util.Map, java.util.function.Function) <em>Execute Cypher Query</em>}' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the '<em>Execute Cypher Query</em>' operation.
+   * @see org.slizaa.neo4j.dbadapter.Neo4jClient#executeCypherQuery(java.lang.String, java.util.Map, java.util.function.Function)
+   * @generated
+   */
+  EOperation getNeo4jClient__ExecuteCypherQuery__String_Map_Function();
+
+  /**
    * Returns the meta object for the '{@link org.slizaa.neo4j.dbadapter.Neo4jClient#executeCypherQuery(java.lang.String, org.slizaa.neo4j.dbadapter.IQueryResultConsumer) <em>Execute Cypher Query</em>}' operation.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -544,6 +592,17 @@ public interface DbAdapterPackage extends EPackage {
    * @generated
    */
   EDataType getIQueryResultConsumer();
+
+  /**
+   * Returns the meta object for data type '{@link java.util.function.Function <em>Function</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for data type '<em>Function</em>'.
+   * @see java.util.function.Function
+   * @model instanceClass="java.util.function.Function" typeParameters="T R"
+   * @generated
+   */
+  EDataType getFunction();
 
   /**
    * Returns the meta object for data type '{@link java.util.concurrent.Future <em>Future</em>}'.
@@ -792,6 +851,22 @@ public interface DbAdapterPackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    EOperation NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_FUNCTION = eINSTANCE.getNeo4jClient__ExecuteCypherQuery__String_Function();
+
+    /**
+     * The meta object literal for the '<em><b>Execute Cypher Query</b></em>' operation.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EOperation NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_MAP_FUNCTION = eINSTANCE.getNeo4jClient__ExecuteCypherQuery__String_Map_Function();
+
+    /**
+     * The meta object literal for the '<em><b>Execute Cypher Query</b></em>' operation.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     EOperation NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_IQUERYRESULTCONSUMER = eINSTANCE.getNeo4jClient__ExecuteCypherQuery__String_IQueryResultConsumer();
 
     /**
@@ -811,6 +886,16 @@ public interface DbAdapterPackage extends EPackage {
      * @generated
      */
     EDataType IQUERY_RESULT_CONSUMER = eINSTANCE.getIQueryResultConsumer();
+
+    /**
+     * The meta object literal for the '<em>Function</em>' data type.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see java.util.function.Function
+     * @see org.slizaa.neo4j.dbadapter.impl.DbAdapterPackageImpl#getFunction()
+     * @generated
+     */
+    EDataType FUNCTION = eINSTANCE.getFunction();
 
     /**
      * The meta object literal for the '<em>Future</em>' data type.

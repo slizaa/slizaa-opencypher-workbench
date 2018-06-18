@@ -6,6 +6,7 @@ import java.util.concurrent.Future;
 
 import java.util.function.Consumer;
 
+import java.util.function.Function;
 import org.eclipse.core.resources.IFile;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -14,6 +15,7 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.ETypeParameter;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.neo4j.driver.v1.StatementResult;
@@ -102,6 +104,13 @@ public class DbAdapterPackageImpl extends EPackageImpl implements DbAdapterPacka
    * @generated
    */
   private EDataType iQueryResultConsumerEDataType = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EDataType functionEDataType = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -313,7 +322,7 @@ public class DbAdapterPackageImpl extends EPackageImpl implements DbAdapterPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EOperation getNeo4jClient__ExecuteCypherQuery__String_IQueryResultConsumer() {
+  public EOperation getNeo4jClient__ExecuteCypherQuery__String_Function() {
     return neo4jClientEClass.getEOperations().get(11);
   }
 
@@ -322,8 +331,26 @@ public class DbAdapterPackageImpl extends EPackageImpl implements DbAdapterPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EOperation getNeo4jClient__ExecuteCypherQuery__String_Map_IQueryResultConsumer() {
+  public EOperation getNeo4jClient__ExecuteCypherQuery__String_Map_Function() {
     return neo4jClientEClass.getEOperations().get(12);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EOperation getNeo4jClient__ExecuteCypherQuery__String_IQueryResultConsumer() {
+    return neo4jClientEClass.getEOperations().get(13);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EOperation getNeo4jClient__ExecuteCypherQuery__String_Map_IQueryResultConsumer() {
+    return neo4jClientEClass.getEOperations().get(14);
   }
 
   /**
@@ -333,6 +360,15 @@ public class DbAdapterPackageImpl extends EPackageImpl implements DbAdapterPacka
    */
   public EDataType getIQueryResultConsumer() {
     return iQueryResultConsumerEDataType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EDataType getFunction() {
+    return functionEDataType;
   }
 
   /**
@@ -451,6 +487,8 @@ public class DbAdapterPackageImpl extends EPackageImpl implements DbAdapterPacka
     createEOperation(neo4jClientEClass, NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_MAP);
     createEOperation(neo4jClientEClass, NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_CONSUMER);
     createEOperation(neo4jClientEClass, NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_MAP_CONSUMER);
+    createEOperation(neo4jClientEClass, NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_FUNCTION);
+    createEOperation(neo4jClientEClass, NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_MAP_FUNCTION);
     createEOperation(neo4jClientEClass, NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_IQUERYRESULTCONSUMER);
     createEOperation(neo4jClientEClass, NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_MAP_IQUERYRESULTCONSUMER);
 
@@ -465,6 +503,7 @@ public class DbAdapterPackageImpl extends EPackageImpl implements DbAdapterPacka
     relationshipEDataType = createEDataType(RELATIONSHIP);
     voidEDataType = createEDataType(VOID);
     iQueryResultConsumerEDataType = createEDataType(IQUERY_RESULT_CONSUMER);
+    functionEDataType = createEDataType(FUNCTION);
   }
 
   /**
@@ -493,6 +532,8 @@ public class DbAdapterPackageImpl extends EPackageImpl implements DbAdapterPacka
     // Create type parameters
     addETypeParameter(futureEDataType, "T");
     addETypeParameter(consumerEDataType, "T");
+    addETypeParameter(functionEDataType, "T");
+    addETypeParameter(functionEDataType, "R");
 
     // Set bounds for type parameters
 
@@ -570,6 +611,40 @@ public class DbAdapterPackageImpl extends EPackageImpl implements DbAdapterPacka
     g1.getETypeArguments().add(g2);
     initEOperation(op, g1);
 
+    op = initEOperation(getNeo4jClient__ExecuteCypherQuery__String_Function(), null, "executeCypherQuery", 0, 1, IS_UNIQUE, IS_ORDERED);
+    ETypeParameter t1 = addETypeParameter(op, "T");
+    addEParameter(op, ecorePackage.getEString(), "cypherQuery", 0, 1, IS_UNIQUE, IS_ORDERED);
+    g1 = createEGenericType(this.getFunction());
+    g2 = createEGenericType(this.getStatementResult());
+    g1.getETypeArguments().add(g2);
+    g2 = createEGenericType(t1);
+    g1.getETypeArguments().add(g2);
+    addEParameter(op, g1, "consumer", 0, 1, IS_UNIQUE, IS_ORDERED);
+    g1 = createEGenericType(this.getFuture());
+    g2 = createEGenericType(t1);
+    g1.getETypeArguments().add(g2);
+    initEOperation(op, g1);
+
+    op = initEOperation(getNeo4jClient__ExecuteCypherQuery__String_Map_Function(), null, "executeCypherQuery", 0, 1, IS_UNIQUE, IS_ORDERED);
+    t1 = addETypeParameter(op, "T");
+    addEParameter(op, ecorePackage.getEString(), "cypherQuery", 0, 1, IS_UNIQUE, IS_ORDERED);
+    g1 = createEGenericType(ecorePackage.getEMap());
+    g2 = createEGenericType(ecorePackage.getEString());
+    g1.getETypeArguments().add(g2);
+    g2 = createEGenericType(ecorePackage.getEJavaObject());
+    g1.getETypeArguments().add(g2);
+    addEParameter(op, g1, "params", 0, 1, IS_UNIQUE, IS_ORDERED);
+    g1 = createEGenericType(this.getFunction());
+    g2 = createEGenericType(this.getStatementResult());
+    g1.getETypeArguments().add(g2);
+    g2 = createEGenericType(t1);
+    g1.getETypeArguments().add(g2);
+    addEParameter(op, g1, "consumer", 0, 1, IS_UNIQUE, IS_ORDERED);
+    g1 = createEGenericType(this.getFuture());
+    g2 = createEGenericType(t1);
+    g1.getETypeArguments().add(g2);
+    initEOperation(op, g1);
+
     op = initEOperation(getNeo4jClient__ExecuteCypherQuery__String_IQueryResultConsumer(), null, "executeCypherQuery", 0, 1, IS_UNIQUE, IS_ORDERED);
     addEParameter(op, ecorePackage.getEString(), "cypherQuery", 0, 1, IS_UNIQUE, IS_ORDERED);
     addEParameter(op, this.getIQueryResultConsumer(), "consumer", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -603,6 +678,7 @@ public class DbAdapterPackageImpl extends EPackageImpl implements DbAdapterPacka
     initEDataType(relationshipEDataType, Relationship.class, "Relationship", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
     initEDataType(voidEDataType, Void.class, "Void", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
     initEDataType(iQueryResultConsumerEDataType, IQueryResultConsumer.class, "IQueryResultConsumer", !IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+    initEDataType(functionEDataType, Function.class, "Function", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
     // Create resource
     createResource(eNS_URI);

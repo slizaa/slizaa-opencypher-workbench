@@ -50,21 +50,21 @@ public class PredefinedGraphDatabaseRule extends ExternalResource {
    * @param testDB
    */
   public PredefinedGraphDatabaseRule(TestDB testDB, int port) {
-    _testDB = checkNotNull(testDB);
-    _port = port;
+    this._testDB = checkNotNull(testDB);
+    this._port = port;
   }
 
   @Override
   protected void before() throws Throwable {
 
     //
-    _tempParentDirectoryPath = Files.createTempDirectory("TestNeo4jServerCreatorServiceTempDirectory");
+    this._tempParentDirectoryPath = Files.createTempDirectory("TestNeo4jServerCreatorServiceTempDirectory");
 
     //
-    File databaseDirectory = unzipDatabase(_testDB, _tempParentDirectoryPath);
+    File databaseDirectory = unzipDatabase(this._testDB, this._tempParentDirectoryPath);
 
     //
-    _graphDatabase = createGraphDb(_port, databaseDirectory);
+    this._graphDatabase = createGraphDb(this._port, databaseDirectory);
   }
 
   @Override
@@ -72,15 +72,15 @@ public class PredefinedGraphDatabaseRule extends ExternalResource {
 
     //
     try {
-      _graphDatabase.close();
+      this._graphDatabase.close();
     } catch (Exception e) {
       //
     }
 
     //
-    if (_tempParentDirectoryPath != null) {
+    if (this._tempParentDirectoryPath != null) {
       try {
-        delete(_tempParentDirectoryPath);
+        delete(this._tempParentDirectoryPath);
       } catch (IOException e) {
         throw new RuntimeException(e);
       }
@@ -134,14 +134,29 @@ public class PredefinedGraphDatabaseRule extends ExternalResource {
     }
 
     //
-    _classLoader = new URLClassLoader(urls.toArray(new URL[0]), PredefinedGraphDatabaseRule.class.getClassLoader());
-    Class<?> clazz = _classLoader.loadClass("org.slizaa.scanner.neo4j.graphdbfactory.GraphDbFactory");
+    this._classLoader = new URLClassLoader(urls.toArray(new URL[0]),
+        PredefinedGraphDatabaseRule.class.getClassLoader());
+    Class<?> clazz = this._classLoader.loadClass("org.slizaa.scanner.neo4j.graphdbfactory.internal.GraphDbFactory");
 
     //
-    IGraphDbFactory graphDbFactory = (IGraphDbFactory) clazz.newInstance();
+    ClassLoader oldClassLoader = Thread.currentThread().getContextClassLoader();
+    try {
 
-    // create new GraphDb
-    return graphDbFactory.newGraphDb(port, databaseDir).create();
+      Thread.currentThread().setContextClassLoader(this._classLoader);
+
+      //
+      IGraphDbFactory graphDbFactory = (IGraphDbFactory) clazz.newInstance();
+
+      // create new GraphDb
+      return graphDbFactory.newGraphDb(port, databaseDir).create();
+    }
+
+    // don't forget to reset the old class loader
+    finally {
+
+      //
+      Thread.currentThread().setContextClassLoader(oldClassLoader);
+    }
   }
 
   /**

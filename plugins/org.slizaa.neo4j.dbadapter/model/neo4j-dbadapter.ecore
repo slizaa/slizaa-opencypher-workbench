@@ -59,22 +59,22 @@
         </eGenericType>
       </eParameters>
     </eOperations>
-    <eOperations name="executeCypherQuery">
+    <eOperations name="executeCypherQueryAndTransformResult">
       <eGenericType eClassifier="#//Future">
-        <eTypeArguments eTypeParameter="#//Neo4jClient/executeCypherQuery.4/T"/>
+        <eTypeArguments eTypeParameter="#//Neo4jClient/executeCypherQueryAndTransformResult/T"/>
       </eGenericType>
       <eTypeParameters name="T"/>
       <eParameters name="cypherQuery" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eParameters name="consumer">
         <eGenericType eClassifier="#//Function">
           <eTypeArguments eClassifier="#//StatementResult"/>
-          <eTypeArguments eTypeParameter="#//Neo4jClient/executeCypherQuery.4/T"/>
+          <eTypeArguments eTypeParameter="#//Neo4jClient/executeCypherQueryAndTransformResult/T"/>
         </eGenericType>
       </eParameters>
     </eOperations>
-    <eOperations name="executeCypherQuery">
+    <eOperations name="executeCypherQueryAndTransformResult">
       <eGenericType eClassifier="#//Future">
-        <eTypeArguments eTypeParameter="#//Neo4jClient/executeCypherQuery.5/T"/>
+        <eTypeArguments eTypeParameter="#//Neo4jClient/executeCypherQueryAndTransformResult.1/T"/>
       </eGenericType>
       <eTypeParameters name="T"/>
       <eParameters name="cypherQuery" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -87,7 +87,7 @@
       <eParameters name="consumer">
         <eGenericType eClassifier="#//Function">
           <eTypeArguments eClassifier="#//StatementResult"/>
-          <eTypeArguments eTypeParameter="#//Neo4jClient/executeCypherQuery.5/T"/>
+          <eTypeArguments eTypeParameter="#//Neo4jClient/executeCypherQueryAndTransformResult.1/T"/>
         </eGenericType>
       </eParameters>
     </eOperations>

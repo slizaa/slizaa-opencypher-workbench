@@ -2,9 +2,8 @@
  * Copyright (c) Gerd Wuetherich 2012-2016. All rights reserved. This program and the accompanying materials are made
  * available under the terms of the GNU Public License v3.0 which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/gpl.html
- * 
- * Contributors:
- *    Gerd W�therich (gerd@gerd-wuetherich.de) - initial API and implementation
+ *
+ * Contributors: Gerd W�therich (gerd@gerd-wuetherich.de) - initial API and implementation
  ******************************************************************************/
 package org.slizaa.neo4j.dbadapter.impl;
 
@@ -206,16 +205,16 @@ public class ExtendedNeo4jClientImpl extends Neo4jClientImpl {
    * {@inheritDoc}
    */
   @Override
-  public <T> Future<T> executeCypherQuery(String cypherQuery, Function<StatementResult, T> consumer) {
-    return this.executeCypherQuery(cypherQuery, (Map<String, Object>) null, consumer);
+  public <T> Future<T> executeCypherQueryAndTransformResult(String cypherQuery, Function<StatementResult, T> function) {
+    return this.executeCypherQueryAndTransformResult(cypherQuery, (Map<String, Object>) null, function);
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public <T> Future<T> executeCypherQuery(String cypherQuery, Map<String, Object> params,
-      Function<StatementResult, T> consumer) {
+  public <T> Future<T> executeCypherQueryAndTransformResult(String cypherQuery, Map<String, Object> params,
+      Function<StatementResult, T> function) {
 
     //
     assertConnected();
@@ -225,7 +224,7 @@ public class ExtendedNeo4jClientImpl extends Neo4jClientImpl {
 
       // create future task
       FutureTask<T> futureTask = new FutureTask<T>(
-          new StatementCallable<T>(this._driver, checkNotNull(cypherQuery), params, consumer));
+          new StatementCallable<T>(this._driver, checkNotNull(cypherQuery), params, function));
 
       // execute
       getExecutor().execute(futureTask);

@@ -313,22 +313,22 @@ public interface DbAdapterPackage extends EPackage {
   int NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_MAP_CONSUMER = IGRAPH_META_DATA_PROVIDER_OPERATION_COUNT + 10;
 
   /**
-   * The operation id for the '<em>Execute Cypher Query</em>' operation.
+   * The operation id for the '<em>Execute Cypher Query And Transform Result</em>' operation.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_FUNCTION = IGRAPH_META_DATA_PROVIDER_OPERATION_COUNT + 11;
+  int NEO4J_CLIENT___EXECUTE_CYPHER_QUERY_AND_TRANSFORM_RESULT__STRING_FUNCTION = IGRAPH_META_DATA_PROVIDER_OPERATION_COUNT + 11;
 
   /**
-   * The operation id for the '<em>Execute Cypher Query</em>' operation.
+   * The operation id for the '<em>Execute Cypher Query And Transform Result</em>' operation.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_MAP_FUNCTION = IGRAPH_META_DATA_PROVIDER_OPERATION_COUNT + 12;
+  int NEO4J_CLIENT___EXECUTE_CYPHER_QUERY_AND_TRANSFORM_RESULT__STRING_MAP_FUNCTION = IGRAPH_META_DATA_PROVIDER_OPERATION_COUNT + 12;
 
   /**
    * The operation id for the '<em>Execute Cypher Query</em>' operation.
@@ -543,24 +543,24 @@ public interface DbAdapterPackage extends EPackage {
   EOperation getNeo4jClient__ExecuteCypherQuery__String_Map_Consumer();
 
   /**
-   * Returns the meta object for the '{@link org.slizaa.neo4j.dbadapter.Neo4jClient#executeCypherQuery(java.lang.String, java.util.function.Function) <em>Execute Cypher Query</em>}' operation.
+   * Returns the meta object for the '{@link org.slizaa.neo4j.dbadapter.Neo4jClient#executeCypherQueryAndTransformResult(java.lang.String, java.util.function.Function) <em>Execute Cypher Query And Transform Result</em>}' operation.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the '<em>Execute Cypher Query</em>' operation.
-   * @see org.slizaa.neo4j.dbadapter.Neo4jClient#executeCypherQuery(java.lang.String, java.util.function.Function)
+   * @return the meta object for the '<em>Execute Cypher Query And Transform Result</em>' operation.
+   * @see org.slizaa.neo4j.dbadapter.Neo4jClient#executeCypherQueryAndTransformResult(java.lang.String, java.util.function.Function)
    * @generated
    */
-  EOperation getNeo4jClient__ExecuteCypherQuery__String_Function();
+  EOperation getNeo4jClient__ExecuteCypherQueryAndTransformResult__String_Function();
 
   /**
-   * Returns the meta object for the '{@link org.slizaa.neo4j.dbadapter.Neo4jClient#executeCypherQuery(java.lang.String, java.util.Map, java.util.function.Function) <em>Execute Cypher Query</em>}' operation.
+   * Returns the meta object for the '{@link org.slizaa.neo4j.dbadapter.Neo4jClient#executeCypherQueryAndTransformResult(java.lang.String, java.util.Map, java.util.function.Function) <em>Execute Cypher Query And Transform Result</em>}' operation.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the '<em>Execute Cypher Query</em>' operation.
-   * @see org.slizaa.neo4j.dbadapter.Neo4jClient#executeCypherQuery(java.lang.String, java.util.Map, java.util.function.Function)
+   * @return the meta object for the '<em>Execute Cypher Query And Transform Result</em>' operation.
+   * @see org.slizaa.neo4j.dbadapter.Neo4jClient#executeCypherQueryAndTransformResult(java.lang.String, java.util.Map, java.util.function.Function)
    * @generated
    */
-  EOperation getNeo4jClient__ExecuteCypherQuery__String_Map_Function();
+  EOperation getNeo4jClient__ExecuteCypherQueryAndTransformResult__String_Map_Function();
 
   /**
    * Returns the meta object for the '{@link org.slizaa.neo4j.dbadapter.Neo4jClient#executeCypherQuery(java.lang.String, org.slizaa.neo4j.dbadapter.IQueryResultConsumer) <em>Execute Cypher Query</em>}' operation.
@@ -846,20 +846,20 @@ public interface DbAdapterPackage extends EPackage {
     EOperation NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_MAP_CONSUMER = eINSTANCE.getNeo4jClient__ExecuteCypherQuery__String_Map_Consumer();
 
     /**
-     * The meta object literal for the '<em><b>Execute Cypher Query</b></em>' operation.
+     * The meta object literal for the '<em><b>Execute Cypher Query And Transform Result</b></em>' operation.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EOperation NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_FUNCTION = eINSTANCE.getNeo4jClient__ExecuteCypherQuery__String_Function();
+    EOperation NEO4J_CLIENT___EXECUTE_CYPHER_QUERY_AND_TRANSFORM_RESULT__STRING_FUNCTION = eINSTANCE.getNeo4jClient__ExecuteCypherQueryAndTransformResult__String_Function();
 
     /**
-     * The meta object literal for the '<em><b>Execute Cypher Query</b></em>' operation.
+     * The meta object literal for the '<em><b>Execute Cypher Query And Transform Result</b></em>' operation.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EOperation NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_MAP_FUNCTION = eINSTANCE.getNeo4jClient__ExecuteCypherQuery__String_Map_Function();
+    EOperation NEO4J_CLIENT___EXECUTE_CYPHER_QUERY_AND_TRANSFORM_RESULT__STRING_MAP_FUNCTION = eINSTANCE.getNeo4jClient__ExecuteCypherQueryAndTransformResult__String_Map_Function();
 
     /**
      * The meta object literal for the '<em><b>Execute Cypher Query</b></em>' operation.

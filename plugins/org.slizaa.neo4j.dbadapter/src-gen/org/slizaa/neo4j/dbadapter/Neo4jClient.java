@@ -223,7 +223,7 @@ public interface Neo4jClient extends EObject, IGraphMetaDataProvider {
    * @model dataType="org.slizaa.neo4j.dbadapter.Future&lt;T&gt;" consumerDataType="org.slizaa.neo4j.dbadapter.Function&lt;org.slizaa.neo4j.dbadapter.StatementResult, T&gt;"
    * @generated
    */
-  <T> Future<T> executeCypherQuery(String cypherQuery, Function<StatementResult, T> consumer);
+  <T> Future<T> executeCypherQueryAndTransformResult(String cypherQuery, Function<StatementResult, T> consumer);
 
   /**
    * <!-- begin-user-doc -->
@@ -231,7 +231,7 @@ public interface Neo4jClient extends EObject, IGraphMetaDataProvider {
    * @model dataType="org.slizaa.neo4j.dbadapter.Future&lt;T&gt;" consumerDataType="org.slizaa.neo4j.dbadapter.Function&lt;org.slizaa.neo4j.dbadapter.StatementResult, T&gt;"
    * @generated
    */
-  <T> Future<T> executeCypherQuery(String cypherQuery, Map<String, Object> params, Function<StatementResult, T> consumer);
+  <T> Future<T> executeCypherQueryAndTransformResult(String cypherQuery, Map<String, Object> params, Function<StatementResult, T> consumer);
 
   /**
    * <!-- begin-user-doc -->

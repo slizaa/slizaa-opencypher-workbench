@@ -322,7 +322,7 @@ public class DbAdapterPackageImpl extends EPackageImpl implements DbAdapterPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EOperation getNeo4jClient__ExecuteCypherQuery__String_Function() {
+  public EOperation getNeo4jClient__ExecuteCypherQueryAndTransformResult__String_Function() {
     return neo4jClientEClass.getEOperations().get(11);
   }
 
@@ -331,7 +331,7 @@ public class DbAdapterPackageImpl extends EPackageImpl implements DbAdapterPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EOperation getNeo4jClient__ExecuteCypherQuery__String_Map_Function() {
+  public EOperation getNeo4jClient__ExecuteCypherQueryAndTransformResult__String_Map_Function() {
     return neo4jClientEClass.getEOperations().get(12);
   }
 
@@ -487,8 +487,8 @@ public class DbAdapterPackageImpl extends EPackageImpl implements DbAdapterPacka
     createEOperation(neo4jClientEClass, NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_MAP);
     createEOperation(neo4jClientEClass, NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_CONSUMER);
     createEOperation(neo4jClientEClass, NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_MAP_CONSUMER);
-    createEOperation(neo4jClientEClass, NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_FUNCTION);
-    createEOperation(neo4jClientEClass, NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_MAP_FUNCTION);
+    createEOperation(neo4jClientEClass, NEO4J_CLIENT___EXECUTE_CYPHER_QUERY_AND_TRANSFORM_RESULT__STRING_FUNCTION);
+    createEOperation(neo4jClientEClass, NEO4J_CLIENT___EXECUTE_CYPHER_QUERY_AND_TRANSFORM_RESULT__STRING_MAP_FUNCTION);
     createEOperation(neo4jClientEClass, NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_IQUERYRESULTCONSUMER);
     createEOperation(neo4jClientEClass, NEO4J_CLIENT___EXECUTE_CYPHER_QUERY__STRING_MAP_IQUERYRESULTCONSUMER);
 
@@ -611,7 +611,7 @@ public class DbAdapterPackageImpl extends EPackageImpl implements DbAdapterPacka
     g1.getETypeArguments().add(g2);
     initEOperation(op, g1);
 
-    op = initEOperation(getNeo4jClient__ExecuteCypherQuery__String_Function(), null, "executeCypherQuery", 0, 1, IS_UNIQUE, IS_ORDERED);
+    op = initEOperation(getNeo4jClient__ExecuteCypherQueryAndTransformResult__String_Function(), null, "executeCypherQueryAndTransformResult", 0, 1, IS_UNIQUE, IS_ORDERED);
     ETypeParameter t1 = addETypeParameter(op, "T");
     addEParameter(op, ecorePackage.getEString(), "cypherQuery", 0, 1, IS_UNIQUE, IS_ORDERED);
     g1 = createEGenericType(this.getFunction());
@@ -625,7 +625,7 @@ public class DbAdapterPackageImpl extends EPackageImpl implements DbAdapterPacka
     g1.getETypeArguments().add(g2);
     initEOperation(op, g1);
 
-    op = initEOperation(getNeo4jClient__ExecuteCypherQuery__String_Map_Function(), null, "executeCypherQuery", 0, 1, IS_UNIQUE, IS_ORDERED);
+    op = initEOperation(getNeo4jClient__ExecuteCypherQueryAndTransformResult__String_Map_Function(), null, "executeCypherQueryAndTransformResult", 0, 1, IS_UNIQUE, IS_ORDERED);
     t1 = addETypeParameter(op, "T");
     addEParameter(op, ecorePackage.getEString(), "cypherQuery", 0, 1, IS_UNIQUE, IS_ORDERED);
     g1 = createEGenericType(ecorePackage.getEMap());

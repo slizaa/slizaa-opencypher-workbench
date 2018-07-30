@@ -5,7 +5,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.neo4j.driver.v1.StatementResult;
 import org.neo4j.driver.v1.exceptions.Neo4jException;
-import org.slizaa.neo4j.dbadapter.IQueryResultConsumer;
+import org.slizaa.core.boltclient.IQueryResultConsumer;
 import org.slizaa.neo4j.queryresult.ui.QueryResultViewConstants;
 
 public class CustomQueryResultConsumer implements IQueryResultConsumer {

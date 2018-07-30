@@ -5,7 +5,7 @@ package org.slizaa.neo4j.ui.cypherview.internal.handler;
 
 import java.util.List;
 
-import org.slizaa.neo4j.dbadapter.IQueryResultConsumer;
+import org.slizaa.core.boltclient.IQueryResultConsumer;
 import org.slizaa.neo4j.ui.cypherview.CypherViewPart;
 import org.slizaa.neo4j.ui.cypherview.internal.osgi.CypherViewActivator;
 
@@ -39,7 +39,7 @@ public class ExecuteQuery {
             queryResultConsumers.get(0));
 
         //
-        cypherViewPart.getBoltClient().executeCypherQuery(cypherViewPart.getModel(), consumer);
+        cypherViewPart.getBoltClient().asyncExecCypherQuery(cypherViewPart.getModel(), consumer);
 
       } catch (Exception exception) {
         // _executeAction.setEnabled(true);

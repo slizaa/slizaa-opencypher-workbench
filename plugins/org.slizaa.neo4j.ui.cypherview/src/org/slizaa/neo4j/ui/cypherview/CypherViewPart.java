@@ -32,7 +32,7 @@ import org.eclipse.ui.part.ResourceTransfer;
 import org.eclipse.xtext.ui.editor.embedded.EmbeddedEditor;
 import org.eclipse.xtext.ui.editor.embedded.EmbeddedEditorFactory;
 import org.eclipse.xtext.ui.editor.embedded.EmbeddedEditorModelAccess;
-import org.slizaa.neo4j.dbadapter.Neo4jClient;
+import org.slizaa.core.boltclient.IBoltClient;
 import org.slizaa.neo4j.opencypher.ui.internal.OpencypherActivator;
 import org.slizaa.neo4j.ui.cypherview.internal.CypherViewPartListener;
 import org.slizaa.neo4j.ui.cypherview.internal.DbAdapterQueryPanel;
@@ -58,7 +58,7 @@ public class CypherViewPart {
    *
    * @return
    */
-  public Neo4jClient getBoltClient() {
+  public IBoltClient getBoltClient() {
     return this._panel.getBoltClient();
   }
 

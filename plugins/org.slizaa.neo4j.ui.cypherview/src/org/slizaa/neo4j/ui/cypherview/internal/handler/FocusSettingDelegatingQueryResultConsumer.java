@@ -8,7 +8,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import org.eclipse.swt.widgets.Display;
 import org.neo4j.driver.v1.StatementResult;
 import org.neo4j.driver.v1.exceptions.Neo4jException;
-import org.slizaa.neo4j.dbadapter.IQueryResultConsumer;
+import org.slizaa.core.boltclient.IQueryResultConsumer;
 import org.slizaa.neo4j.ui.cypherview.internal.utils.ViewUtils;
 
 /**

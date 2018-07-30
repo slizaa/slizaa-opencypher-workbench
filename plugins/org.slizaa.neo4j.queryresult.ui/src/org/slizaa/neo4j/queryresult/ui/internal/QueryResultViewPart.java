@@ -28,13 +28,12 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.neo4j.driver.v1.StatementResult;
 import org.neo4j.driver.v1.exceptions.Neo4jException;
-import org.slizaa.neo4j.dbadapter.GsonConverter;
+import org.slizaa.core.boltclient.StatementResultToJsonConverter;
 import org.slizaa.neo4j.queryresult.ui.internal.action.CleanQueryResultHandler;
 import org.slizaa.neo4j.queryresult.ui.internal.functions.GetColumnNamesAsJsonFunction;
 import org.slizaa.neo4j.queryresult.ui.internal.functions.GetErrorMessageAsJsonFunction;
 import org.slizaa.neo4j.queryresult.ui.internal.functions.GetRecordsAsJsonFunction;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
@@ -142,14 +141,8 @@ public class QueryResultViewPart {
     //
     this._columnNames = new ArrayList<>(statementResult.keys());
 
-    Gson gson = GsonConverter.createGson();
-
     //
-    this._records = new JsonArray();
-    while (statementResult.hasNext()) {
-      JsonElement element = gson.toJsonTree(statementResult.next().asMap());
-      this._records.add(element);
-    }
+    this._records = StatementResultToJsonConverter.convertToJsonArray(statementResult);
 
     //
     Display.getDefault().syncExec(() -> {

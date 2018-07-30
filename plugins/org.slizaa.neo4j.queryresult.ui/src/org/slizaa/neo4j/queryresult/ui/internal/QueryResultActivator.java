@@ -11,7 +11,7 @@ import org.eclipse.osgi.service.urlconversion.URLConverter;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.osgi.util.tracker.ServiceTracker;
-import org.slizaa.neo4j.dbadapter.IQueryResultConsumer;
+import org.slizaa.core.boltclient.IQueryResultConsumer;
 
 public class QueryResultActivator extends AbstractUIPlugin {
 

@@ -19,8 +19,8 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceRegistration;
-import org.slizaa.neo4j.dbadapter.INeo4jClientListener;
-import org.slizaa.neo4j.dbadapter.Neo4jClient;
+import org.slizaa.core.boltclient.IBoltClient;
+import org.slizaa.core.boltclient.IBoltClientListener;
 import org.slizaa.neo4j.ui.cypherview.internal.handler.ExecuteQuery;
 
 /**
@@ -29,22 +29,22 @@ import org.slizaa.neo4j.ui.cypherview.internal.handler.ExecuteQuery;
  *
  * @author Gerd W&uuml;therich (gerd@gerd-wuetherich.de)
  */
-public class DbAdapterQueryPanel extends Composite implements INeo4jClientListener {
+public class DbAdapterQueryPanel extends Composite implements IBoltClientListener {
 
   /** - */
-  private Text                   _activeDatabaseLabel;
+  private Text                                     _activeDatabaseLabel;
 
   /** - */
-  private Neo4jClient            _boltClient;
+  private IBoltClient                              _boltClient;
 
   /** - */
-  private Composite              _panel;
+  private Composite                                _panel;
 
   /** - */
-  private ServiceRegistration<?> _serviceRegistration;
+  private ServiceRegistration<IBoltClientListener> _serviceRegistration;
 
   /** - */
-  private ToolItem               _executeAction;
+  private ToolItem                                 _executeAction;
 
   /**
    * <p>
@@ -75,7 +75,7 @@ public class DbAdapterQueryPanel extends Composite implements INeo4jClientListen
    *
    * @return
    */
-  public Neo4jClient getBoltClient() {
+  public IBoltClient getBoltClient() {
     return this._boltClient;
   }
 
@@ -90,15 +90,12 @@ public class DbAdapterQueryPanel extends Composite implements INeo4jClientListen
   }
 
   @Override
-  public void neo4jClientAdded(Neo4jClient client) {
-
+  public void boltClientAdded(IBoltClient client) {
     setBoltClient(client);
-
   }
 
   @Override
-  public void neo4jClientRemoved(Neo4jClient adapter) {
-    // TODO Auto-generated method stub
+  public void boltClientRemoved(IBoltClient client) {
 
   }
 
@@ -111,7 +108,7 @@ public class DbAdapterQueryPanel extends Composite implements INeo4jClientListen
     // register as OSGi service
     try {
       this._serviceRegistration = FrameworkUtil.getBundle(DbAdapterQueryPanel.class).getBundleContext()
-          .registerService(new String[] { INeo4jClientListener.class.getName() }, this, null);
+          .registerService(IBoltClientListener.class, this, null);
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -246,7 +243,7 @@ public class DbAdapterQueryPanel extends Composite implements INeo4jClientListen
    *
    * @param client
    */
-  private void setBoltClient(Neo4jClient client) {
+  private void setBoltClient(IBoltClient client) {
 
     //
     if (isDisposed()) {

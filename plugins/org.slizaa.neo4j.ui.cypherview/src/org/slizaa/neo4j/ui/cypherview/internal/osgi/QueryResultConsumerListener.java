@@ -4,8 +4,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.slizaa.neo4j.dbadapter.IQueryResultConsumer;
-import org.slizaa.neo4j.dbadapter.IQueryResultConsumerListener;
+import org.slizaa.core.boltclient.IQueryResultConsumer;
+import org.slizaa.core.boltclient.IQueryResultConsumerListener;
 
 /**
  * <p>

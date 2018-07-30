@@ -8,7 +8,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.eclipse.osgi.services,
  org.slizaa.neo4j.opencypher,
  org.slizaa.neo4j.opencypher.ui,
- org.slizaa.neo4j.dbadapter,
+ org.slizaa.core.boltclient;bundle-version="1.0.0",
  com.google.gson,
  org.eclipse.xtext,
  org.eclipse.swt,
@@ -22,3 +22,5 @@ Require-Bundle: org.eclipse.osgi.services,
 Bundle-Activator: org.slizaa.neo4j.queryresult.ui.internal.QueryResultActivator
 Bundle-ActivationPolicy: lazy
 Export-Package: org.slizaa.neo4j.queryresult.ui
+Import-Package: org.neo4j.driver.v1;version="1.6.1",
+ org.neo4j.driver.v1.exceptions;version="1.6.1"

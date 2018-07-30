@@ -2,11 +2,10 @@ package org.slizaa.neo4j.ui.cypherview.internal.osgi;
 
 import java.util.List;
 
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import org.slizaa.neo4j.dbadapter.IQueryResultConsumer;
-import org.slizaa.neo4j.dbadapter.IQueryResultConsumerListener;
+import org.slizaa.core.boltclient.IQueryResultConsumer;
+import org.slizaa.core.boltclient.IQueryResultConsumerListener;
 import org.slizaa.neo4j.ui.cypherview.CypherViewPart;
 
 /**
